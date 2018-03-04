@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sold.monkeytech.com.sold_android.ui.activities.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/mainActContainer"
+            android:layout_above="@+id/mainActBBMainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/mainActBBMainLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="52.3dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:weightSum="4"
+                android:layoutDirection="ltr"
+                android:layout_width="match_parent"
+                android:layout_height="52.3dp">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mainActBBSearchBtn"
+                    android:text="Search"
+                    android:textColor="@color/dark_indigo"
+                    android:drawableTop="@drawable/search_normal"
+                    android:textSize="9.6sp"
+                    android:gravity="center|bottom"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="8dp"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="1.9sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mainActBBServiceBtn"
+                    android:text="Our Service"
+                    android:textSize="9.6sp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="1.9sp"
+                    android:textColor="@color/dark_indigo"
+                    android:drawableTop="@drawable/service_normal"
+                    android:gravity="center|bottom"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="8dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mainActBBSellBtn"
+                    android:text="Sell"
+                    android:textSize="9.6sp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="1.9sp"
+                    android:textColor="@color/dark_indigo"
+                    android:drawableTop="@drawable/sell_normall"
+                    android:gravity="center|bottom"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="8dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mainActBBMySoldBtn"
+                    android:text="My SOLD"
+                    android:textSize="9.6sp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="1.9sp"
+                    android:textColor="@color/dark_indigo"
+                    android:drawableTop="@drawable/my_sold_pressed"
+                    android:gravity="center|bottom"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="8dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        
+    </RelativeLayout>
+
+</layout>
+
+

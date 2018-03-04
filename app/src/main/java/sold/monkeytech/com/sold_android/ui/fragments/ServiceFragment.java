@@ -10,17 +10,18 @@ import android.view.ViewGroup;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSearchBinding;
+import sold.monkeytech.com.sold_android.databinding.FragmentServiceBinding;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends BaseFragment {
+public class ServiceFragment extends BaseFragment {
 
 
-    private FragmentSearchBinding mBinding;
+    private FragmentServiceBinding mBinding;
 
-    public SearchFragment() {
+    public ServiceFragment() {
         // Required empty public constructor
     }
 
@@ -28,13 +29,9 @@ public class SearchFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_service, container, false);
         View view = mBinding.getRoot();
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 }
