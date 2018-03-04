@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/outside_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/alpha_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_70">
+
+            <RelativeLayout
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="337.5dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+
+                    android:id="@+id/simpleDialogClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="11.3dp"
+                    android:layout_marginTop="20.7dp" />
+
+                <LinearLayout
+                    android:layout_marginTop="11.8dp"
+                    android:layout_below="@+id/simpleDialogClose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/simpleDialogTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="title"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:fontType="MULI_REG" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/simpleDialogBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12.8dp"
+                        android:gravity="center"
+                        android:layout_marginRight="11.9dp"
+                        android:layout_marginLeft="11.9dp"
+                        tools:text="body body body body body body body body body body body body body body body body "
+                        android:textColor="@color/black"
+                        android:textSize="13.5sp"
+                        app:fontType="MULI_REG" />
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="56.3dp"
+                        android:layoutDirection="rtl"
+                        android:weightSum="2">
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/simpleDialogOkBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="33.8dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="11.3dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Ok"
+                            android:textColor="@color/white"
+                            android:textSize="15.8sp"
+                            app:fontType="MULI_REG" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+</layout>

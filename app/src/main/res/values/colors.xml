@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black_70">#b3000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="dark_grey_blue">#304051</color>
+    <color name="lipstick">#c42332</color>
+    <color name="scarlet">#c20e1a</color>
+    <color name="silver_two">#bdc4cb</color>
+    <color name="silver">#cdced2</color>
+    <color name="dark_grey_blue_two">#253c4d</color>
+    <color name="dark">#2e3447</color>
+    <color name="warm_grey_two">#8c8c8c</color>
+
+
+
+</resources>
