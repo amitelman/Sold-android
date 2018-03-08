@@ -2,6 +2,7 @@ package sold.monkeytech.com.sold_android;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -37,6 +38,12 @@ public class SoldApplication extends MultiDexApplication {
                 .build();
         initImageLoader();
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     public static Context getContext(){

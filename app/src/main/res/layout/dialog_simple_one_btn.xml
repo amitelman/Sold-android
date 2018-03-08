@@ -17,19 +17,21 @@
             android:background="@color/black_70">
 
             <RelativeLayout
+                android:background="@color/white"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="50dp"
-                android:layout_width="337.5dp"
+                android:layout_width="333.6dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
-                <ImageView
-                    android:layout_centerHorizontal="true"
-
+                <ImageButton
+                    android:background="@null"
+                    android:src="@drawable/my_sold_pressed"
+                    android:layout_alignParentRight="true"
                     android:id="@+id/simpleDialogClose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="11.3dp"
+                    android:layout_marginRight="13.5dp"
                     android:layout_marginTop="20.7dp" />
 
                 <LinearLayout
@@ -42,53 +44,47 @@
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:id="@+id/simpleDialogTitle"
+                        tools:text="Search saved successfully!"
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="title"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        app:fontType="MULI_REG" />
+                        android:textSize="22.1sp"
+                        android:textColor="@color/dark"
+                        android:gravity="center_horizontal"
+                        app:fontType="MULI_EX_BOLD" />
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:id="@+id/simpleDialogBody"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="12.8dp"
+                        android:layout_marginTop="30dp"
                         android:gravity="center"
                         android:layout_marginRight="11.9dp"
                         android:layout_marginLeft="11.9dp"
-                        tools:text="body body body body body body body body body body body body body body body body "
-                        android:textColor="@color/black"
-                        android:textSize="13.5sp"
+                        tools:text="@string/saved_search_dialog_body"
+                        android:textSize="14.4sp"
+                        android:textColor="@color/greyish_brown"
                         app:fontType="MULI_REG" />
 
 
 
-                    <LinearLayout
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:visibility="visible"
-                        android:layout_width="match_parent"
-                        android:layout_height="56.3dp"
-                        android:layoutDirection="rtl"
-                        android:weightSum="2">
-
                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                             android:id="@+id/simpleDialogOkBtn"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="33.8dp"
                             android:layout_gravity="center"
-                            android:layout_marginRight="11.3dp"
-                            android:layout_weight="1"
+                            android:layout_marginRight="55.5dp"
+                            android:layout_marginLeft="55.5dp"
                             android:gravity="center"
-                            android:text="Ok"
+                            android:text="GO TO SAVED SEARCHES"
+                            android:background="@drawable/shape_sqr_red"
+                            android:layout_marginTop="55dp"
+                            android:layout_marginBottom="30.2dp"
                             android:textColor="@color/white"
-                            android:textSize="15.8sp"
-                            app:fontType="MULI_REG" />
+                            android:textSize="14.4sp"
+                            app:fontType="MULI_BOLD" />
 
-                    </LinearLayout>
 
                 </LinearLayout>
             </RelativeLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14.5dp"
+            android:layout_marginRight="14.5dp"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17.7dp"
+                android:gravity="center"
+                android:text="Step 2/11"
+                android:textColor="#80000000"
+                android:textSize="12.5sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="3.5dp"
+                android:layout_marginTop="9.5dp"
+                android:background="@drawable/shape_sqr_dark_grey_30">
+
+                <ImageView
+                    android:layout_width="60.2dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/shape_sqr_dark_grey" />
+
+            </FrameLayout>
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="68dp"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="4.8sp"
+                android:text="What is your loan amount?"
+                android:textColor="@color/dark_grey_blue_two"
+                android:textSize="20.2sp"
+                app:fontType="MULI_EX_BOLD" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="84dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loan amount"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:textSize="15.4sp"
+                    app:fontType="MULI_BOLD" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                    android:inputType="number"
+                    android:id="@+id/preApproved2ActAmount"
+                    android:layout_width="120dp"
+                    android:layout_height="29.8dp"
+                    android:background="@drawable/shape_white_sqr_blue_stroke_semi_rounded"
+                    android:gravity="center"
+                    android:lineSpacingExtra="6.9sp"
+                    android:textColor="@color/dark_grey_blue"
+                    android:textSize="15.4sp"
+                    tools:text="$ 2 020 589" />
+
+            </LinearLayout>
+
+            <!--<SeekBar-->
+            <!--android:progress="50"-->
+            <!--android:max="10000000"-->
+            <!--android:layout_marginTop="12.5dp"-->
+            <!--android:id="@+id/seekBar_luminosite"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35.5dp"-->
+            <!--android:progressDrawable="@drawable/seek_bar_track"-->
+            <!--android:thumb="@drawable/seek_bar_thumb"/>-->
+
+            <SeekBar
+                android:id="@+id/preApproved2ActSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="35.5dp"
+                android:layout_marginTop="12.5dp"
+                android:max="4000000"
+                android:progress="50"
+                android:progressBackgroundTint="@color/dark_grey_blue"
+                android:progressTint="@color/scarlet"
+                android:thumb="@drawable/seek_bar_thumb" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="59.1dp"
+                android:background="@color/dark_grey_blue" />
+
+            <FrameLayout
+                android:layout_marginTop="25.7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your equity:"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:textSize="15.4sp"
+                    app:fontType="MULI_BOLD" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/preApproved2ActEquity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15.4sp"
+                    app:fontType="MULI_SEMI_BOLD"
+                    android:layout_gravity="right"
+                    android:textColor="@color/dark_grey_blue"
+                    android:lineSpacingExtra="6.9sp"
+                    android:gravity="center_horizontal"
+                    tools:text="$ 20 589"/>
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/preApproved2ActNext"
+                android:layout_width="match_parent"
+                android:layout_height="43.2dp"
+                android:layout_marginBottom="26.5dp"
+                android:background="@drawable/shape_sqr_red"
+                android:gravity="center"
+                android:text="NEXT"
+                android:textColor="@color/white"
+                app:fontType="MULI_BOLD" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="67.7dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:paddingLeft="8.3dp">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/searchItemHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.6dp"
+            android:gravity="left"
+            android:textColor="@color/dark_grey_blue_two"
+            android:textSize="20.2sp"
+            app:fontType="MULI_EX_BOLD"
+            tools:text="Nahalat Binyamin St 65" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/searchItemHeaderAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_marginTop="4.7dp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:textSize="12.5sp"
+            app:fontType="MULI_LIGHT"
+            tools:text="San Francisco, CA" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

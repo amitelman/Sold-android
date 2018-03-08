@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+
+        android:layoutDirection="ltr"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layerType="software"
+            android:src="@drawable/shape_line_red"
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:textSize="14.4sp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:text="Floor size in meters"
+            app:fontType="MULI_BOLD"
+            android:id="@+id/valuesRangeViewTitle"
+            android:paddingLeft="2dp"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="25.9dp"
+            android:drawableLeft="@drawable/shape_crcle_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:paddingRight="4.8dp"
+            android:layout_marginTop="13.2dp"
+            android:layout_marginBottom="16.4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="32.6dp">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:inputType="numberSigned|numberDecimal"
+                android:textSize="13.5sp"
+                android:layout_weight="1"
+                android:imeOptions="actionNext"
+                android:lines="1"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:background="@drawable/shape_white_sqr_blue_stroke"
+                android:id="@+id/valuesRangeViewFrom"
+                android:textColorHint="@color/dark_grey_blue_two"
+                android:hint="No min"
+                app:fontType="MULI_REG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:inputType="numberSigned|numberDecimal"
+                android:layout_width="0dp"
+                android:imeOptions="actionDone"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3.4dp"
+                android:layout_weight="1"
+                app:fontType="MULI_REG"
+                android:text="to"
+                android:paddingRight="21.3dp"
+                android:paddingLeft="18.5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey_blue_two"
+                android:textSize="13.5sp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:inputType="numberSigned|numberDecimal"
+                android:id="@+id/valuesRangeViewTo"
+                android:imeOptions="actionDone"
+                android:lines="1"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3.4dp"
+                android:layout_weight="1"
+                app:fontType="MULI_REG"
+                android:background="@drawable/shape_white_sqr_blue_stroke"
+                android:hint="No max"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey_blue_two"
+                android:textSize="13.5sp" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

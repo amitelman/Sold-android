@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14.5dp"
+            android:layout_marginRight="14.5dp"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17.7dp"
+                android:gravity="center"
+                android:text="Step 5/11"
+                android:textColor="#80000000"
+                android:textSize="12.5sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="3.5dp"
+                android:layout_marginTop="9.5dp"
+                android:background="@drawable/shape_sqr_dark_grey_30">
+
+                <ImageView
+                    android:layout_gravity="left"
+                    android:layout_width="140.8dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/shape_sqr_dark_grey" />
+
+            </FrameLayout>
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="68dp"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="4.8sp"
+                android:text="My seniority:"
+                android:textColor="@color/dark_grey_blue_two"
+                android:textSize="20.2sp"
+                app:fontType="MULI_EX_BOLD" />
+
+            <RelativeLayout
+                android:layout_marginTop="12.5dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <SeekBar
+                    android:id="@+id/preApproved5ActSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="35.5dp"
+                    android:max="40"
+                    android:progress="5"
+                    android:progressBackgroundTint="@color/dark_grey_blue"
+                    android:progressTint="@color/scarlet"
+                    android:thumb="@drawable/seek_bar_thumb" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/preApproved5ActText"
+                    android:textSize="23sp"
+                    android:text="5 years"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:lineSpacingExtra="-0.7sp"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@+id/preApproved5ActSeekBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/preApproved5ActNext"
+                android:layout_width="match_parent"
+                android:layout_height="43.2dp"
+                android:layout_marginBottom="26.5dp"
+                android:background="@drawable/shape_sqr_red"
+                android:gravity="center"
+                android:text="NEXT"
+                android:textColor="@color/white"
+                app:fontType="MULI_BOLD" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

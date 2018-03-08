@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20.2sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="23.7dp"
+            app:fontType="MULI_EX_BOLD"
+            android:textColor="@color/dark_grey_blue_two"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-2.8sp"
+            android:gravity="center_horizontal"
+            android:text="Get Pre-Approved" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:textSize="12.5sp"
+            android:layout_marginTop="8.7dp"
+            android:layout_marginRight="43.3dp"
+            android:layout_marginLeft="37.7dp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:gravity="center_horizontal"
+            android:text="Be ready to buy when your dream home appears
+or refinance your current home."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/approvedFragStartBtn"
+            android:textSize="14.4sp"
+            android:layout_marginRight="55dp"
+            android:layout_marginLeft="55dp"
+            android:background="@drawable/shape_white_sqr_red_stroke_rounded"
+            android:layout_marginTop="37.1dp"
+            android:layout_gravity="center"
+            app:fontType="MULI_BOLD"
+            android:textColor="@color/scarlet"
+            android:lineSpacingExtra="7.7sp"
+            android:gravity="center"
+            android:text="I WANT TO BUY A HOME"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_marginRight="19.3dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="19.3dp"
+            android:text="Based on information you provide, one of our service providers will help match you up with up to four loan professionals, who will have paid for the opportunity to contact you to offer their help and services, or one of our advertisers will offer to contact you about a VA loan, if it is applicable to you.
+Information you provide will be subject to our Privacy Policy"
+            android:textSize="12.5sp"
+            android:textColor="#a3a3a3"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</layout>

@@ -151,9 +151,9 @@ public class MultiSelectionViewAdapter extends RecyclerView.Adapter<MultiSelecti
         });
 
         if (selectedViews.get(position) != null) {
-            KeyboardAndTextUtils.getSelectedUiTextView(holder.option);
+            KeyboardAndInputUtils.getSelectedUiTextView(holder.option);
         } else {
-            KeyboardAndTextUtils.getUnSelectedUiTextView(holder.option);
+            KeyboardAndInputUtils.getUnSelectedUiTextView(holder.option);
         }
 
     }

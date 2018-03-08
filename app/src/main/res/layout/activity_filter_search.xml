@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:id="@+id/filterActScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_marginLeft="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Cancel"
+                    android:textSize="13.4sp"
+                    android:textColor="@color/lipstick"
+                    app:fontType="MULI_REG" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Filter Search"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:textSize="17.3sp"
+                    app:fontType="MULI_BOLD" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_marginRight="14.3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Apply"
+                    android:textSize="13.4sp"
+                    android:textColor="@color/lipstick"
+                    app:fontType="MULI_REG" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/silver" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28.7dp"
+                        android:drawableLeft="@drawable/shape_crcle_red"
+                        android:drawablePadding="10dp"
+                        android:text="Property Type"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_BOLD" />
+
+                    <LinearLayout
+                        android:weightSum="4"
+                        android:layout_marginTop="8.8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeApartmentMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeApartment"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:lineSpacingExtra="5.8sp"
+                                android:text="Apartment"
+                                android:layout_marginTop="10.6dp"
+                                android:layout_marginBottom="5.3dp"
+                                app:fontType="MULI_REG"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_1_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeGardenMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeGarden"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:text="Garden \nApartment"
+                                android:layout_marginTop="8.6dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_2_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypePenthouseMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypePenthouse"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:lineSpacingExtra="5.8sp"
+                                android:text="Penthouse"
+                                android:layout_marginTop="10.6dp"
+                                android:layout_marginBottom="5.3dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_3_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeCottageMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeCottage"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:lineSpacingExtra="5.8sp"
+                                android:text="Cottage"
+                                android:layout_marginTop="10.6dp"
+                                android:layout_marginBottom="5.3dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_4_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:weightSum="4"
+                        android:layout_marginTop="8.8dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeMiniPenthouseMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeMiniPenthouse"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:text="Mini- \nPenthouse"
+                                android:drawablePadding="2dp"
+                                android:layout_marginTop="5.6dp"
+                                android:layout_marginBottom="2.3dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_5_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeDoubleMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:textSize="9.6sp"
+                                android:id="@+id/filterActTypeDouble"
+                                android:textColor="@color/property_type_text_selector"
+                                android:text="Double or \nmore level"
+                                android:drawablePadding="2dp"
+                                android:layout_marginTop="8.6dp"
+                                android:layout_marginBottom="2.3dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_6_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_marginRight="4.9dp"
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeVillaMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeVilla"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:text="Villa"
+                                android:layout_marginTop="10.6dp"
+                                android:layout_marginBottom="5dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_7_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+
+                            android:layout_weight="1"
+                            android:id="@+id/filterActTypeGroundMain"
+                            android:layout_width="79.8dp"
+                            android:layout_height="58.5dp"
+                            android:background="@drawable/property_type_bkg_selector">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:id="@+id/filterActTypeGround"
+                                android:textSize="9.6sp"
+                                android:textColor="@color/property_type_text_selector"
+                                android:text="Ground floor \napartment"
+                                android:layout_marginTop="8.6dp"
+                                android:layout_marginBottom="5.3dp"
+                                android:gravity="center"
+                                android:drawableTop="@drawable/type_8_img_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/filterActAdditionalFeatureBtn"
+                    android:paddingTop="28.7dp"
+                    android:paddingBottom="11.8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="14.4sp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:text="Additional features"
+                        app:fontType="MULI_BOLD"
+                        android:drawablePadding="10dp"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/shape_crcle_red"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/filterActAdditionalFeatureImg"
+                        android:layout_gravity="right|center"
+                        android:background="@null"
+                        android:src="@drawable/arrow_red_copy_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/filterActAdditionalLayout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatTama"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Tama"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatPool"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Swimming pool"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatBasement"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Basement"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="12.5dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatMedia"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Media Room"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatWarehouse"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Warehouse"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatHousingUnit"
+                            android:textSize="11.5sp"
+                            android:lines="1"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Housing unit"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="12.4dp"
+                            android:paddingRight="12.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="12.5dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatElevator"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Elevator"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatMamad"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Mamad"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_marginRight="6.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:id="@+id/filterActAdditionalFeatParking"
+                            android:textSize="11.5sp"
+                            android:textColor="@color/additional_features_text_selector"
+                            android:lineSpacingExtra="3.8sp"
+                            android:text="Parking"
+                            android:background="@drawable/property_type_bkg_selector"
+                            android:gravity="center"
+                            android:paddingLeft="17.9dp"
+                            android:paddingRight="22.5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.6dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <sold.monkeytech.com.sold_android.ui.custom_views.ValuesRangeView
+                    android:id="@+id/filterActRangeFloorSize"
+                    android:layout_marginTop="23.5dp"
+                    app:title="Floor size in meters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <sold.monkeytech.com.sold_android.ui.custom_views.ValuesRangeView
+                    android:id="@+id/filterActRangePlot"
+                    android:layout_marginTop="16.5dp"
+                    app:title="Plot size in meters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <sold.monkeytech.com.sold_android.ui.custom_views.ValuesRangeView
+                    android:id="@+id/filterActRangePrice"
+                    android:layout_marginTop="16.5dp"
+                    app:title="Property price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <sold.monkeytech.com.sold_android.ui.custom_views.ValuesRangeView
+                    android:id="@+id/filterActRangeFloors"
+                    android:layout_marginTop="16.5dp"
+                    app:title="Floor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginTop="25.5dp"
+                    android:layerType="software"
+                    android:src="@drawable/shape_line_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.custom_views.ClickValuesRangeView
+                        android:id="@+id/filterActRoomsCounter"
+                        app:title="Rooms (min)"
+                        android:layout_marginRight="49.5dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <sold.monkeytech.com.sold_android.ui.custom_views.ClickValuesRangeView
+                        android:id="@+id/filterActBathCounter"
+                        app:title="Rooms (min)"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginTop="25.5dp"
+                    android:layerType="software"
+                    android:src="@drawable/shape_line_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+                <LinearLayout
+                    android:layout_marginTop="30.6dp"
+                    android:layout_marginBottom="9.6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="14.4sp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Open Houses Only"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_grey_blue_two"/>
+
+                <LinearLayout
+                    android:layout_marginTop="16.2dp"
+                    android:layout_marginBottom="9.6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="14.4sp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Hide Foreclosures"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_grey_blue_two"/>
+
+                <LinearLayout
+                    android:layout_marginTop="16.2dp"
+                    android:layout_marginBottom="9.6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="14.4sp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Hide Pending/Continent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_grey_blue_two"/>
+
+                <LinearLayout
+                    android:layout_marginTop="16.2dp"
+                    android:layout_marginBottom="9.6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="14.4sp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Hide New Construction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Switch
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:track="@drawable/switch_track_selector"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_grey_blue_two"/>
+
+                <LinearLayout
+                    android:layout_marginTop="40dp"
+                    android:paddingBottom="28.3dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/filterActSaveSearchBtn"
+                        android:layout_weight="1"
+                        android:textSize="14.4sp"
+                        android:textColor="@color/white"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="-1.4sp"
+                        android:gravity="center"
+                        android:layout_marginRight="5.8dp"
+                        android:text="SAVE SEARCH"
+                        app:fontType="MULI_BOLD"
+                        android:background="@drawable/shape_sqr_red"
+                        android:layout_width="0dp"
+                        android:layout_height="40.8dp" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_weight="1"
+                        android:textSize="14.4sp"
+                        android:textColor="@color/scarlet"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="-1.4sp"
+                        android:gravity="center"
+                        android:text="RESET ALL FILTERS"
+                        app:fontType="MULI_BOLD"
+                        android:background="@drawable/shape_white_sqr_red_stroke_rounded"
+                        android:layout_width="0dp"
+                        android:layout_height="40.8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/filterActSaveLayout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:textSize="11.5sp"
+                        android:gravity="left|center_vertical"
+                        android:textColor="#80000000"
+                        android:letterSpacing="0.06"
+                        android:lineSpacingExtra="10.6sp"
+                        android:text="TITLE OF SEARCH"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            android:textSize="13.4sp"
+                            android:textColor="@color/black"
+                            app:fontType="MULI_BOLD"
+                            android:layout_marginRight="30dp"
+                            android:lineSpacingExtra="8.6sp"
+                            android:gravity="left|center_vertical"
+                            android:textColorHint="#80000000"
+                            android:hint="near beverly hills 90210"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <ImageButton
+                            android:layout_marginBottom="-5dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:src="@drawable/x"
+                            android:background="@drawable/shape_crcle_red"
+                            android:layout_width="13.9dp"
+                            android:layout_height="13.9dp" />
+
+                        <View
+                            android:layout_gravity="bottom"
+                            android:background="@color/black_20"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                    </FrameLayout>
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:text="SAVE"
+                        android:textSize="14.4sp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="15.5dp"
+                        android:paddingTop="15.3dp"
+                        android:paddingBottom="14.8dp"
+                        app:fontType="MULI_BOLD"
+                        android:background="@drawable/shape_white_sqr_blue_stroke_rounded"
+                        android:textColor="@color/dark_grey_blue"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="-1.4sp"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

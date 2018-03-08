@@ -98,4 +98,6 @@ public class MyAnimationUtils {
         rotate.setFillEnabled(true);
         view.startAnimation(rotate);
     }
+
+
 }

@@ -4,15 +4,213 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:layoutDirection="ltr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
 
-        <TextView
-            android:text="my sold Fragm"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@color/dark_grey_blue"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/my_sold" />
+
+            <ImageButton
+                android:id="@+id/mySoldActSettingsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="16.7dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/settings" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="13.2dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.8dp"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mySoldFragHi"
+                    android:layout_gravity="center|left"
+                    android:drawablePadding="11dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/profile"
+                    android:letterSpacing="-0.02"
+                    app:fontType="MULI_EX_BOLD"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Hi"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:textSize="14.4sp" />
+
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/mySoldFragLogOut"
+                    android:paddingBottom="22.6dp"
+                    android:paddingTop="26.3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_height="wrap_content"
+                    android:textSize="14.4sp"
+                    android:textColor="@color/lipstick"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Log Out" />
+
+
+            </FrameLayout>
+
+                <ImageView
+                    android:layerType="software"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/shape_line_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+
+            <FrameLayout
+                android:id="@+id/mySoldActFavorites"
+                android:paddingTop="26dp"
+                android:paddingBottom="25.4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_gravity="center|left"
+                    android:drawablePadding="19.7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/favorite"
+                    android:textSize="14.4sp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Favorite Homes" />
+
+
+                <ImageView
+                    android:layout_marginRight="12.5dp"
+                    android:layout_gravity="center|right"
+                    android:src="@drawable/arrow_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <View
+                android:background="@color/warm_grey_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <FrameLayout
+                android:id="@+id/mySoldActSaved"
+                android:paddingTop="26dp"
+                android:paddingBottom="25.4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_gravity="center|left"
+                    android:drawablePadding="19.7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/saved_searches"
+                    android:textSize="14.4sp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Saved Searches" />
+
+
+                <ImageView
+                    android:layout_marginRight="12.5dp"
+                    android:layout_gravity="center|right"
+                    android:src="@drawable/arrow_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <View
+                android:background="@color/warm_grey_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <FrameLayout
+                android:id="@+id/mySoldActMyHome"
+                android:paddingTop="17dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:orientation="horizontal">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_gravity="top|left"
+                    android:drawablePadding="19.7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/saved_searches"
+                    android:textSize="14.4sp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="My Home" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_gravity="center|left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11.5sp"
+                    android:layout_marginBottom="15.1dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:layout_marginLeft="37.4dp"
+                    android:text="Get quick and easy access to your home value, neighborhood activity and financial possbilites." />
+
+
+                <ImageView
+                    android:layout_marginRight="12.5dp"
+                    android:layout_gravity="top|right"
+                    android:src="@drawable/arrow_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <View
+                android:background="@color/warm_grey_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -16,14 +16,17 @@ import sold.monkeytech.com.sold_android.ui.fragments.MySoldFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SearchFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SellFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.ServiceFragment;
+import sold.monkeytech.com.sold_android.ui.fragments.SettingsFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener {
 
     private static final String SEARCH_FRAGMENT = "searchFragment";
     private static final String SERVICE_FRAGMENT = "serviceFragment";
     private static final String SELL_FRAGMENT = "sellFragment";
     private static final String MY_SOLD_FRAGMENT = "mySoldFragment";
+
+    private static final String SETTINGS_FRAGMENT = "settingFragment";
 
     private ActivityMainBinding mBinding;
     private BaseFragment currentFrag;
@@ -74,25 +77,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (fragmentType) {
             case SEARCH_FRAGMENT:
                 setFragmentTransition(new SearchFragment(), fragmentType);
-//                setMidActionBar("MID_ICON", MidActionBar.ADD_MEMBER_BTN);
-//                showBottomBar(true);
-//                updateBottomBar("Clear", "Search", null, null);
-
                 break;
             case SERVICE_FRAGMENT:
                 setFragmentTransition(new ServiceFragment(), fragmentType);
-//                setMidActionBar("Internal Orders", MidActionBar.ADD_BTN);
-//                showBottomBar(true);
                 break;
             case SELL_FRAGMENT:
                 setFragmentTransition(new SellFragment(), fragmentType);
-//                setMidActionBar("Members", MidActionBar.ADD_MEMBER_BTN);
-//                showBottomBar(false);
                 break;
             case MY_SOLD_FRAGMENT:
                 setFragmentTransition(new MySoldFragment(), fragmentType);
-//                setMidActionBar("QR Search", -1);
-//                showBottomBar(true);
+                break;
+            case SETTINGS_FRAGMENT:
+                setFragmentTransition(new SettingsFragment(), fragmentType);
                 break;
         }
     }
@@ -121,5 +117,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void MySoldFragmentAction(int action) {
+        switch (action){
+            case MySoldFragment.SETTINGS:
+                loadFragment(SETTINGS_FRAGMENT);
+                break;
+            case MySoldFragment.LOGIN:
+
+                break;
+            case MySoldFragment.LOGOUT:
+
+                break;
+            case MySoldFragment.FAVORITES:
+
+                break;
+            case MySoldFragment.SAVED:
+
+                break;
+            case MySoldFragment.MY_HOME:
+
+                break;
+        }
+    }
 }
 

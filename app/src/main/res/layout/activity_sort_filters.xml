@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layoutDirection="ltr"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_header_height">
+
+            <ImageButton
+                android:layout_marginLeft="13.1dp"
+                android:background="@null"
+                android:layout_gravity="center|left"
+                android:src="@drawable/my_sold_pressed"
+                android:id="@+id/sortActBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:text="Sort Filters"
+                android:textSize="17.3sp"
+                app:fontType="MULI_BOLD"
+                android:textColor="@color/dark_grey_blue_two"
+                android:letterSpacing="-0.02"
+                android:layout_gravity="center"
+                android:lineSpacingExtra="6.8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <View
+            android:background="@color/silver"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/sortActAZ"
+                android:gravity="center"
+                android:paddingTop="41.3dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActAZV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="A-Z"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActZA"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActZAV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Z-A"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActPrice"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActPriceV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActRooms"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActRoomsV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Rooms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActSize"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActSizeV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActTime"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActTimeV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Time in SOLD."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+            <LinearLayout
+                android:id="@+id/sortActPriceDown"
+                android:gravity="center"
+                android:paddingTop="15.5dp"
+                android:paddingBottom="12.7dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sortActPriceDownV"
+                    android:background="@null"
+                    android:src="@drawable/v"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="14.4sp"
+                    android:layout_marginLeft="16.1dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Price is down"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue_two"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</layout>

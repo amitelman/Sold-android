@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="79.8dp"
+        android:layout_height="58.5dp"
+        android:background="@drawable/shape_white_sqr_blue_stroke">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:textSize="9.6sp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:lineSpacingExtra="1.8sp"
+            tools:text="Double or more level"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/double_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
+</layout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/outside_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/alpha_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_70">
+
+            <RelativeLayout
+                android:layout_width="333.6dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape_sqr_white">
+
+                <ImageButton
+                    android:id="@+id/searchSavedDialogClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="13.5dp"
+                    android:layout_marginTop="20.7dp"
+                    android:background="@null"
+                    android:src="@drawable/my_sold_pressed" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/searchSavedDialogClose"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="11.8dp"
+                    android:orientation="vertical">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/simpleDialogTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/dark"
+                        android:textSize="22.1sp"
+                        app:fontType="MULI_EX_BOLD"
+                        tools:text="Search saved successfully!" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/simpleDialogBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="11.9dp"
+                        android:layout_marginRight="11.9dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:textColor="@color/greyish_brown"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_REG"
+                        tools:text="@string/saved_search_dialog_body" />
+
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/searchSavedDialogContinue"
+                        android:layout_width="match_parent"
+                        android:layout_height="33.8dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="30.2dp"
+                        android:layout_marginLeft="55.5dp"
+                        android:layout_marginRight="55.5dp"
+                        android:layout_marginTop="55dp"
+                        android:background="@drawable/shape_sqr_red"
+                        android:gravity="center"
+                        android:text="GO TO SAVED SEARCHES"
+                        android:textColor="@color/white"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_BOLD" />
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+</layout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/searchItemBkg"
+        android:layoutDirection="ltr"
+        android:background="@color/scarlet"
+        android:layout_width="match_parent"
+        android:layout_height="222.2dp">
+
+        <RelativeLayout
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="4.8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                tools:text="2 500 000 $"
+                app:fontType="MULI_BOLD"
+                android:id="@+id/searchItemPrice"
+                android:background="@drawable/shape_sqr_dark_grey_50"
+                android:textColor="@color/white"
+                android:paddingRight="23.7dp"
+                android:paddingLeft="29.3dp"
+                android:gravity="center"
+                android:textSize="17.3sp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/searchItemFavorite"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end|center"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:padding="2dp"
+                android:src="@drawable/heart_empty_copy"
+                android:layout_marginRight="17.7dp"
+                android:layout_width="28dp"
+                android:layout_height="25dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layoutDirection="ltr"
+            android:paddingLeft="19.7dp"
+            android:background="@color/dark_grey_blue"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="67.7dp">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/searchItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18.2sp"
+                app:fontType="MULI_BOLD"
+                android:gravity="left"
+                android:layout_marginTop="10.6dp"
+                android:textColor="@color/white"
+                tools:text="Nahalat Binyamin St 65"/>
+
+            <LinearLayout
+                android:layoutDirection="ltr"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/searchItemAddress"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11.5sp"
+                    app:fontType="MULI_LIGHT"
+                    android:layout_marginRight="55dp"
+                    android:textColor="@color/white"
+                    tools:text="Tel Aviv, CA 94112"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/warm_grey_two"/>
+
+                <LinearLayout
+                    android:weightSum="4"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_gravity="center"
+                        android:id="@+id/searchItemRoomsCounter"
+                        android:drawableLeft="@drawable/heart_empty_copy"
+                        android:layout_marginLeft="30.6dp"
+                        tools:text="4"
+                        android:textSize="11.5sp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_gravity="center"
+                        android:id="@+id/searchItemBathCounter"
+                        android:drawableLeft="@drawable/heart_empty_copy"
+                        android:layout_marginLeft="30.6dp"
+                        tools:text="4"
+                        android:textSize="11.5sp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_gravity="center"
+                        android:id="@+id/searchItemSize"
+                        android:drawableLeft="@drawable/heart_empty_copy"
+                        android:layout_marginLeft="30.6dp"
+                        tools:text="4"
+                        android:textSize="11.5sp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_gravity="center"
+                        android:id="@+id/searchItemSqrm"
+                        android:drawableLeft="@drawable/heart_empty_copy"
+                        android:layout_marginLeft="30.6dp"
+                        tools:text="4"
+                        android:layout_marginRight="9dp"
+                        android:textSize="11.5sp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/shape_cb_normal"/>
+    <item android:drawable="@drawable/v" android:height="11dp" android:width="12dp" android:gravity="center">
+    </item>
+
+</layer-list>

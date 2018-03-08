@@ -61,7 +61,14 @@ public class CustomFontGenerator {
                         fontCache.put(asset, tf);
                     }
                     break;
-
+                case 4:
+                    if (fontCache.contains(asset))
+                        tf = fontCache.get(asset);
+                    else {
+                        tf = Typeface.createFromAsset(ctx.getAssets(), "fonts/Muli-SemiBold.ttf");
+                        fontCache.put(asset, tf);
+                    }
+                    break;
 
             }
         } catch (Exception e) {

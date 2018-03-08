@@ -44,9 +44,9 @@
 //        mBinding.multiValueRangeTotal.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndTextUtils.TURQUISE, KeyboardAndTextUtils.BOLD, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndInputUtils.TURQUISE, KeyboardAndInputUtils.BOLD, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
 //                clearAllValues();
 //                setRange(DataFiltersManager.getInstance().getMinTotalPrice(), DataFiltersManager.getInstance().getMaxTotalPrice(), "$");
 //                setType(TOTAL);
@@ -55,9 +55,9 @@
 //        mBinding.multiValueRangePPC.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndTextUtils.TURQUISE, KeyboardAndTextUtils.BOLD, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndInputUtils.TURQUISE, KeyboardAndInputUtils.BOLD, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
 //                clearAllValues();
 //                setRange(DataFiltersManager.getInstance().getMinPricePerCarat(), DataFiltersManager.getInstance().getMaxPricePerCarat(), "$");
 //                setType(PPC);
@@ -66,9 +66,9 @@
 //        mBinding.multiValueRangeRap.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndTextUtils.TURQUISE, KeyboardAndTextUtils.BOLD, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
-//                KeyboardAndTextUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndTextUtils.BLACK, KeyboardAndTextUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeRap, KeyboardAndInputUtils.TURQUISE, KeyboardAndInputUtils.BOLD, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangeTotal, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
+//                KeyboardAndInputUtils.getCustomTextView(mBinding.multiValueRangePPC, KeyboardAndInputUtils.BLACK, KeyboardAndInputUtils.REG, 0);
 //                clearAllValues();
 //                setRange(DataFiltersManager.getInstance().getMinDiscount(), DataFiltersManager.getInstance().getMaxDiscount(), "%");
 //                setType(RAP);

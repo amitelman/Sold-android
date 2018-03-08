@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_header_height"
+                android:background="@color/dark_grey_blue"
+                android:layoutDirection="ltr"
+                android:orientation="vertical">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="SOLD. Settings"
+                    android:textColor="@color/white"
+                    android:textSize="17.3sp" />
+
+                <ImageButton
+                    android:id="@+id/settingsFragBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="14.4dp"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:src="@drawable/back" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13.7dp"
+                android:layout_marginRight="11.8dp"
+                android:layout_marginTop="11.7dp"
+                android:orientation="vertical">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.7sp"
+                    android:text="USER SETTINGS"
+                    android:textColor="@color/warm_grey"
+                    android:textSize="10.6sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.6dp"
+                    android:paddingTop="26dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:drawableLeft="@drawable/profile"
+                        android:drawablePadding="16.7dp"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Notifications"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+
+                    <Switch
+                        android:id="@+id/settingsFragNotificationSwitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:thumb="@drawable/switch_thumb_selector"
+                        android:track="@drawable/switch_track_selector" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.6dp"
+                    android:paddingTop="16.3dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:drawableLeft="@drawable/profile"
+                        android:drawablePadding="16.7dp"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Edit profile"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.6dp"
+                    android:paddingTop="16.3dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:drawableLeft="@drawable/rate"
+                        android:drawablePadding="16.7dp"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Rate this App"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="12.5dp"
+                        android:src="@drawable/arrow_red" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragFaq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.6dp"
+                    android:paddingTop="16.3dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:drawableLeft="@drawable/faq"
+                        android:drawablePadding="16.7dp"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="FAQ"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="12.5dp"
+                        android:src="@drawable/arrow_red" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29.5dp"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.7sp"
+                    android:text="ABOUT SOLD."
+                    android:textColor="@color/warm_grey"
+                    android:textSize="10.6sp" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12.3dp"
+                    android:paddingTop="21.7dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="About SOLD."
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="12.5dp"
+                        android:src="@drawable/arrow_red" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.8dp"
+                    android:paddingTop="15.2dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Terms of Use"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="12.5dp"
+                        android:src="@drawable/arrow_red" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <FrameLayout
+                    android:id="@+id/settingsFragPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14.8dp"
+                    android:paddingTop="15.2dp">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="2.9sp"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:textSize="14.4sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:layout_marginRight="12.5dp"
+                        android:src="@drawable/arrow_red" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/warm_grey_two" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="61dp"
+                    android:gravity="center_horizontal"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="0.5sp"
+                    android:text="Have a questions or feedback? Email us and you’ll hear back
+from a real-live human."
+                    android:textColor="@color/warm_grey"
+                    android:textSize="12.5sp" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40.8dp"
+                    android:layout_marginBottom="13.9dp"
+                    android:layout_marginTop="29.3dp"
+                    android:background="@drawable/shape_sqr_red"
+                    android:gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="-1.4sp"
+                    android:text="techsupport@sold.com"
+                    android:textColor="@color/white"
+                    android:textSize="14.4sp"
+                    app:fontType="MULI_BOLD" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

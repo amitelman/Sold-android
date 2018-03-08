@@ -11,7 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.sold_search_item.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
@@ -63,6 +63,10 @@ dependencies {
         exclude module: "httpclient"
     }
 
+
+
+
+
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
     compile 'com.android.support:appcompat-v7:27.0.2'
@@ -75,8 +79,17 @@ dependencies {
     compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     compile 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.google.android.gms:play-services-location:11.8.0'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'com.github.aakira:expandable-layout:1.5.1@aar'
     testCompile 'junit:junit:4.12'
 }
+
+
+
+
+
+
+
 
 
 

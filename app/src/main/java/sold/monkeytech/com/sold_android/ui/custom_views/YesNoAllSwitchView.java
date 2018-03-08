@@ -238,7 +238,7 @@
 //            if(yesColor == ORANGE)
 //                v.setBackgroundResource(R.drawable.shape_orange_small_box_left_radius);
 //
-//            KeyboardAndTextUtils.getCustomTextView((TextView) v, KeyboardAndTextUtils.WHITE, KeyboardAndTextUtils.BLACK, 0);
+//            KeyboardAndInputUtils.getCustomTextView((TextView) v, KeyboardAndInputUtils.WHITE, KeyboardAndInputUtils.BLACK, 0);
 //        }
 //        else if(view == NO_VIEW || view == EXT_SEPRABLE){
 //            View v = view == NO_VIEW ? mBinding.yesNoAllSwitchViewNo : mBinding.yesNoAllSwitchViewSeperable;
@@ -256,12 +256,12 @@
 //                    v.setBackgroundResource(R.drawable.shape_orange_small_box_no_radius);
 //            }
 //
-//            KeyboardAndTextUtils.getCustomTextView((TextView) v, KeyboardAndTextUtils.WHITE, KeyboardAndTextUtils.BLACK, 0);
+//            KeyboardAndInputUtils.getCustomTextView((TextView) v, KeyboardAndInputUtils.WHITE, KeyboardAndInputUtils.BLACK, 0);
 //        }
 //        else if(view == ALL_VIEW || view == EXT_ALL){
 //            View v = view == ALL_VIEW ? mBinding.yesNoAllSwitchViewAll : mBinding.yesNoAllSwitchViewExtensionAll;
 //            v.setBackgroundResource(R.drawable.shape_turquise_small_box_right_radius);
-//            KeyboardAndTextUtils.getCustomTextView((TextView) v, KeyboardAndTextUtils.WHITE, KeyboardAndTextUtils.BLACK, 0);
+//            KeyboardAndInputUtils.getCustomTextView((TextView) v, KeyboardAndInputUtils.WHITE, KeyboardAndInputUtils.BLACK, 0);
 //        }
 //    }
 //
@@ -275,7 +275,7 @@
 ////            if(yesColor == ORANGE)
 ////                view.setBackgroundResource(R.drawable.shape_orange_small_box_left_radius);
 ////
-////            KeyboardAndTextUtils.getCustomTextView((TextView) view, KeyboardAndTextUtils.WHITE, KeyboardAndTextUtils.BLACK, 0);
+////            KeyboardAndInputUtils.getCustomTextView((TextView) view, KeyboardAndInputUtils.WHITE, KeyboardAndInputUtils.BLACK, 0);
 ////    }
 //
 //    public Boolean getSelected() {
