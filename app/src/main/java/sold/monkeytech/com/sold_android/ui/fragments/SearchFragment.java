@@ -173,9 +173,11 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void animateToMyLocation() {
-        if(map != null){
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LocManager.getInstance().getLastLatLng(), 7);
-            map.animateCamera(cameraUpdate);
+        if(PermissionUtils.checkPermissions(getActivity(), PermissionUtils.LOCATION_PERMISSIONS_1)){
+            if(map != null){
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LocManager.getInstance().getLastLatLng(), 7);
+                map.animateCamera(cameraUpdate);
+            }
         }
     }
 

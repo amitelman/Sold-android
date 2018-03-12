@@ -2,11 +2,14 @@ package sold.monkeytech.com.sold_android.framework.models;
 
 import java.util.List;
 
+import sold.monkeytech.com.sold_android.framework.cache.abs.BaseCache;
+import sold.monkeytech.com.sold_android.framework.models.abs.BaseModel;
+
 /**
  * Created by MonkeyFather on 08/03/2018.
  */
 
-public class POI {
+public class POI extends BaseModel<POI> {
 
     private String name;
     private String description;
@@ -79,5 +82,15 @@ public class POI {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public BaseCache getInstanceOfCache() {
+        return null;
+    }
+
+    @Override
+    protected Class getType() {
+        return POI.class;
     }
 }

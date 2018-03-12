@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layoutDirection="ltr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_header_height"
+                android:background="@color/dark_grey_blue"
+                android:layoutDirection="ltr"
+                android:orientation="vertical">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Requset a Private Showing"
+                    android:textColor="@color/white"
+                    android:textSize="17.3sp" />
+
+                <ImageButton
+                    android:id="@+id/privateShowActBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="13.2dp"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:src="@drawable/back" />
+
+            </FrameLayout>
+
+            <include
+                android:id="@+id/privateShowActPropertyDetails"
+                layout="@layout/sold_search_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.7dp"
+                android:layout_marginTop="16.6dp"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="16dp"
+                android:gravity="center|start"
+                android:letterSpacing="0.06"
+                android:lineSpacingExtra="10.6sp"
+                android:text="FULL NAME"
+                android:textColor="#80000000"
+                android:textSize="11.5sp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:id="@+id/privateShowActFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="7.3dp"
+                android:background="@null"
+                android:hint="enter name"
+                android:textColorHint="#80000000"
+                android:textSize="13.4sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="4.4dp"
+                android:background="@color/black" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.7dp"
+                android:layout_marginTop="21.1dp"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="16dp"
+                android:gravity="center|start"
+                android:letterSpacing="0.06"
+                android:lineSpacingExtra="10.6sp"
+                android:text="EMAIL"
+                android:textColor="#80000000"
+                android:textSize="11.5sp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:id="@+id/privateShowActEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="7.3dp"
+                android:background="@null"
+                android:hint="enter email"
+                android:textColorHint="#80000000"
+                android:textSize="13.4sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="4.4dp"
+                android:background="@color/black" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.7dp"
+                android:layout_marginTop="21.1dp"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="16dp"
+                android:gravity="center|start"
+                android:letterSpacing="0.06"
+                android:lineSpacingExtra="10.6sp"
+                android:text="PHONE"
+                android:textColor="#80000000"
+                android:textSize="11.5sp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:id="@+id/privateShowActPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="7.3dp"
+                android:background="@null"
+                android:hint="enter phone"
+                android:textColorHint="#80000000"
+                android:textSize="13.4sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="4.4dp"
+                android:background="@color/black" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.7dp"
+                android:layout_marginTop="21.1dp"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="16dp"
+                android:gravity="center|start"
+                android:letterSpacing="0.06"
+                android:lineSpacingExtra="10.6sp"
+                android:text="DESCRIPTION"
+                android:textColor="#80000000"
+                android:textSize="11.5sp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                android:id="@+id/privateShowActDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="7.3dp"
+                android:background="@null"
+                android:hint="enter description"
+                android:textColorHint="#80000000"
+                android:textSize="13.4sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="17.7dp"
+                android:layout_marginTop="4.4dp"
+                android:background="@color/black" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/privateShowActAgentBtn"
+                android:layout_marginTop="26.9dp"
+                android:layout_gravity="center"
+                android:layout_width="250dp"
+                android:layout_height="43.2dp"
+                android:textSize="14.4sp"
+                android:background="@drawable/shape_sqr_red"
+                android:textColor="@color/white"
+                android:lineSpacingExtra="7.7sp"
+                app:fontType="MULI_BOLD"
+                android:gravity="center"
+                android:text="CONTACT AGENT"/>
+
+            <LinearLayout
+                android:layout_marginBottom="15.7dp"
+                android:layout_marginRight="18.7dp"
+                android:layout_marginLeft="15.2dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/privateShowActCb"
+                    android:layout_gravity="center|end"
+                    android:padding="5dp"
+                    android:button="@drawable/cb_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17.7dp" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="12.5sp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:gravity="center_horizontal"
+                    android:text="By sending a request you agree to our Privacy Policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</layout>

@@ -53,19 +53,15 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ui.activities.TestActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".ui.activities.Test2Activity">
-
-        </activity>
         <activity android:name=".ui.activities.Test3Activity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".ui.activities.SavedSearchesActivity" />
+        <activity android:name=".ui.activities.PrivateShowingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

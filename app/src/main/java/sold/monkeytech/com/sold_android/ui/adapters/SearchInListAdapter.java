@@ -14,23 +14,24 @@ import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import sold.monkeytech.com.sold_android.R;
+import sold.monkeytech.com.sold_android.framework.models.Property;
 
 /**
  * Created by monkey on 25/06/2015.
  */
 public class SearchInListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
     private Context context;
-    private List<Property2> properties;
+    private List<Property> properties;
     private LayoutInflater inflater;
 
-    public SearchInListAdapter(Context context, List<Property2> properties) {
+    public SearchInListAdapter(Context context, List<Property> properties) {
         this.context = context;
         if(properties != null)
             this.properties = properties;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void updateList(List<Property2> properties){
+    public void updateList(List<Property> properties){
         if(this.properties == null)
             this.properties = new ArrayList<>();
         this.properties.clear();
@@ -48,7 +49,7 @@ public class SearchInListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     @Override
-    public Property2 getItem(int i) {
+    public Property getItem(int i) {
         return properties.get(i);
     }
 
@@ -122,7 +123,7 @@ public class SearchInListAdapter extends BaseAdapter implements StickyListHeader
             }
 
 
-        final Property2 property = getItem(position);
+        final Property property = getItem(position);
 
 //        baseViewHolder.companyName.setText(member.getCompany());
 //        baseViewHolder.name.setText(member.getFirstName() + " " + member.getLastName());

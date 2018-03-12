@@ -50,9 +50,9 @@ public class Property extends BaseModel<Property> {
     private List<String> album;
     private Price propertyTax;
     private Price houseCommitteeTax;
-    private OpenHouse openHouse;
-    private PropertyFeatures propertyFeatures;
-    private POI poi;
+    private List<OpenHouse> openHouse;
+    private List<PropertyFeatures> propertyFeatures;
+    private List<POI> poi;
 
     private List<Property> nearbyProperties; //short property
 
@@ -318,27 +318,27 @@ public class Property extends BaseModel<Property> {
         this.houseCommitteeTax = houseCommitteeTax;
     }
 
-    public OpenHouse getOpenHouse() {
+    public List<OpenHouse> getOpenHouse() {
         return openHouse;
     }
 
-    public void setOpenHouse(OpenHouse openHouse) {
+    public void setOpenHouse(List<OpenHouse> openHouse) {
         this.openHouse = openHouse;
     }
 
-    public PropertyFeatures getPropertyFeatures() {
+    public List<PropertyFeatures> getPropertyFeatures() {
         return propertyFeatures;
     }
 
-    public void setPropertyFeatures(PropertyFeatures propertyFeatures) {
+    public void setPropertyFeatures(List<PropertyFeatures> propertyFeatures) {
         this.propertyFeatures = propertyFeatures;
     }
 
-    public POI getPoi() {
+    public List<POI> getPoi() {
         return poi;
     }
 
-    public void setPoi(POI poi) {
+    public void setPoi(List<POI> poi) {
         this.poi = poi;
     }
 

@@ -1,13 +1,16 @@
 package sold.monkeytech.com.sold_android.framework.models;
 
-import java.util.HashMap;
 import java.util.List;
+
+import sold.monkeytech.com.sold_android.framework.cache.PropertyFeaturesCache;
+import sold.monkeytech.com.sold_android.framework.cache.abs.BaseCache;
+import sold.monkeytech.com.sold_android.framework.models.abs.BaseModel;
 
 /**
  * Created by MonkeyFather on 08/03/2018.
  */
 
-public class PropertyFeatures {
+public class PropertyFeatures extends BaseModel<PropertyFeatures> {
 
     private String featureName;
     private List<Meta> meta;
@@ -35,5 +38,15 @@ public class PropertyFeatures {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    @Override
+    public BaseCache getInstanceOfCache() {
+        return PropertyFeaturesCache.getInstance();
+    }
+
+    @Override
+    protected Class getType() {
+        return PropertyFeatures.class;
     }
 }

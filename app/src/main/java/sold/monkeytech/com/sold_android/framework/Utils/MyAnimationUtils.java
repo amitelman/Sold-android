@@ -1,7 +1,10 @@
 package sold.monkeytech.com.sold_android.framework.Utils;
 
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
@@ -97,6 +100,61 @@ public class MyAnimationUtils {
         rotate.setFillAfter(true);
         rotate.setFillEnabled(true);
         view.startAnimation(rotate);
+    }
+
+    public static void fadeOut(final View view) {
+        if(view.getVisibility() == View.VISIBLE){
+            Animation fadeOut = new AlphaAnimation(1, 0);
+            fadeOut.setInterpolator(new AccelerateInterpolator()); //add this
+            fadeOut.setDuration(300);
+            fadeOut.setFillEnabled(true);
+            fadeOut.setFillAfter(true);
+            fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(fadeOut);
+        }
+    }
+
+    public static void fadeIn(final View view) {
+        if(view.getVisibility() == View.GONE){
+            Animation fadeIn = new AlphaAnimation(0, 1);
+            fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+            fadeIn.setDuration(250);
+            fadeIn.setFillEnabled(true);
+            fadeIn.setFillAfter(true);
+            fadeIn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.startAnimation(fadeIn);
+        }
+
     }
 
 

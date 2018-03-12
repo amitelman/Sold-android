@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/featureItemLayout"
+        android:layoutDirection="ltr"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/savedSearchesItemDate"
+            android:layout_marginTop="14.5dp"
+            android:textSize="9.6sp"
+            android:layout_marginLeft="25.7dp"
+            android:textColor="@color/warm_grey"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="7.7sp"
+            tools:text="17.01.18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginBottom="13.4dp"
+            android:layout_marginTop="9.7dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/savedSearchesItemSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14.4sp"
+                android:layout_marginLeft="25.7dp"
+                android:textColor="@color/dark_grey_blue_two"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="2.9sp"
+                tools:text="Near Beverly hills 90210 (+9 filters)"/>
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"/>
+
+            <CheckBox
+                android:layout_gravity="center|end"
+                android:padding="5dp"
+                android:id="@+id/savedSearchesItemCb"
+                android:button="@drawable/cb_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="17.7dp" />
+            
+            </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

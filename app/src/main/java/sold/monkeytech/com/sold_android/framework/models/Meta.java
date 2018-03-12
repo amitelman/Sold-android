@@ -1,10 +1,13 @@
 package sold.monkeytech.com.sold_android.framework.models;
 
+import sold.monkeytech.com.sold_android.framework.cache.abs.BaseCache;
+import sold.monkeytech.com.sold_android.framework.models.abs.BaseModel;
+
 /**
  * Created by MonkeyFather on 08/03/2018.
  */
 
-public class Meta {
+public class Meta extends BaseModel<Meta> {
 
     private String key;
     private String value;
@@ -23,5 +26,15 @@ public class Meta {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public BaseCache getInstanceOfCache() {
+        return null;
+    }
+
+    @Override
+    protected Class getType() {
+        return Meta.class;
     }
 }

@@ -16,7 +16,7 @@ public class OpenHouse extends BaseModel<OpenHouse> {
     private String wday;
     private int day;
     private String month;
-    private List<String> slots;
+    private List<OpenHouseSlots> slots;
 
     public String getWday() {
         return wday;
@@ -42,11 +42,11 @@ public class OpenHouse extends BaseModel<OpenHouse> {
         this.month = month;
     }
 
-    public List<String> getSlots() {
+    public List<OpenHouseSlots> getSlots() {
         return slots;
     }
 
-    public void setSlots(List<String> slots) {
+    public void setSlots(List<OpenHouseSlots> slots) {
         this.slots = slots;
     }
 
