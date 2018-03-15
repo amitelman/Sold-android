@@ -1,25 +1,28 @@
 package sold.monkeytech.com.sold_android.ui.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 import sold.monkeytech.com.sold_android.R;
+import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
 import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.pagination.abs.PagibaleAdapter;
 
 /**
  * Created by monkey on 25/06/2015.
  */
-public class SearchInListAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<List<Property>>, View.OnClickListener {
     private Context context;
     private List<Property> properties;
     private LayoutInflater inflater;
@@ -59,36 +62,24 @@ public class SearchInListAdapter extends BaseAdapter implements StickyListHeader
     }
 
     @Override
-    public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        HeaderViewHolder holder;
-        if (convertView == null) {
-            holder = new HeaderViewHolder();
-            convertView = inflater.inflate(R.layout.sold_search_item_header, parent, false);
-            holder.title = (TextView) convertView.findViewById(R.id.searchItemHeaderTitle);
-            holder.address = (TextView) convertView.findViewById(R.id.searchItemHeaderAddress);
-            convertView.setTag(holder);
-        } else {
-            holder = (HeaderViewHolder) convertView.getTag();
-        }
-        //set header text as first char in name
-//        String headerText = "" + countries[position].subSequence(0, 1).charAt(0);
-//        holder.text.setText(headerText);
-        return convertView;
+    public void addItems(List<Property> items) {
+        Log.d("wowPegination", "Loading " + items.size() + " more item");
+        Toast.makeText(context, "Loading More!", Toast.LENGTH_SHORT).show();
+        if(properties == null)
+            properties = new ArrayList<>();
+        properties.addAll(items);
+        notifyDataSetChanged();
     }
 
     @Override
-    public long getHeaderId(int position) {
-        //return the first character of the country as ID because this is what headers are based upon
-        return 0;//properties[position];
+    public void onClick(View v) {
+
     }
 
-    public static class HeaderViewHolder {
-        TextView title;
-        TextView address;
-    }
+
 
     public static class BaseViewHolder{
-        RelativeLayout bkg;
+        ImageView bkg;
         TextView price;
         ImageButton favBtn;
         TextView title;
@@ -99,11 +90,9 @@ public class SearchInListAdapter extends BaseAdapter implements StickyListHeader
         TextView sqrm;
     }
 
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         BaseViewHolder baseViewHolder = new BaseViewHolder();
-
 
             if (convertView == null){
                 convertView = inflater.inflate(R.layout.sold_search_item, parent, false);
@@ -125,18 +114,45 @@ public class SearchInListAdapter extends BaseAdapter implements StickyListHeader
 
         final Property property = getItem(position);
 
-//        baseViewHolder.companyName.setText(member.getCompany());
-//        baseViewHolder.name.setText(member.getFirstName() + " " + member.getLastName());
-//        baseViewHolder.email.setText(member.getEmail());
-//        baseViewHolder.mainLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(memberTAction != null)
-//                    memberTAction.execute(member);
-//            }
-//        });
+        baseViewHolder.bkg.setImageResource(0);
+        ImageLoaderUtils.loadBigPictureImage(property.getCoverPhoto(), baseViewHolder.bkg, null);
+        baseViewHolder.price.setText(property.getPrice().getFormatted());
+        //todo: locale title\address parser
+        baseViewHolder.title.setText(property.getAddress().getStreetName() + property.getHouseNumber() + " Street");
+        baseViewHolder.address.setText(property.getAddress().getCityName());
+        baseViewHolder.roomsCounter.setText(property.getRoomsCount() + "");
+        baseViewHolder.bathCounter.setText(property.getBathroomCount() + "");
+        baseViewHolder.size.setText(property.getFloorArea() + "");
+        baseViewHolder.sqrm.setText(property.getPlotArea() + "");
+
+        baseViewHolder.favBtn.setOnClickListener(this);
 
         return convertView;
     }
 
 }
+
+
+//@Override
+//    public View getHeaderView(int position, View convertView, ViewGroup parent) {
+//        HeaderViewHolder holder;
+//        if (convertView == null) {
+//            holder = new HeaderViewHolder();
+//            convertView = inflater.inflate(R.layout.sold_search_item_header, parent, false);
+//            holder.title = (TextView) convertView.findViewById(R.id.searchItemHeaderTitle);
+//            holder.address = (TextView) convertView.findViewById(R.id.searchItemHeaderAddress);
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (HeaderViewHolder) convertView.getTag();
+//        }
+//        //set header text as first char in name
+////        String headerText = "" + countries[position].subSequence(0, 1).charAt(0);
+////        holder.text.setText(headerText);
+//        return convertView;
+//    }
+//
+//    @Override
+//    public long getHeaderId(int position) {
+//        //return the first character of the country as ID because this is what headers are based upon
+//        return 0;//properties[position];
+//    }

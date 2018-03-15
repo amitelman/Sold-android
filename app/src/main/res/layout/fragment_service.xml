@@ -5,15 +5,63 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:text="service Fragment"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@color/dark_grey_blue"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:textSize="17.3sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="6.8sp"
+                android:text="Our Service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:padding="5dp"
+                android:id="@+id/ourServiceFragBackBtn"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:layout_marginLeft="13.2dp"
+                android:src="@drawable/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/ourServiceFragViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/ourServiceFragDots"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@drawable/vp_circle_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"/>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
+
+
 
 </layout>

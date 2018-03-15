@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/outside_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/alpha_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_70">
+
+            <RelativeLayout
+                android:layout_width="333.6dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape_sqr_white_rounded">
+
+                <ImageButton
+                    android:id="@+id/verificationDialogClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="13.5dp"
+                    android:layout_marginTop="20.7dp"
+                    android:background="@null"
+                    android:src="@drawable/my_sold_pressed" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/verificationDialogClose"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-5.8dp"
+                    android:orientation="vertical">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/verificationDialogTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/dark"
+                        android:textSize="22.1sp"
+                        app:fontType="MULI_EX_BOLD"
+                        tools:text="Confirm my phone number" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/verificationDialogBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="11.9dp"
+                        android:layout_marginRight="11.9dp"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:textColor="@color/greyish_brown"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_REG"
+                        tools:text="You need to confirm your phone number
+by entering the pin code for activation
+ your number." />
+
+                    <LinearLayout
+                        android:layoutDirection="ltr"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginLeft="25.4dp"
+                        android:layout_marginTop="25dp"
+                        android:weightSum="4"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogInput1"
+                                android:maxLength="1"
+                                android:textSize="30.3sp"
+                                android:textColor="@color/scarlet"
+                                android:gravity="center_horizontal"
+                                tools:text="X"
+                                app:fontType="MULI_EX_BOLD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="55dp" />
+                            
+                            <View
+                                android:layout_marginTop="-10dp"
+                                android:background="@color/dark_grey_blue_two"
+                                android:layout_width="55.6dp"
+                                android:layout_height="0.7dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogInput2"
+                                android:maxLength="1"
+                                android:textSize="30.3sp"
+                                android:textColor="@color/scarlet"
+                                android:gravity="center_horizontal"
+                                tools:text="X"
+                                app:fontType="MULI_EX_BOLD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="55dp" />
+
+                            <View
+                                android:layout_marginTop="-10dp"
+                                android:background="@color/dark_grey_blue_two"
+                                android:layout_width="55.6dp"
+                                android:layout_height="0.7dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogInput3"
+                                android:maxLength="1"
+                                android:textSize="30.3sp"
+                                android:textColor="@color/scarlet"
+                                android:gravity="center_horizontal"
+                                tools:text="X"
+                                app:fontType="MULI_EX_BOLD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="55dp" />
+
+                            <View
+                                android:layout_marginTop="-10dp"
+                                android:background="@color/dark_grey_blue_two"
+                                android:layout_width="55.6dp"
+                                android:layout_height="0.7dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogInput4"
+                                android:maxLength="1"
+                                android:textSize="30.3sp"
+                                android:textColor="@color/scarlet"
+                                android:gravity="center_horizontal"
+                                tools:text="X"
+                                app:fontType="MULI_EX_BOLD"
+                                android:layout_width="wrap_content"
+                                android:layout_height="55dp" />
+
+                            <View
+                                android:layout_marginTop="-10dp"
+                                android:background="@color/dark_grey_blue_two"
+                                android:layout_width="55.6dp"
+                                android:layout_height="0.7dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--<sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText-->
+                        <!--android:layout_marginTop="25dp"-->
+                        <!--android:text="x x x x"-->
+                        <!--android:gravity="top|center"-->
+                        <!--android:maxLength="8"-->
+                        <!--android:textScaleX="3.5"-->
+                        <!--android:scaleY="3.5"-->
+                        <!--android:scaleX="1.2"-->
+                        <!--android:textColor="@color/scarlet"-->
+                        <!--android:layout_marginLeft="25.4dp"-->
+                        <!--android:layout_marginRight="35dp"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="50dp" />-->
+
+                    <!--<View-->
+                        <!--android:layout_marginLeft="45.4dp"-->
+                        <!--android:layout_marginRight="45dp"-->
+                        <!--android:background="@drawable/verification_line"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="3dp"/>-->
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/talkToAgentActContactBtn"
+                        android:layout_width="165.5dp"
+                        android:layout_height="37.4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="26.9dp"
+                        android:background="@drawable/shape_sqr_red"
+                        android:gravity="center"
+                        android:lineSpacingExtra="7.7sp"
+                        android:text="Send"
+                        android:textColor="@color/white"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_BOLD" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="36dp"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:gravity="center_horizontal"
+                        android:text="@string/didn_t_get_the_code_send_again"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+</layout>

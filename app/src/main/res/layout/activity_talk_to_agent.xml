@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21.7dp"
+            android:layout_marginTop="21.1dp"
+            android:drawableLeft="@drawable/name"
+            android:drawablePadding="16dp"
+            android:gravity="center|start"
+            android:letterSpacing="0.06"
+            android:lineSpacingExtra="10.6sp"
+            android:text="EMAIL"
+            android:textColor="#80000000"
+            android:textSize="11.5sp" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+            android:id="@+id/talkToAgentActEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="7.3dp"
+            android:background="@null"
+            android:hint="enter email"
+            android:textColorHint="#80000000"
+            android:textSize="13.4sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="4.4dp"
+            android:background="@color/black" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21.7dp"
+            android:layout_marginTop="21.1dp"
+            android:drawableLeft="@drawable/name"
+            android:drawablePadding="16dp"
+            android:gravity="center|start"
+            android:letterSpacing="0.06"
+            android:lineSpacingExtra="10.6sp"
+            android:text="PHONE"
+            android:textColor="#80000000"
+            android:textSize="11.5sp" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+            android:id="@+id/talkToAgentActPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="7.3dp"
+            android:background="@null"
+            android:hint="enter phone"
+            android:textColorHint="#80000000"
+            android:textSize="13.4sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="4.4dp"
+            android:background="@color/black" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21.7dp"
+            android:layout_marginTop="21.1dp"
+            android:drawableLeft="@drawable/name"
+            android:drawablePadding="16dp"
+            android:gravity="center|start"
+            android:letterSpacing="0.06"
+            android:lineSpacingExtra="10.6sp"
+            android:text="DESCRIPTION"
+            android:textColor="#80000000"
+            android:textSize="11.5sp" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+            android:id="@+id/talkToAgentActDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="7.3dp"
+            android:background="@null"
+            android:hint="enter description"
+            android:textColorHint="#80000000"
+            android:textSize="13.4sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="17.7dp"
+            android:layout_marginTop="4.4dp"
+            android:background="@color/black" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="1dp"
+            android:layout_height="0dp"/>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/talkToAgentActContactBtn"
+            android:layout_marginTop="26.9dp"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="43.2dp"
+            android:textSize="14.4sp"
+            android:background="@drawable/shape_sqr_red"
+            android:textColor="@color/white"
+            android:lineSpacingExtra="7.7sp"
+            app:fontType="MULI_BOLD"
+            android:gravity="center"
+            android:text="CONTACT AGENT"/>
+
+        <LinearLayout
+            android:layout_marginBottom="15.7dp"
+            android:layout_marginRight="18.7dp"
+            android:layout_marginLeft="15.2dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:checked="true"
+                android:id="@+id/talkToAgentActCb"
+                android:layout_gravity="center|end"
+                android:padding="5dp"
+                android:button="@drawable/cb_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="17.7dp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:textSize="12.5sp"
+                android:textColor="@color/dark_grey_blue_two"
+                android:gravity="center_horizontal"
+                android:text="By sending a request you agree to our Privacy Policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -1,18 +1,12 @@
 package sold.monkeytech.com.sold_android.ui.activities;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
-import com.monkeytechy.framework.interfaces.Action;
-import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
+import com.pixplicity.easyprefs.library.Prefs;
 
-import org.json.JSONObject;
-
-import java.util.List;
+import java.util.Locale;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
@@ -28,10 +22,28 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 //        FirebaseInstanceId.getInstance().getToken();
 //        Intercom.initialize(getApplication(), getString(R.string.intercom_api_key), getString(R.string.intercom_app_id));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startMainActivity();
+            }
+        },1000);
+//        initUi();
 
-        initUi();
 
+    }
 
+    private void checkLang() {
+        Locale locale = Locale.getDefault();
+        String lang = Prefs.getString("app_lang",locale.toString());
+        if (!lang.equals("iw") && !lang.equals("en"))
+            lang = "en";
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        Prefs.putString("app_lang",lang);
     }
 
     private void initUi() {

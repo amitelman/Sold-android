@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/poiListGroupLayout"
+    tools:background="#c20e1a"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="34.1dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_gravity="start|center"
+        android:layout_marginLeft="9.4dp"
+        android:textSize="12.5sp"
+        android:textColor="@color/white"
+        android:text="Schools"
+        app:fontType="MULI_BOLD"
+        android:id="@+id/poiListGroupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/poiListGroupArrow"
+        android:tint="@color/white"
+        android:layout_gravity="end|center"
+        android:layout_marginRight="13.4dp"
+        android:src="@drawable/arrow_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

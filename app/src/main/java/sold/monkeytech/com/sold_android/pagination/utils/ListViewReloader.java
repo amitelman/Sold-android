@@ -1,6 +1,7 @@
 package sold.monkeytech.com.sold_android.pagination.utils;
 
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -36,8 +37,9 @@ public abstract class ListViewReloader<PageObject,ListType,ErrorType> {
         listView.setAdapter((ListAdapter) (adapter));
         listView.setOnScrollListener(endlessScrollListener);
     }
+
     public void reloadList(){
-        final Handler h= new Handler();
+        final Handler h = new Handler();
         api.getNext(getNextPage(),new TAction<ListType>() {
             @Override
             public void execute(final ListType param) {
@@ -48,11 +50,12 @@ public abstract class ListViewReloader<PageObject,ListType,ErrorType> {
                         adapter.addItems(param);
                     }
                 });
+                Log.d("RELOADER","SUCCESS");
             }
         }, new TAction<String>() {
             @Override
             public void execute(String param) {
-
+                Log.d("RELOADER","FAIL : " + param);
             }
         });
     }

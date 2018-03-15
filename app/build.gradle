@@ -64,10 +64,6 @@ dependencies {
     }
 
 
-
-
-
-
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
     compile 'com.android.support:appcompat-v7:27.0.2'
@@ -80,11 +76,18 @@ dependencies {
     compile 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     compile 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.google.android.gms:play-services-location:11.8.0'
+    compile 'com.google.android.gms:play-services-places:11.8.0'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.github.aakira:expandable-layout:1.5.1@aar'
     compile 'com.chabbal:slidingdotsplash:1.0.2'
     testCompile 'junit:junit:4.12'
 }
+
+
+
+
+
+
 
 
 

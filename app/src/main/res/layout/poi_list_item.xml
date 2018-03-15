@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/poiListItemLayout"
+    tools:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="51.4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_marginLeft="8.5dp"
+        android:textSize="11.5sp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/dark_grey_blue_two"
+        tools:text="South Pointe Elementary School"
+        app:fontType="MULI_REG"
+        android:id="@+id/poiListItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_marginRight="27.5dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/poiListItemDistance"
+        android:layout_toLeftOf="@+id/poiListItemArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11.5sp"
+        android:textColor="@color/dark_grey_blue_two"
+        tools:text="0.8 mi"/>
+
+    <ImageView
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/poiListItemArrow"
+        android:layout_gravity="end|center"
+        android:layout_marginRight="13.4dp"
+        android:src="@drawable/arrow_red_copy_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

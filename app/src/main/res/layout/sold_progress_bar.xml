@@ -3,19 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
-        android:visibility="gone"
-        android:id="@+id/midProgressBarLayout"
+        android:visibility="visible"
+        android:id="@+id/soldProgressBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_70">
+        android:layout_height="1920px"
+
+        android:background="@drawable/photo_splash_pb">
+
+        <FrameLayout
+            android:background="@color/black_70"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageView
+            android:src="@drawable/shape_pb_crcle"
+            android:id="@+id/soldProgressBarLoader"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:id="@+id/midProgressBarLoader"
+            android:src="@drawable/mini_pressed_pb"
+            android:id="@+id/soldProgressBarImage"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

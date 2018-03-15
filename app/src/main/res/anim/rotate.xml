@@ -3,7 +3,7 @@
     android:fillAfter="true">
     <rotate
         android:repeatCount="infinite"
-        android:duration="750"
+        android:duration="1550"
         android:fromDegrees="0"
         android:pivotX="50%"
         android:pivotY="50%"

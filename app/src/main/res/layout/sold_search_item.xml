@@ -6,11 +6,16 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/searchItemBkg"
+        android:background="@drawable/property_placeholder"
         android:layoutDirection="ltr"
-        android:background="@color/scarlet"
         android:layout_width="match_parent"
         android:layout_height="222.2dp">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/searchItemBkg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <RelativeLayout
             android:layout_alignParentTop="true"
@@ -50,7 +55,7 @@
         <LinearLayout
             android:layoutDirection="ltr"
             android:paddingLeft="19.7dp"
-            android:background="@color/dark_grey_blue"
+            android:background="@color/black_70"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -68,40 +73,49 @@
                 tools:text="Nahalat Binyamin St 65"/>
 
             <LinearLayout
+                android:gravity="center"
                 android:layoutDirection="ltr"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="15dp"
                 android:orientation="horizontal"
+                android:layout_marginRight="9.3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:id="@+id/searchItemAddress"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textSize="11.5sp"
                     app:fontType="MULI_LIGHT"
-                    android:layout_marginRight="55dp"
+                    android:lines="1"
+                    android:layout_gravity="end|center"
+                    tools:text="Tel Aviv, CA 94112"
                     android:textColor="@color/white"
-                    tools:text="Tel Aviv, CA 94112"/>
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/searchItemAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
 
                 <View
                     android:layout_width="1dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="16.8dp"
                     android:background="@color/warm_grey_two"/>
 
                 <LinearLayout
                     android:weightSum="4"
+                    android:layout_gravity="start|center"
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:layout_gravity="center"
                         android:id="@+id/searchItemRoomsCounter"
                         android:drawableLeft="@drawable/bed"
-                        android:layout_marginLeft="30.6dp"
+                        android:layout_marginLeft="20.6dp"
+                        android:lines="1"
                         tools:text="4"
                         android:drawablePadding="5dp"
                         android:textSize="11.5sp"
@@ -113,8 +127,8 @@
                         android:layout_gravity="center"
                         android:id="@+id/searchItemBathCounter"
                         android:drawableLeft="@drawable/shower"
-                        android:layout_marginLeft="30.6dp"
                         tools:text="4"
+                        android:layout_marginLeft="10dp"
                         android:drawablePadding="5dp"
                         android:textSize="11.5sp"
                         android:layout_weight="1"
@@ -125,8 +139,8 @@
                         android:layout_gravity="center"
                         android:id="@+id/searchItemSize"
                         android:drawableLeft="@drawable/icon_proprties_size"
-                        android:layout_marginLeft="30.6dp"
                         tools:text="4"
+                        android:layout_marginLeft="10dp"
                         android:drawablePadding="5dp"
                         android:textSize="11.5sp"
                         android:layout_weight="1"
@@ -137,8 +151,8 @@
                         android:layout_gravity="center"
                         android:id="@+id/searchItemSqrm"
                         android:drawableLeft="@drawable/house_size"
-                        android:layout_marginLeft="30.6dp"
                         tools:text="4"
+                        android:layout_marginLeft="10dp"
                         android:drawablePadding="5dp"
                         android:layout_marginRight="9dp"
                         android:textSize="11.5sp"

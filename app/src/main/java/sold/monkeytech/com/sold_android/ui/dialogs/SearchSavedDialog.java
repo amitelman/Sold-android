@@ -26,7 +26,7 @@ public class SearchSavedDialog extends TransparentDialog implements View.OnClick
 
 
     protected int getLayout(){
-        return R.layout.dialog_simple_one_btn;
+        return R.layout.dialog_search_saved;
     }
 
     protected void loadUI(){

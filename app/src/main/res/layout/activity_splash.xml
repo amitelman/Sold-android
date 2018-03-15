@@ -8,11 +8,20 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:src="@drawable/photo_splash"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.mid.mid.ui.custom_views.MidProgressBar
+    <ImageView
+        android:layout_marginTop="120dp"
+        android:padding="20dp"
+        android:background="@color/black_70"
+        android:src="@drawable/logo_splash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
         android:layout_gravity="bottom"
         android:layout_marginBottom="150dp"
         android:id="@+id/splashActivityPb"

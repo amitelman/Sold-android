@@ -4,6 +4,8 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,22 @@ public class ServiceFragment extends BaseFragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_service, container, false);
         View view = mBinding.getRoot();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        Log.d("wowService","height: " + height);
+
+        initUi();
+    }
+
+    private void initUi() {
+        mBinding.ourServiceFragDots.setupWithViewPager(mBinding.ourServiceFragViewPager, true);
     }
 
 }

@@ -36,7 +36,21 @@
                         android:background="@null"
                         android:src="@drawable/list" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                    <!--<sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText-->
+                        <!--android:lines="1"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="26.9dp"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_marginRight="110dp"-->
+                        <!--android:background="@drawable/shape_sqr_grey"-->
+                        <!--android:gravity="center"-->
+                        <!--android:hint="Search"-->
+                        <!--android:textColorHint="@color/white"-->
+                        <!--android:textSize="14.4sp" />-->
+
+                    <sold.monkeytech.com.sold_android.ui.custom_views.ClearableAutoCompleteTextView
+                        android:paddingRight="10dp"
                         android:lines="1"
                         android:layout_width="match_parent"
                         android:layout_height="26.9dp"
@@ -47,129 +61,129 @@
                         android:gravity="center"
                         android:hint="Search"
                         android:textColorHint="@color/white"
-                        android:textSize="14.4sp" />
+                        android:textSize="14.4sp"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/searchFragAutoComplete" />
 
-                    <ImageButton
-                        android:id="@+id/searchFragFilterBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="14.9dp"
-                        android:layout_marginRight="5.4dp"
-                        android:background="@null"
-                        android:src="@drawable/filters" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/warm_grey_two" />
-
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44.4dp">
-
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:layout_marginRight="8.3dp"
-                        android:id="@+id/searchFragSortBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14.1sp"
-                        android:drawablePadding="5.7dp"
-                        android:layout_gravity="center|right"
-                        android:gravity="center"
-                        android:drawableLeft="@drawable/heart_empty_copy"
-                        android:textColor="@color/dark_grey_blue_two"
-                        android:text="Sort"/>
-
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:id="@+id/searchFragCounter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="11.7dp"
-                        android:layout_marginLeft="8.7dp"
-                        android:layout_gravity="center|left"
-                        android:layout_marginTop="11.7dp"
-                        android:background="@color/white"
-                        android:textColor="@color/dark_grey_blue_two"
-                        android:text="Showing 3987 Homes"
-                        android:textSize="13.2sp"/>
-
-                </FrameLayout>
-
+                <ImageButton
+                    android:id="@+id/searchFragFilterBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="14.9dp"
+                    android:layout_marginRight="5.4dp"
+                    android:background="@null"
+                    android:src="@drawable/filters" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/warm_grey_two" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <FrameLayout
-                    android:id="@+id/searchFragContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                android:layout_height="44.4dp">
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:text="Nearby"
-                    android:id="@+id/searchFragMyLocationBtn"
-                    android:textSize="8.6sp"
+                    android:layout_marginRight="8.3dp"
+                    android:id="@+id/searchFragSortBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14.1sp"
+                    android:drawablePadding="5.7dp"
+                    android:layout_gravity="center|right"
                     android:gravity="center"
-                    android:layout_gravity="top|right"
-                    android:layout_marginRight="13.6dp"
-                    android:layout_marginTop="17.7dp"
-                    app:fontType="MULI_BOLD"
-                    android:paddingTop="6.4dp"
-                    android:paddingBottom="5.1dp"
-                    android:textColor="@color/lipstick"
-                    android:drawableTop="@drawable/icon_nearby"
-                    android:background="@drawable/shape_white_sqr_red_stroke"
-                    android:layout_width="45.6dp"
-                    android:layout_height="45.2dp" />
+                    android:drawableLeft="@drawable/sort"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:text="Sort"/>
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:id="@+id/searchFragmentSaveSearch"
-                    android:layout_marginRight="55dp"
-                    android:layout_marginLeft="55dp"
-                    android:textSize="14.4sp"
-                    android:textColor="@color/white"
-                    android:lineSpacingExtra="7.7sp"
-                    android:gravity="center"
-                    app:fontType="MULI_BOLD"
-                    android:text="SAVE SEARCH"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="7.2dp"
-                    android:background="@drawable/shape_sqr_red"
-                    android:layout_width="match_parent"
-                    android:layout_height="43.2dp" />
-
-
+                    android:id="@+id/searchFragCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="11.7dp"
+                    android:layout_marginLeft="8.7dp"
+                    android:layout_gravity="center|left"
+                    android:layout_marginTop="11.7dp"
+                    android:background="@color/white"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:text="Showing 3987 Homes"
+                    android:textSize="13.2sp"/>
 
             </FrameLayout>
 
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/warm_grey_two" />
+
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/searchFragBottomItem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+            android:layout_height="match_parent">
 
-            <include
+            <FrameLayout
+                android:id="@+id/searchFragContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                layout="@layout/sold_search_item"/>
+                android:layout_height="match_parent" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:text="Nearby"
+                android:id="@+id/searchFragMyLocationBtn"
+                android:textSize="8.6sp"
+                android:gravity="center"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="13.6dp"
+                android:layout_marginTop="17.7dp"
+                app:fontType="MULI_BOLD"
+                android:paddingTop="6.4dp"
+                android:paddingBottom="5.1dp"
+                android:textColor="@color/lipstick"
+                android:drawableTop="@drawable/icon_nearby"
+                android:background="@drawable/shape_white_sqr_red_stroke"
+                android:layout_width="45.6dp"
+                android:layout_height="45.2dp" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/searchFragmentSaveSearch"
+                android:layout_marginRight="55dp"
+                android:layout_marginLeft="55dp"
+                android:textSize="14.4sp"
+                android:textColor="@color/white"
+                android:lineSpacingExtra="7.7sp"
+                android:gravity="center"
+                app:fontType="MULI_BOLD"
+                android:text="SAVE SEARCH"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="7.2dp"
+                android:background="@drawable/shape_sqr_red"
+                android:layout_width="match_parent"
+                android:layout_height="43.2dp" />
 
         </FrameLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/searchFragBottomItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/sold_search_item"/>
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
 </layout>

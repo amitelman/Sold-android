@@ -77,7 +77,7 @@ import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.TextParam
 public class AbstractServerApiConnector {
 
 
-    public static final String SERVER_URL = "";// FlavorConfig.SERVER_URL;
+    public static final String SERVER_URL = "http://sold-server-staging.herokuapp.com/api/v1";// FlavorConfig.SERVER_URL;
     private Context context;
     private static ExecutorService executorService = Executors.newFixedThreadPool(10);
     private HttpClient httpClientSession = null;
@@ -218,17 +218,16 @@ public class AbstractServerApiConnector {
     }
 
     protected RemoteResponseString performHTTPPost(String url) {
-        return this.performHTTPPost(url, new ParamBuilder(), null);
+        return this.performHTTPPost(true, url, new ParamBuilder());
     }
 
-    protected RemoteResponseString performHTTPPostWithJSON(String url, JSONObject jsonObject) {
-
-        return this.performHTTPPost(url, new ParamBuilder(), jsonObject);
+    protected RemoteResponseString performSpecificHTTPPost(String url) {
+        return this.performHTTPPost(false, url, new ParamBuilder());
     }
 
-    protected RemoteResponseString performHTTPPost(String url, ParamBuilder pm, JSONObject pagedQueryModelJson) {
+    protected RemoteResponseString performHTTPPost(boolean shouldUseBase, String url, ParamBuilder pm) {
         Handler handler = new Handler(Looper.getMainLooper());
-        HttpPost httppost = new HttpPost(getBaseUrl() + url);
+        HttpPost httppost = new HttpPost(shouldUseBase ? getBaseUrl() : "" + url);
 
         if (UserManager.getInstance().getInAppToken() != null) {
             String keyWord = UserManager.getInstance().getAppKeyWord();
@@ -237,30 +236,23 @@ public class AbstractServerApiConnector {
             httppost.addHeader("Content-Type", "application/json");
         }
         // Execute HTTP Post Request
-        if (pagedQueryModelJson != null) {
-            try {
-                httppost.setEntity(new StringEntity(pagedQueryModelJson.toString(), "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                Log.d("wow", "json exception !!!! " + e.getMessage());
-            }
-        } else {
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            try {
-                HashMap<String, BaseParam> map = pm.build();
-                for (String key : map.keySet()) {
-                    BaseParam val = map.get(key);
-                    if (val != null && val instanceof TextParam) {
-                        String value = ((TextParam) val).getValue();
-                        if (value != null)
-                            nameValuePairs.add(new BasicNameValuePair(key, "" + value));
-                    }
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        try {
+            HashMap<String, BaseParam> map = pm.build();
+            for (String key : map.keySet()) {
+                BaseParam val = map.get(key);
+                if (val != null && val instanceof TextParam) {
+                    String value = ((TextParam) val).getValue();
+                    if (value != null)
+                        nameValuePairs.add(new BasicNameValuePair(key, "" + value));
                 }
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-            } catch (UnsupportedEncodingException e1) {
-                e1.printStackTrace();
             }
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
         }
+
         HttpResponse response = null;
         String strResponse = "";
         try {
@@ -320,27 +312,29 @@ public class AbstractServerApiConnector {
             HttpResponse response = null;
             InputStream content = null;
             String params = "";
-            HashMap<String, BaseParam> map = pm.build();
+            if(pm != null) {
+                HashMap<String, BaseParam> map = pm.build();
 
-            for (String key : map.keySet()) {
-                BaseParam val = map.get(key);
-                if (val != null && val instanceof TextParam) {
-                    String value = ((TextParam) val).getValue();
-                    params += (params.isEmpty() ? "?" : "&") + key + "=" + value;
-                }
-                if (val != null && val instanceof ArrayParam) {
-                    List<String> value = ((ArrayParam) val).getValue();
-                    for (String v : value)
-                        params += (params.isEmpty() ? "?" : "&") + key + "[]=" + v;
+                for (String key : map.keySet()) {
+                    BaseParam val = map.get(key);
+                    if (val != null && val instanceof TextParam) {
+                        String value = ((TextParam) val).getValue();
+                        params += (params.isEmpty() ? "?" : "&") + key + "=" + value;
+                    }
+                    if (val != null && val instanceof ArrayParam) {
+                        List<String> value = ((ArrayParam) val).getValue();
+                        for (String v : value)
+                            params += (params.isEmpty() ? "?" : "&") + key + "[]=" + v;
+                    }
                 }
             }
 
             HttpGet httpGet = new HttpGet((useBase ? getBaseUrl() : "") + url + params);
-            if (UserManager.getInstance().getInAppToken() != null) {
-                String keyWord = UserManager.getInstance().getAppKeyWord();
-                String token = UserManager.getInstance().getInAppToken();
-                httpGet.addHeader("Authorization", keyWord + " " + token);
-            }
+//            if (UserManager.getInstance().getInAppToken() != null) {
+//                String keyWord = UserManager.getInstance().getAppKeyWord();
+//                String token = UserManager.getInstance().getInAppToken();
+//                httpGet.addHeader("Authorization", keyWord + " " + token);
+//            }
             response = getHTTPClient().execute(httpGet);
 //            response = getHTTPClient().execute(new HttpGet((useBase ? getBaseUrl() : "") + url + params));
 

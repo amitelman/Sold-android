@@ -13,6 +13,7 @@
     <string name="title_activity_sort_filters">SortFiltersActivity</string>
     <string name="saved_search_dialog_body">you can see your saved searches \nunder <b>My SOLD</b> tab</string>
     <string name="title_activity_filter_search">FilterSearchActivity</string>
+    <string name="didn_t_get_the_code_send_again">Didn’t get the code? <u>Send again!</u></string>
 
 
 </resources>

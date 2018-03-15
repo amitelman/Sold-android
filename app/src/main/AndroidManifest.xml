@@ -24,16 +24,17 @@
             android:value="@string/google_maps_api_key" />
 
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.SortFiltersActivity"
             android:label="@string/title_activity_sort_filters"
@@ -53,21 +54,44 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ui.activities.Test3Activity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".ui.activities.Test3Activity"
+            android:screenOrientation="portrait">
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ui.activities.SavedSearchesActivity" />
-        <activity android:name=".ui.activities.PrivateShowingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".ui.activities.SavedSearchesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.PrivateShowingActivity"
+            android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-    </application>
+        <activity
+            android:name=".ui.activities.TalkToAgentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.POIListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.HomeAroundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activities.CalculatorActivity"
+            android:screenOrientation="portrait"></activity>
 
-</manifest>
+        </application>
+
+    </manifest>

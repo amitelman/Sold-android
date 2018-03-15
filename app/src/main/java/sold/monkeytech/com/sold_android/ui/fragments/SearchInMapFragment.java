@@ -1,13 +1,22 @@
 package sold.monkeytech.com.sold_android.ui.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.monkeytechy.framework.interfaces.TAction;
+
+import java.util.List;
+
+import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
+import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
 
 public class SearchInMapFragment extends SupportMapFragment {
 
@@ -87,5 +96,29 @@ public class SearchInMapFragment extends SupportMapFragment {
 
     };
 
+    public void animateCamera(LatLng latLng){
+        if(map != null){
+            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+            map.animateCamera(location);
+        }
 
+
+
+    }
+
+    public void getHouseProperties(LatLng latLng) {
+        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
+        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
+        new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
+            @Override
+            public void execute(List<Property> properties) {
+                Log.d("wowInMapm","success");
+            }
+        }, new TAction<String>() {
+            @Override
+            public void execute(String s) {
+
+            }
+        });
+    }
 }
