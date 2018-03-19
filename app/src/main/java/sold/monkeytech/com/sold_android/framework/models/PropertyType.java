@@ -15,6 +15,7 @@ public class PropertyType extends BaseModel<PropertyType> {
     private String name;
     private String icon;
     private String createdAt;
+    private boolean isSelected;
 
     public String getName() {
         return name;
@@ -38,6 +39,14 @@ public class PropertyType extends BaseModel<PropertyType> {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @Override

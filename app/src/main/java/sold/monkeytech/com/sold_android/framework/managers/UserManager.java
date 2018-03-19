@@ -15,6 +15,7 @@ public class UserManager {
     public static UserManager instance;
     private String inAppToken;
     private String appKeyWord;
+    private String metaData;
 
 
     public static UserManager getInstance(){
@@ -45,5 +46,12 @@ public class UserManager {
         return appKeyWord;
     }
 
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
+    }
+
+    public String getMetaData() {
+        return metaData;
+    }
 }
 

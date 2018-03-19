@@ -1,44 +1,25 @@
 package sold.monkeytech.com.sold_android.ui.activities;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.ui.activities.BaseActivity;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.ActivityTest3Binding;
-import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
+import sold.monkeytech.com.sold_android.databinding.ActivityPropertyPageBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
-import sold.monkeytech.com.sold_android.framework.managers.TestManager;
-import sold.monkeytech.com.sold_android.framework.managers.UserManager;
-import sold.monkeytech.com.sold_android.framework.models.Property;
-import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
 import sold.monkeytech.com.sold_android.ui.adapters.PicturesSliderAdapter;
 
-public class Test3Activity extends BaseActivity {
+public class PropertyPageActivity extends BaseActivity {
 
-    private ActivityTest3Binding mBinding;
+    private ActivityPropertyPageBinding mBinding;
     private PicturesSliderAdapter pagerAdapter;
     private int dotscount;
     private ImageView[] dots;
@@ -46,38 +27,13 @@ public class Test3Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_test3);
 
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_test3);
-
-
-//        String shortListP = TestManager.getInstance().getshortPropList();
-//        try {
-//            JSONArray propertyArr = new JSONArray(shortListP);
-//            List<Property> propertyList = new PropertyParser(PropertyParser.TYPE_SHORT).parseToList(propertyArr);
-//            Log.d("wow", "wow");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String longP = TestManager.getInstance().getLongProperty();
-//        try {
-//            JSONObject longProperty = new JSONObject(longP);
-//            Property property = new PropertyParser(PropertyParser.TYPE_FULL).parseToSingle(longProperty);
-//            Log.d("wow", "wow");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        }
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_property_page);
 
         initUi();
-
-
     }
 
     private void initUi() {
-
 
         initHeaderPager();
     }

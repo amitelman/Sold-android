@@ -125,8 +125,8 @@ public class AutoCompleteAdapter extends ArrayAdapter implements Filterable {
                             autoComplete1.setName(address);
                             autoComplete1.setPlaceId(placeId);
                             resultsArr.add(autoComplete1);
-                            notifyDataSetChanged();
                         }
+                        notifyDataSetChanged();
                         finalResults.release();
 
                     }

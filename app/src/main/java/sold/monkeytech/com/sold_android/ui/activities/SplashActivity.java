@@ -3,6 +3,9 @@ package sold.monkeytech.com.sold_android.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.ui.activities.BaseActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -11,6 +14,7 @@ import java.util.Locale;
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.serverapi.utils.ApiGetMetaData;
 import sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar;
 
 public class SplashActivity extends BaseActivity {
@@ -22,13 +26,13 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 //        FirebaseInstanceId.getInstance().getToken();
 //        Intercom.initialize(getApplication(), getString(R.string.intercom_api_key), getString(R.string.intercom_app_id));
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startMainActivity();
-            }
-        },1000);
-//        initUi();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startMainActivity();
+//            }
+//        },1000);
+        initUi();
 
 
     }
@@ -56,34 +60,32 @@ public class SplashActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
             ((SoldProgressBar) findViewById(R.id.splashActivityPb)).isWithBkg(false).show();
-            startLoginActivity();
+            handleServerCall(onHandlerSuccess(), onHandlerFailed());
+
         } else {
-//            handleServerCall(new Action() {
-//                @Override
-//                public void execute() {
-//                    //All Server call Success!
-//                    Log.d("wowSplash", "success");
-//                    if (!isLoginError)
-//                        startMainActivity();
-//                }
-//            }, new Action() {
-//                @Override
-//                public void execute() {
-//                    if (!isLoginError){
-//                        Log.d("wowSplash", "login failed going to loginActivity");
-//
-//                        startLoginActivity();
-//                    }
-//                }
-//            }, new Action() {
-//                @Override
-//                public void execute() {
-//                    Log.d("wowSplash", "login failed");
-//                    startMainActivity();
-//                }
-//            });
         }
 
+    }
+
+    private Action onHandlerSuccess() {
+        return new Action() {
+            @Override
+            public void execute() {
+                Log.d("wowSplash","Handle server Success");
+                startMainActivity();
+            }
+        };
+    }
+
+    private Action onHandlerFailed() {
+        return new Action() {
+            @Override
+            public void execute() {
+                //todo: what to do in case handle server error
+                Log.d("wowSplash","Handle server failed");
+                startMainActivity();
+            }
+        };
     }
 
     public void startLoginActivity() {
@@ -93,51 +95,47 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void startMainActivity() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, FilterSearchActivity.class);
+//        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-//    private void handleServerCall(final Action onHandleDone, final Action onHandleFailed, final Action onError) {
-//        final int[] i = {4};
-//        Action onSuccess = new Action() {
-//            @Override
-//            public void execute() {
-//                i[0]--;
-//                if (i[0] == 0) {
-//                    if (onHandleDone != null)
-//                        onHandleDone.execute();
-//                }
-//            }
-//        };
-//        final int[] j = {0};
-//        Action onFailed = new Action() {
-//            @Override
-//            public void execute() {
-//                j[0]++;
-//                Log.d("SplashActivity", "error has occurred");
-//                if (j[0] == 1) {
-//                    Log.d("wowSplash", "Splash error 1");
-//                    if (onHandleFailed != null) {
-//                        onHandleFailed.execute();
-//                    }
-//                }
-////                if (j[0] == 2) {
-////                    Log.d("wowSplash", "Splash error 2");
-////                    isLoginError = true;
-////                    if (onError != null)
-////                        onError.execute();
-////                }
-//            }
-//        };
-//        initNewPagedQuery(onSuccess, onFailed);
+    private void handleServerCall(final Action onHandleDone, final Action onError) {
+        final int[] i = {1};
+        Action onSuccess = new Action() {
+            @Override
+            public void execute() {
+                i[0]--;
+                if (i[0] == 0) {
+                    if (onHandleDone != null)
+                        onHandleDone.execute();
+                }
+            }
+        };
+        final int[] j = {0};
+        Action onFailed = new Action() {
+            @Override
+            public void execute() {
+                j[0]++;
+                Log.d("SplashActivity", "error has occurred");
+                if (j[0] == 1) {
+                    Log.d("wowSplash", "Splash error 1");
+                    if (onError != null) {
+                        onError.execute();
+                    }
+                }
+            }
+        };
+        metaData(onSuccess, onFailed);
 //        getEnums(onSuccess, onFailed);
 //        initDataFilter(onSuccess, onFailed);
 //        getMe(onSuccess, onFailed);
-//    }
+    }
 
-
-
+    private void metaData(Action onSuccess, Action onFailed) {
+        new ApiGetMetaData(this).request(onSuccess, onFailed);
+    }
 
 
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_grey_blue_two"/>
+
+    <LinearLayout
+        android:id="@+id/sortFilterLayout"
+        android:gravity="center"
+        android:paddingTop="15.5dp"
+        android:paddingBottom="12.7dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_marginLeft="8.2dp"
+            android:id="@+id/sortFilterBtn"
+            android:background="@null"
+            android:src="@drawable/v"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/sortFilterTitle"
+            android:textSize="14.4sp"
+            android:layout_marginLeft="16.1dp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="2.9sp"
+            android:text="Z-A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</FrameLayout>

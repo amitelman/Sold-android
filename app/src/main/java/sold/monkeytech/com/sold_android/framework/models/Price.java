@@ -28,6 +28,10 @@ public class Price extends BaseModel {
         this.value = value;
     }
 
+    public String getShorted(){
+        return String.valueOf(getValue()/1000) + "K";
+    }
+
     @Override
     public BaseCache getInstanceOfCache() {
         return null;

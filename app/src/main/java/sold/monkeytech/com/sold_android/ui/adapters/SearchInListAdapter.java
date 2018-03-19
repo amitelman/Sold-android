@@ -94,22 +94,22 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
     public View getView(final int position, View convertView, ViewGroup parent) {
         BaseViewHolder baseViewHolder = new BaseViewHolder();
 
-            if (convertView == null){
-                convertView = inflater.inflate(R.layout.sold_search_item, parent, false);
-                baseViewHolder.bkg = convertView.findViewById(R.id.searchItemBkg);
-                baseViewHolder.price = convertView.findViewById(R.id.searchItemPrice);
-                baseViewHolder.favBtn = convertView.findViewById(R.id.searchItemFavorite);
-                baseViewHolder.title = convertView.findViewById(R.id.searchItemTitle);
-                baseViewHolder.address = convertView.findViewById(R.id.searchItemAddress);
-                baseViewHolder.roomsCounter = convertView.findViewById(R.id.searchItemRoomsCounter);
-                baseViewHolder.bathCounter = convertView.findViewById(R.id.searchItemBathCounter);
-                baseViewHolder.size = convertView.findViewById(R.id.searchItemSize);
-                baseViewHolder.sqrm = convertView.findViewById(R.id.searchItemSqrm);
+        if (convertView == null){
+            convertView = inflater.inflate(R.layout.sold_search_item, parent, false);
+            baseViewHolder.bkg = convertView.findViewById(R.id.searchItemBkg);
+            baseViewHolder.price = convertView.findViewById(R.id.searchItemPrice);
+            baseViewHolder.favBtn = convertView.findViewById(R.id.searchItemFavorite);
+            baseViewHolder.title = convertView.findViewById(R.id.searchItemTitle);
+            baseViewHolder.address = convertView.findViewById(R.id.searchItemAddress);
+            baseViewHolder.roomsCounter = convertView.findViewById(R.id.searchItemRoomsCounter);
+            baseViewHolder.bathCounter = convertView.findViewById(R.id.searchItemBathCounter);
+            baseViewHolder.size = convertView.findViewById(R.id.searchItemSize);
+            baseViewHolder.sqrm = convertView.findViewById(R.id.searchItemSqrm);
 
-                convertView.setTag(baseViewHolder);
-            }else {
-                baseViewHolder = (BaseViewHolder) convertView.getTag();
-            }
+            convertView.setTag(baseViewHolder);
+        }else {
+            baseViewHolder = (BaseViewHolder) convertView.getTag();
+        }
 
 
         final Property property = getItem(position);

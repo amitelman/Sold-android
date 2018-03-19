@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layoutDirection="ltr"
+        android:background="#e612303c"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/imageSliderActClose"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="28dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/x"
+            android:background="@null"
+            android:layout_width="15.3dp"
+            android:layout_height="15.3dp" />
+
+        <ImageButton
+            android:id="@+id/imageSliderActShare"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="28dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/share_copy"
+            android:background="@null"
+            android:layout_width="16.3dp"
+            android:layout_height="19.3dp" />
+
+        <android.support.v4.view.ViewPager
+            android:background="@color/black_20"
+            android:id="@+id/imageSliderActPager"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_centerInParent="true">
+
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:layout_marginTop="17dp"
+            android:id="@+id/imageSliderActTabDots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageSliderActPager"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_collapseMode="pin" />
+
+        <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/imageSliderActTabDots"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/imageSliderActPager"-->
+            <!--app:tabBackground="@drawable/tab_selector"-->
+            <!--app:tabGravity="center"-->
+            <!--app:tabIndicatorHeight="0dp" />-->
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginRight="4.9dp"
+        android:layout_weight="1"
+        android:id="@+id/propertyItemBkg"
+        android:layout_width="79.8dp"
+        android:layout_height="58.5dp"
+        android:background="@drawable/property_type_bkg_selector">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:id="@+id/propertyItemImg"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            tools:src="@drawable/type_1_img_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/propertyItem"
+            android:textSize="9.6sp"
+            android:textColor="@color/property_type_text_selector"
+            android:text="Apartment"
+            android:layout_marginTop="2.6dp"
+            android:layout_marginBottom="5.3dp"
+            app:fontType="MULI_REG"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>

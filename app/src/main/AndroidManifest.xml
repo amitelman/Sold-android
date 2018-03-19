@@ -26,11 +26,11 @@
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activities.MainActivity"
@@ -42,7 +42,13 @@
         <activity
             android:name=".ui.activities.FilterSearchActivity"
             android:label="@string/title_activity_filter_search"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".ui.activities.PreApprovedActivity"
             android:screenOrientation="portrait">
@@ -55,7 +61,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ui.activities.Test3Activity"
+            android:name=".ui.activities.PropertyPageActivity"
             android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
@@ -90,8 +96,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.CalculatorActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.ImageSliderActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
-    </manifest>
+</manifest>

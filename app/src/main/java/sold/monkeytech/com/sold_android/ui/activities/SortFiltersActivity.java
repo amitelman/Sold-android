@@ -23,19 +23,19 @@ public class SortFiltersActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initUi() {
-        mBinding.sortActAZ.setOnClickListener(this);
-        mBinding.sortActZA.setOnClickListener(this);
-        mBinding.sortActPrice.setOnClickListener(this);
-        mBinding.sortActRooms.setOnClickListener(this);
-        mBinding.sortActSize.setOnClickListener(this);
-        mBinding.sortActTime.setOnClickListener(this);
-        mBinding.sortActPriceDown.setOnClickListener(this);
-        mBinding.sortActBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+//        mBinding.sortActAZ.setOnClickListener(this);
+//        mBinding.sortActZA.setOnClickListener(this);
+//        mBinding.sortActPrice.setOnClickListener(this);
+//        mBinding.sortActRooms.setOnClickListener(this);
+//        mBinding.sortActSize.setOnClickListener(this);
+//        mBinding.sortActTime.setOnClickListener(this);
+//        mBinding.sortActPriceDown.setOnClickListener(this);
+//        mBinding.sortActBackBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
     }
 
     @Override
@@ -45,39 +45,39 @@ public class SortFiltersActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void deselectAll(){
-        mBinding.sortActAZV.setVisibility(View.INVISIBLE);
-        mBinding.sortActZAV.setVisibility(View.INVISIBLE);
-        mBinding.sortActPriceV.setVisibility(View.INVISIBLE);
-        mBinding.sortActRoomsV.setVisibility(View.INVISIBLE);
-        mBinding.sortActSizeV.setVisibility(View.INVISIBLE);
-        mBinding.sortActTimeV.setVisibility(View.INVISIBLE);
-        mBinding.sortActPriceDownV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActAZV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActZAV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActPriceV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActRoomsV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActSizeV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActTimeV.setVisibility(View.INVISIBLE);
+//        mBinding.sortActPriceDownV.setVisibility(View.INVISIBLE);
     }
 
     public void selectThis(View view){
-        switch (view.getId()){
-            case R.id.sortActAZ:
-                mBinding.sortActAZV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActZA:
-                mBinding.sortActZAV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActPrice:
-                mBinding.sortActPriceV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActRooms:
-                mBinding.sortActRoomsV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActSize:
-                mBinding.sortActSizeV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActTime:
-                mBinding.sortActTimeV.setVisibility(View.VISIBLE);
-                break;
-            case R.id.sortActPriceDown:
-                mBinding.sortActPriceDownV.setVisibility(View.VISIBLE);
-                break;
-        }
+//        switch (view.getId()){
+//            case R.id.sortActAZ:
+//                mBinding.sortActAZV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActZA:
+//                mBinding.sortActZAV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActPrice:
+//                mBinding.sortActPriceV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActRooms:
+//                mBinding.sortActRoomsV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActSize:
+//                mBinding.sortActSizeV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActTime:
+//                mBinding.sortActTimeV.setVisibility(View.VISIBLE);
+//                break;
+//            case R.id.sortActPriceDown:
+//                mBinding.sortActPriceDownV.setVisibility(View.VISIBLE);
+//                break;
+//        }
     }
 }
 

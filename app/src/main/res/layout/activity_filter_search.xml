@@ -83,36 +83,23 @@
                         android:textSize="14.4sp"
                         app:fontType="MULI_BOLD" />
 
+                    <GridView
+                        android:layout_marginTop="8.8dp"
+                        android:numColumns="4"
+                        android:verticalSpacing="8dp"
+                        android:id="@+id/filterSearchActPropertyGrid"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"/>
+
                     <LinearLayout
+                        android:visibility="gone"
                         android:weightSum="4"
                         android:layout_marginTop="8.8dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <FrameLayout
-                            android:layout_marginRight="4.9dp"
-                            android:layout_weight="1"
-                            android:id="@+id/filterActTypeApartmentMain"
-                            android:layout_width="79.8dp"
-                            android:layout_height="58.5dp"
-                            android:background="@drawable/property_type_bkg_selector">
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:id="@+id/filterActTypeApartment"
-                                android:textSize="9.6sp"
-                                android:textColor="@color/property_type_text_selector"
-                                android:lineSpacingExtra="5.8sp"
-                                android:text="Apartment"
-                                android:layout_marginTop="10.6dp"
-                                android:layout_marginBottom="5.3dp"
-                                app:fontType="MULI_REG"
-                                android:gravity="center"
-                                android:drawableTop="@drawable/type_1_img_selector"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-
-                        </FrameLayout>
 
                         <FrameLayout
                             android:layout_marginRight="4.9dp"
@@ -183,6 +170,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:weightSum="4"
                         android:layout_marginTop="8.8dp"
                         android:orientation="horizontal"
@@ -318,7 +306,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <GridView
+                        android:numColumns="3"
+                        android:verticalSpacing="8dp"
+                        android:id="@+id/filterSearchActAdditionalGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"/>
+
                     <LinearLayout
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -367,6 +363,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_marginTop="12.5dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -417,6 +414,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_marginTop="12.5dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"

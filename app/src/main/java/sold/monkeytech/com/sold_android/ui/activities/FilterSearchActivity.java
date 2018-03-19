@@ -8,15 +8,25 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityFilterSearchBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.KeyboardAndInputUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
+import sold.monkeytech.com.sold_android.framework.models.IdLabel;
+import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
+import sold.monkeytech.com.sold_android.framework.models.PropertyType;
+import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.PropertyTypeAdapter;
 import sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView;
 
 public class FilterSearchActivity extends Activity implements View.OnClickListener {
 
     private ActivityFilterSearchBinding mBinding;
+    private PropertyTypeAdapter typesAdapter;
+    private PropertyFeaturesAdapter featuresAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +44,9 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
     }
 
     private void initPropertyBtns() {
-        mBinding.filterActTypeApartmentMain.setOnClickListener(this);
-        mBinding.filterActTypeGardenMain.setOnClickListener(this);
-        mBinding.filterActTypePenthouseMain.setOnClickListener(this);
-        mBinding.filterActTypeCottageMain.setOnClickListener(this);
-        mBinding.filterActTypeMiniPenthouseMain.setOnClickListener(this);
-        mBinding.filterActTypeDoubleMain.setOnClickListener(this);
-        mBinding.filterActTypeVillaMain.setOnClickListener(this);
-        mBinding.filterActTypeGroundMain.setOnClickListener(this);
+        List<PropertyType> propertyTypeList = MetaDataManager.getInstance().getPropertyTypes();
+        typesAdapter = new PropertyTypeAdapter(this, propertyTypeList);
+        mBinding.filterSearchActPropertyGrid.setAdapter(typesAdapter);
     }
 
     private void initExpandableLayout() {
@@ -78,44 +83,14 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
     }
 
     private void initAddFeaturesBtns() {
-        mBinding.filterActAdditionalFeatTama.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatPool.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatBasement.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatMedia.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatWarehouse.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatHousingUnit.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatElevator.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatMamad.setOnClickListener(this);
-        mBinding.filterActAdditionalFeatParking.setOnClickListener(this);
+        List<IdLabel> propertyFeatures = MetaDataManager.getInstance().getPropertyFeatures();
+        featuresAdapter = new PropertyFeaturesAdapter(this, propertyFeatures);
+        mBinding.filterSearchActAdditionalGridView.setAdapter(featuresAdapter);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.filterActTypeApartmentMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeApartment);
-                break;
-            case R.id.filterActTypeGardenMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeGarden);
-                break;
-            case R.id.filterActTypePenthouseMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypePenthouse);
-                break;
-            case R.id.filterActTypeCottageMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeCottage);
-                break;
-            case R.id.filterActTypeMiniPenthouseMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeMiniPenthouse);
-                break;
-            case R.id.filterActTypeDoubleMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeDouble);
-                break;
-            case R.id.filterActTypeVillaMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeVilla);
-                break;
-            case R.id.filterActTypeGroundMain:
-                setPropertyClickUi(view.isSelected(), view, mBinding.filterActTypeGround);
-                break;
             case R.id.filterActAdditionalFeatTama:
             case R.id.filterActAdditionalFeatPool:
             case R.id.filterActAdditionalFeatBasement:

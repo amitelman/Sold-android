@@ -10,16 +10,19 @@ import android.view.View;
 
 import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.ui.activities.BaseActivity;
+
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityMainBinding;
+import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.ui.fragments.MySoldFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SearchFragment;
+import sold.monkeytech.com.sold_android.ui.fragments.SearchInMapFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SellFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.ServiceFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SettingsFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener, SearchInMapFragment.OnMapFragmentListener {
 
     private static final String SEARCH_FRAGMENT = "searchFragment";
     private static final String SERVICE_FRAGMENT = "serviceFragment";
@@ -53,7 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mainActBBSearchBtn:
                 loadFragment(SEARCH_FRAGMENT);
                 break;
@@ -73,7 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //        loadFragment(fragment, null);
 //    }
 
-    public void loadFragment(String fragmentType){//}, final Bundle bundle) {
+    public void loadFragment(String fragmentType) {//}, final Bundle bundle) {
         switch (fragmentType) {
             case SEARCH_FRAGMENT:
                 setFragmentTransition(new SearchFragment(), fragmentType);
@@ -98,11 +101,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void setFragmentTransition(BaseFragment chosenFrag, String tag, Bundle bundle) {
-        if(tag.equals(currentTag)){
+        if (tag.equals(currentTag)) {
 //            handlePb(false);
             return;
         }
-        if(bundle != null)
+        if (bundle != null)
             chosenFrag.setArguments(bundle);
         currentFrag = chosenFrag;
         currentTag = tag;
@@ -113,13 +116,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ft.replace(R.id.mainActContainer, chosenFrag, tag);
         ft.commit();
 
-        Log.d("wow","MainAct - loading success : " + tag);
+        Log.d("wow", "MainAct - loading success : " + tag);
     }
 
 
     @Override
     public void MySoldFragmentAction(int action) {
-        switch (action){
+        switch (action) {
             case MySoldFragment.SETTINGS:
                 loadFragment(SETTINGS_FRAGMENT);
                 break;
@@ -138,6 +141,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case MySoldFragment.MY_HOME:
 
                 break;
+        }
+    }
+
+    @Override
+    public void onMarkerClick(Property property) {
+        if (currentTag == SEARCH_FRAGMENT) {
+            if (property != null) {
+                ((SearchFragment) currentFrag).setBottomItemAndShow(property);
+            }else{
+                ((SearchFragment) currentFrag).hideBottomItem();
+            }
         }
     }
 }

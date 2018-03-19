@@ -27,7 +27,6 @@ public class PropertyTypeParser extends GeneralParser<PropertyType> {
             propertyType.setId(safeParseLong(jo, "id"));
         }
 
-
         propertyType.setName(safeParseString(jo, "name"));
         propertyType.setIcon(safeParseString(jo, "icon"));
         propertyType.setCreatedAt(safeParseString(jo, "created_at"));

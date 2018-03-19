@@ -47,34 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/sortActAZ"
-                android:gravity="center"
-                android:paddingTop="41.3dp"
-                android:paddingBottom="12.7dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <ImageButton
-                    android:id="@+id/sortActAZV"
-                    android:background="@null"
-                    android:src="@drawable/v"
-                    android:visibility="invisible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:textSize="14.4sp"
-                    android:layout_marginLeft="16.1dp"
-                    android:textColor="@color/dark_grey_blue_two"
-                    android:letterSpacing="-0.02"
-                    android:lineSpacingExtra="2.9sp"
-                    android:text="A-Z"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

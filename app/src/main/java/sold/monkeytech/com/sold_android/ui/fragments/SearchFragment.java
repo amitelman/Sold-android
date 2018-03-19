@@ -2,10 +2,12 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
@@ -35,6 +41,8 @@ import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSearchBinding;
+import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
+import sold.monkeytech.com.sold_android.framework.Utils.KeyboardAndInputUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
 import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
@@ -107,11 +115,12 @@ public class SearchFragment extends BaseFragment {
         mBinding.searchFragAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                InputMethodManager in = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
                 Log.d("wow", "wowclick" );
                 AutoComplete selected = autoCompleteAdapter.getItemById(position);
                 mBinding.searchFragAutoComplete.setText(selected.getName().toString());
                 GeoDataClient mGeoDataClient = Places.getGeoDataClient(getContext(), null);
-
                 mGeoDataClient.getPlaceById(selected.getPlaceId()).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
                     @Override
                     public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
@@ -119,7 +128,7 @@ public class SearchFragment extends BaseFragment {
                             PlaceBufferResponse places = task.getResult();
                             Place myPlace = places.get(0);
                             Log.i("wow", "Place found: " + myPlace.getName());
-                            LatLng placeLocation = myPlace.getLatLng();
+                            final LatLng placeLocation = myPlace.getLatLng();
                             navigateToNewLocation(placeLocation);
                             places.release();
                         } else {
@@ -192,6 +201,37 @@ public class SearchFragment extends BaseFragment {
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
+    public void setBottomItemAndShow(Property property){
+        if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+            View bottomSheet = mBinding.searchFragBottomItemLayout;
+            ;
+            ImageLoaderUtils.loadBigPictureImage(property.getCoverPhoto(), (ImageView)bottomSheet.findViewById(R.id.searchItemBkg), null);
+            ((TextView)bottomSheet.findViewById(R.id.searchItemPrice)).setText(property.getPrice().getFormatted());
+            //todo: locale title\address parser
+            ((TextView)bottomSheet.findViewById(R.id.searchItemTitle)).setText(property.getAddress().getStreetName() + property.getHouseNumber() + " Street");
+            ((TextView)bottomSheet.findViewById(R.id.searchItemAddress)).setText(property.getAddress().getCityName());
+            ((TextView)bottomSheet.findViewById(R.id.searchItemRoomsCounter)).setText(property.getRoomsCount() + "");
+            ((TextView)bottomSheet.findViewById(R.id.searchItemBathCounter)).setText(property.getBathroomCount() + "");
+            ((TextView)bottomSheet.findViewById(R.id.searchItemSize)).setText(property.getFloorArea() + "");
+            ((TextView)bottomSheet.findViewById(R.id.searchItemSqrm)).setText(property.getPlotArea() + "");
+            ((ImageButton)bottomSheet.findViewById(R.id.searchItemFavorite)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //todo: fave!
+                }
+            });
+
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }else{
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
+    }
+
+    public void hideBottomItem() {
+        if(mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED)
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
     private void loadMap() {
         currentFragType = MAP_FRAG;
         mBinding.searchFragSwitchBtn.setImageResource(R.drawable.list);
@@ -248,6 +288,8 @@ public class SearchFragment extends BaseFragment {
             }
         }
     }
+
+
 
 //    private void addBranchMarkers(Branch branch) {
 //        if(branch != null){

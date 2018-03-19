@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/additionalFeatureBkg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:id="@+id/additionalFeatureItem"
+        android:textSize="11.5sp"
+        android:textColor="@color/additional_features_text_selector"
+        android:lineSpacingExtra="3.8sp"
+        android:text="Tamssdfdfdfddsdsdsdsdsda"
+        android:lines="1"
+        android:background="@drawable/property_type_bkg_selector"
+        android:gravity="center"
+        android:paddingLeft="17.9dp"
+        android:paddingRight="22.5dp"
+        android:layout_marginRight="6.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="32.6dp" />
+
+</FrameLayout>
