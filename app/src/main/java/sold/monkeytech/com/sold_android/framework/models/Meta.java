@@ -12,6 +12,14 @@ public class Meta extends BaseModel<Meta> {
     private String key;
     private String value;
 
+    public Meta(String key, String value){
+        setKey(key);
+        setValue(value);
+    }
+
+    public Meta(){
+    }
+
     public String getKey() {
         return key;
     }

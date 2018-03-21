@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import sold.monkeytech.com.sold_android.framework.models.Meta;
 import sold.monkeytech.com.sold_android.framework.models.POI;
+import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.parsers.abs.GeneralParser;
 
 /**
@@ -22,6 +23,11 @@ public class POIParser extends GeneralParser<POI> {
     public POI parseToSingle(JSONObject jo) throws JSONException, InstantiationException, IllegalAccessError {
 
         POI poi = new POI();
+        poi = getObjectFromCache(jo,"id");
+        if(poi == null){
+            poi = new POI();
+            poi.setId(safeParseLong(jo, "id"));
+        }
 
         poi.setName(safeParseString(jo, "name"));
         poi.setDescription(safeParseString(jo, "description"));

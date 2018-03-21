@@ -42,7 +42,7 @@ public class BaseFragment extends Fragment {
     }
 
     public View getView() {
-        return (View)(getView() == null ? new BaseFragment.DummyView(SoldApplication.getContext()) : getView());
+        return (View)(super.getView() == null ? new BaseFragment.DummyView(SoldApplication.getContext()) : super.getView());
     }
 
 

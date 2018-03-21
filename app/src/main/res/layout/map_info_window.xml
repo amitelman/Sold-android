@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/shape_sqr_transparent"
+    android:layoutDirection="ltr"
+    android:layout_width="103.4dp"
+    android:layout_height="65.3dp">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="103.4dp"
+        android:layout_height="59dp">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:background="@color/scarlet"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:gravity="start"
+                android:id="@+id/infoWindowTitle"
+                tools:text="School"
+                android:layout_marginLeft="7dp"
+                android:textSize="10.3sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"/>
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_gravity="center|end"
+                android:layout_marginRight="7dp"
+                android:id="@+id/infoWindowDistance"
+                tools:text="0.8 km"
+                android:textSize="10.3sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/infoWindowName"
+            tools:text="South Point Elemntary School"
+            android:textSize="10.3sp"
+            android:textColor="@color/dark_grey_blue_two"
+            android:gravity="center"
+            android:layout_width="103.4dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:tint="@color/white"
+        android:layout_gravity="center|bottom"
+        android:src="@drawable/shape_triangle2"
+        android:layout_width="wrap_content"
+        android:layout_height="13dp" />
+    
+
+</FrameLayout>

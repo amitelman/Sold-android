@@ -1,7 +1,12 @@
 package sold.monkeytech.com.sold_android.framework.models;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
+import sold.monkeytech.com.sold_android.framework.cache.POICache;
 import sold.monkeytech.com.sold_android.framework.cache.abs.BaseCache;
 import sold.monkeytech.com.sold_android.framework.models.abs.BaseModel;
 
@@ -84,9 +89,24 @@ public class POI extends BaseModel<POI> {
         this.category = category;
     }
 
+    public static ArrayList<Category> getSortedCategories(List<Category> categories){
+        Set set = new TreeSet(new Comparator<Category>() {
+            @Override
+            public int compare(Category o1, Category o2) {
+                if(o1.getId() == (o2.getId())){
+                    return 0;
+                }
+                return 1;
+            }
+        });
+        set.addAll(categories);
+
+        return new ArrayList<>(set);
+    }
+
     @Override
     public BaseCache getInstanceOfCache() {
-        return null;
+        return POICache.getInstance();
     }
 
     @Override

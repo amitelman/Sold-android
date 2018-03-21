@@ -26,15 +26,17 @@
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.activities.SortFiltersActivity"
             android:label="@string/title_activity_sort_filters"
@@ -43,11 +45,13 @@
             android:name=".ui.activities.FilterSearchActivity"
             android:label="@string/title_activity_filter_search"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.activities.PreApprovedActivity"
@@ -90,14 +94,23 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.POIListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".ui.activities.HomeAroundActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.CalculatorActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.ImageSliderActivity">
+        <activity
+            android:name=".ui.activities.ImageSliderActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.activities.TaxHistoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

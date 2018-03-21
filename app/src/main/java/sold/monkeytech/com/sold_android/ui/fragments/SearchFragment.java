@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -37,27 +36,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.monkeytechy.framework.interfaces.TAction;
 
-import java.util.List;
-
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSearchBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
-import sold.monkeytech.com.sold_android.framework.Utils.KeyboardAndInputUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
-import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.AutoComplete;
 import sold.monkeytech.com.sold_android.framework.models.Property;
-import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
 import sold.monkeytech.com.sold_android.ui.activities.SortFiltersActivity;
 import sold.monkeytech.com.sold_android.ui.adapters.AutoCompleteAdapter;
-import sold.monkeytech.com.sold_android.ui.custom_views.ClearableAutoCompleteTextView;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends BaseFragment {
+public class SearchFragment extends BaseFragment implements SearchInMapFragment.OnMapFragmentListener{
 
 
     private static final int LIST_FRAG = 0;
@@ -143,7 +136,7 @@ public class SearchFragment extends BaseFragment {
     private void navigateToNewLocation(LatLng placeLocation) {
         if(currentFragType == MAP_FRAG) {
             ((SearchInMapFragment) currentFrag).animateCamera(placeLocation);
-            ((SearchInMapFragment) currentFrag).getHouseProperties(placeLocation);
+            ((SearchInMapFragment) currentFrag).initPropertiesMarkers(placeLocation);
         }
     }
 
@@ -289,6 +282,21 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onMarkerClick(Property property) {
+        //if this doesnt work,, remove comment in mainActivity
+        if (property != null) {
+            ((SearchFragment) currentFrag).setBottomItemAndShow(property);
+        }else{
+            ((SearchFragment) currentFrag).hideBottomItem();
+        }
+
+    }
+
+    @Override
+    public void onMapTouch() {
+
+    }
 
 
 //    private void addBranchMarkers(Branch branch) {

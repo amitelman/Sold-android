@@ -29,6 +29,7 @@ public class OpenHouseParser extends GeneralParser<OpenHouse> {
         OpenHouse openHouse = null;
         openHouse = getObjectFromCache(jo,"id");
         if(openHouse == null){
+            openHouse = new OpenHouse();
             openHouse.setId(safeParseLong(jo, "id"));
         }
 

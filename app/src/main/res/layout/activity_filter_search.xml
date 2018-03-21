@@ -116,7 +116,6 @@
                                 android:text="Garden \nApartment"
                                 android:layout_marginTop="8.6dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_2_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -139,7 +138,6 @@
                                 android:layout_marginTop="10.6dp"
                                 android:layout_marginBottom="5.3dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_3_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -161,7 +159,6 @@
                                 android:layout_marginTop="10.6dp"
                                 android:layout_marginBottom="5.3dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_4_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -194,7 +191,6 @@
                                 android:layout_marginTop="5.6dp"
                                 android:layout_marginBottom="2.3dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_5_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -217,7 +213,6 @@
                                 android:layout_marginTop="8.6dp"
                                 android:layout_marginBottom="2.3dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_6_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -239,7 +234,6 @@
                                 android:layout_marginTop="10.6dp"
                                 android:layout_marginBottom="5dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_7_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -261,7 +255,6 @@
                                 android:layout_marginTop="8.6dp"
                                 android:layout_marginBottom="5.3dp"
                                 android:gravity="center"
-                                android:drawableTop="@drawable/type_8_img_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 

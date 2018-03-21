@@ -28,6 +28,7 @@ public class PropertyFeaturesParser extends GeneralParser<PropertyFeatures> {
         PropertyFeatures propertyFeatures = null;
         propertyFeatures = getObjectFromCache(jo,"id");
         if(propertyFeatures == null){
+            propertyFeatures = new PropertyFeatures();
             propertyFeatures.setId(safeParseLong(jo, "id"));
         }
 

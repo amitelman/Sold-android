@@ -51,6 +51,7 @@ public class Property extends BaseModel<Property> {
     private Price propertyTax;
     private Price houseCommitteeTax;
     private List<OpenHouse> openHouse;
+    private List<TaxRecord> taxRecords;
     private List<PropertyFeatures> propertyFeatures;
     private List<POI> poi;
 
@@ -332,6 +333,14 @@ public class Property extends BaseModel<Property> {
 
     public void setPropertyFeatures(List<PropertyFeatures> propertyFeatures) {
         this.propertyFeatures = propertyFeatures;
+    }
+
+    public List<TaxRecord> getTaxRecords() {
+        return taxRecords;
+    }
+
+    public void setTaxRecords(List<TaxRecord> taxRecords) {
+        this.taxRecords = taxRecords;
     }
 
     public List<POI> getPoi() {

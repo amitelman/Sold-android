@@ -95,8 +95,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void startMainActivity() {
-        Intent intent = new Intent(SplashActivity.this, FilterSearchActivity.class);
-//        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+//        Intent intent = new Intent(SplashActivity.this, FilterSearchActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

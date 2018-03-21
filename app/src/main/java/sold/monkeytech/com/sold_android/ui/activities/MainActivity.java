@@ -22,7 +22,7 @@ import sold.monkeytech.com.sold_android.ui.fragments.ServiceFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SettingsFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener, SearchInMapFragment.OnMapFragmentListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener{//, SearchInMapFragment.OnMapFragmentListener {
 
     private static final String SEARCH_FRAGMENT = "searchFragment";
     private static final String SERVICE_FRAGMENT = "serviceFragment";
@@ -144,15 +144,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    @Override
-    public void onMarkerClick(Property property) {
-        if (currentTag == SEARCH_FRAGMENT) {
-            if (property != null) {
-                ((SearchFragment) currentFrag).setBottomItemAndShow(property);
-            }else{
-                ((SearchFragment) currentFrag).hideBottomItem();
-            }
-        }
-    }
+//    @Override
+//    public void onMarkerClick(Property property) {
+////        if (currentTag == SEARCH_FRAGMENT) {
+////            if (property != null) {
+////                ((SearchFragment) currentFrag).setBottomItemAndShow(property);
+////            }else{
+////                ((SearchFragment) currentFrag).hideBottomItem();
+////            }
+////        }
+//    }
+//
+//    @Override
+//    public void onMapTouch() {
+//        //do nothing
+//    }
 }
 

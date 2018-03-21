@@ -11,6 +11,7 @@ public class Price extends BaseModel {
 
     private String formatted;
     private int value;
+    private String rounded;
 
     public String getFormatted() {
         return formatted;
@@ -26,6 +27,14 @@ public class Price extends BaseModel {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public String getRounded() {
+        return rounded;
+    }
+
+    public void setRounded(String rounded) {
+        this.rounded = rounded;
     }
 
     public String getShorted(){

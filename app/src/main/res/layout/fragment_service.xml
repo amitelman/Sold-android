@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:layoutDirection="ltr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -15,53 +18,69 @@
             android:orientation="vertical">
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                android:textSize="17.3sp"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:gravity="center"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="6.8sp"
                 android:text="Our Service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/white"
+                android:textSize="17.3sp" />
 
             <ImageButton
-                android:padding="5dp"
-                android:id="@+id/ourServiceFragBackBtn"
-                android:layout_gravity="center_vertical"
-                android:background="@null"
-                android:layout_marginLeft="13.2dp"
-                android:src="@drawable/back"
+                android:id="@+id/myServiceFragBackBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13.2dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/back" />
 
         </FrameLayout>
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <android.support.v4.view.ViewPager
-                android:id="@+id/ourServiceFragViewPager"
+                android:layout_weight="1"
+                android:id="@+id/myServiceActPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"/>
 
-            </android.support.v4.view.ViewPager>
-            <android.support.design.widget.TabLayout
-                android:id="@+id/ourServiceFragDots"
-                android:layout_alignParentBottom="true"
+            <LinearLayout
+                android:layoutDirection="ltr"
+                android:id="@+id/myServiceFragDotsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabBackground="@drawable/vp_circle_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"/>
+                android:layout_height="50dp"
+                android:layout_below="@+id/ourServiceFragViewPager"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal" />
 
-        </RelativeLayout>
 
+        </LinearLayout>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/myServiceActSellBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55.8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_sqr_red"
+            android:gravity="center"
+            android:text="SELL YOUR PROPERTY"
+            android:textColor="@color/white"
+            app:fontType="MULI_BOLD" />
 
     </LinearLayout>
-
 
 
 </layout>

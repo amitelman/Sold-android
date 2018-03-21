@@ -24,6 +24,8 @@ public class PriceParser extends GeneralParser<Price> {
 
         price.setFormatted(safeParseString(jo, "formatted"));
         price.setValue(safeParseInt(jo, "value"));
+        if(!jo.isNull("rounded"))
+            price.setRounded(safeParseString(jo, "rounded"));
 
         return price;
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/expListSecondRowBkg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layoutDirection="ltr"
+    android:layout_height="43.7dp"
+    android:orientation="vertical">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:id="@+id/taxHistoryChildItemDescription"
+        android:gravity="center|start"
+        app:fontType="MULI_REG"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="8.5dp"
+        tools:text="textxtxtxtxtx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:textColor="@color/dark_grey_blue_two"
+        android:textSize="11.5sp" />
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:id="@+id/taxHistoryChildItemTax"
+        android:gravity="center|end"
+        app:fontType="MULI_REG"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="27.5dp"
+        android:layout_marginLeft="8.5dp"
+        android:text="0.8 ml"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:textColor="@color/dark_grey_blue_two"
+        android:textSize="11.5sp" />
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/dark_grey_blue"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>

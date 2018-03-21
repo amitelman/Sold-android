@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/expListFirstRowBkg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/greyish_brown"
+    android:layout_height="34.1dp"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:id="@+id/expListFirstRowText"
+        android:gravity="center|start"
+        app:fontType="MULI_BOLD"
+        android:layout_gravity="start"
+        android:padding="10dp"
+        tools:text="textxtxtxtxtx"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingStart="24dp"
+        android:textColor="@color/white"
+        android:textSize="12.5sp" />
+
+    <ImageView
+        android:id="@+id/expListFirstRowArrow"
+        android:tint="@color/white"
+        android:layout_marginEnd="11dp"
+        android:layout_gravity="center|end"
+        android:src="@drawable/arrow_red_copy_2"
+        android:layout_width="12.5dp"
+        android:layout_height="7.7dp" />
+</FrameLayout>

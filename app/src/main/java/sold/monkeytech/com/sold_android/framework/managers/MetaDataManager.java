@@ -1,20 +1,31 @@
 package sold.monkeytech.com.sold_android.framework.managers;
 
+import android.content.Context;
+
+import com.monkeytechy.framework.interfaces.TAction;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.models.IdLabel;
+import sold.monkeytech.com.sold_android.framework.models.Meta;
+import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.models.PropertyType;
+import sold.monkeytech.com.sold_android.framework.models.ServicePage;
 import sold.monkeytech.com.sold_android.framework.parsers.IdLabelParser;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyFeaturesParser;
+import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyTypeParser;
+import sold.monkeytech.com.sold_android.framework.parsers.ServicePageParser;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 
 
 /**
@@ -64,6 +75,26 @@ public class MetaDataManager {
             }
         }
         return propertyFeatures;
+    }
+
+    public List<ServicePage> getServicePages(){
+        List<ServicePage> servicePages = new ArrayList<>();
+        if(metaData != null && getMetaData().length() != 0){
+            try {
+                servicePages = new ServicePageParser().parseToList(getMetaData().getJSONArray("service_tutorial"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return servicePages;
+    }
+
+    public List<Meta> getMetaDataMap(){
+        List<Meta> meta = new ArrayList<>();
+        meta.add(new Meta("wow","yes"));
+        meta.add(new Meta("wow","no"));
+        meta.add(new Meta("wow","maybe"));
+        return meta;
     }
 }
 

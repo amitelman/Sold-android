@@ -1,5 +1,6 @@
 package sold.monkeytech.com.sold_android.framework.models;
 
+import sold.monkeytech.com.sold_android.framework.cache.CategoryCache;
 import sold.monkeytech.com.sold_android.framework.cache.abs.BaseCache;
 import sold.monkeytech.com.sold_android.framework.models.abs.BaseModel;
 
@@ -29,7 +30,7 @@ public class Category extends BaseModel {
 
     @Override
     public BaseCache getInstanceOfCache() {
-        return null;
+        return CategoryCache.getInstance();
     }
 
     @Override

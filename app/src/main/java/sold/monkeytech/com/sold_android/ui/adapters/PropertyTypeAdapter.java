@@ -143,14 +143,7 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
         return convertView;
     }
 
-    public static Bitmap tintImage(Bitmap bitmap, int color) {
-        Paint paint = new Paint();
-        paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_OVER));
-        Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmapResult);
-        canvas.drawBitmap(bitmap, 0, 0, paint);
-        return bitmapResult;
-    }
+
 }
 
 

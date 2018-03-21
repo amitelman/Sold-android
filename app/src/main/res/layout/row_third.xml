@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/black_20"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    android:padding="10dp">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:text="bbl abla bla"
+        android:textColor="@color/white"
+        android:id="@+id/rowThirdText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="46dp"
+        android:textSize="16sp" />
+
+</LinearLayout>

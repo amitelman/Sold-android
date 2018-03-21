@@ -36,6 +36,7 @@ public class PropertyParser extends GeneralParser<Property> {
 
         property = getObjectFromCache(jo,"id");
         if(property == null){
+            property = new Property();
             property.setId(safeParseLong(jo, "id"));
         }
 
@@ -89,7 +90,8 @@ public class PropertyParser extends GeneralParser<Property> {
 
             if(!jo.isNull("property_features"))
                 property.setPropertyFeatures(new PropertyFeaturesParser().parseToList(jo.getJSONArray("property_features")));
-
+            if(!jo.isNull("tax_records"))
+                property.setTaxRecords(new TaxRecordParser().parseToList(jo.getJSONArray("tax_records")));
             if(!jo.isNull("pois"))
                 property.setPoi(new POIParser().parseToList(jo.getJSONArray("pois")));
             if(!jo.isNull("nearby_properties"))

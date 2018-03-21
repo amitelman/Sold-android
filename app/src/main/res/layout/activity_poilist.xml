@@ -3,58 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-        <LinearLayout
-            android:orientation="vertical"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@color/dark_grey_blue"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_header_height"
-                android:background="@color/dark_grey_blue"
-                android:layoutDirection="ltr"
-                android:orientation="vertical">
+            <!--<sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView-->
+            <!--android:id="@+id/poiListActEditBtn"-->
+            <!--android:textSize="13.4sp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:text="Edit"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingRight="15.7dp"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent" />-->
 
-                <!--<sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView-->
-                    <!--android:id="@+id/poiListActEditBtn"-->
-                    <!--android:textSize="13.4sp"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:text="Edit"-->
-                    <!--android:paddingLeft="5dp"-->
-                    <!--android:paddingRight="15.7dp"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent" />-->
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="6.8sp"
+                android:text="List of the POI in the area"
+                android:textColor="@color/white"
+                android:textSize="17.3sp" />
 
-                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:textSize="17.3sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:letterSpacing="-0.02"
-                    android:lineSpacingExtra="6.8sp"
-                    android:text="List of the POI in the area"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/poiListActBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13.2dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/back" />
 
-                <ImageButton
-                    android:padding="5dp"
-                    android:id="@+id/poiListActBackBtn"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:layout_marginLeft="13.2dp"
-                    android:src="@drawable/back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+        </FrameLayout>
 
-            </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <ExpandableListView
                 android:id="@+id/poiListActListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:divider="@color/white"
+                android:dividerHeight="9.1dp" />
 
-            </LinearLayout>
+        </FrameLayout>
 
-    </layout>
+    </LinearLayout>
+
+</layout>

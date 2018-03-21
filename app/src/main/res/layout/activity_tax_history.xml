@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layoutDirection="ltr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@color/dark_grey_blue"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="6.8sp"
+                android:textColor="@color/white"
+                android:textSize="17.3sp"
+                tools:text="History of paid taxes" />
+
+            <ImageButton
+                android:id="@+id/homeAroundActBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13.2dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/back" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:paddingRight="17dp"
+            android:paddingLeft="17dp"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_marginTop="23.7dp"
+                app:fontType="MULI_BOLD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12.5sp"
+                android:textColor="@color/dark_grey_blue_two"
+                android:text="About History &amp; Taxes Data"/>
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11.5sp"
+                android:layout_marginTop="10.7dp"
+                android:textColor="@color/dark_grey_blue_two"
+                android:lineSpacingExtra="5.5sp"
+                android:text="The price and tax history data displayed is obtained from public records and/or MLS feeds from the local jurisdiction. Contact your REALTOR® directly in order to obtain the most up-to-date information available."/>
+
+            <View
+                android:layout_marginTop="17dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_grey_blue"/>
+
+            <ExpandableListView
+                android:id="@+id/taxHistoryActList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>
