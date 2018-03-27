@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved1Binding;
@@ -21,15 +22,19 @@ import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 public class PreApproved3Fragment extends BaseFragment {
 
 
+    private static final int SELF_EMPLOYED = 0;
+    private static final int EMPLOYEE = 1;
+
     private FragmentPreApproved3Binding mBinding;
     public On3Listener listener;
+    private int employmentStatus = 0;
 
     public PreApproved3Fragment() {
         // Required empty public constructor
     }
 
     public interface On3Listener{
-        void onFrag3();
+        void onFrag3(int employmentStatus);
     }
 
     @Override
@@ -60,9 +65,32 @@ public class PreApproved3Fragment extends BaseFragment {
         mBinding.preApproved3ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag3();
+                listener.onFrag3(employmentStatus);
             }
         });
+
+        mBinding.preApproved3ActSelfEmployed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                unCheckAll();
+                buttonView.setChecked(isChecked);
+                employmentStatus = SELF_EMPLOYED;
+            }
+        });
+
+        mBinding.preApproved3ActEmployee.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                unCheckAll();
+                buttonView.setChecked(isChecked);
+                employmentStatus = EMPLOYEE;
+            }
+        });
+    }
+
+    private void unCheckAll() {
+        mBinding.preApproved3ActSelfEmployed.setChecked(false);
+        mBinding.preApproved3ActEmployee.setChecked(false);
     }
 
 }

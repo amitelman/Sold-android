@@ -25,7 +25,7 @@
                 android:lineSpacingExtra="6.8sp"
                 android:textColor="@color/white"
                 android:textSize="17.3sp"
-                tools:text="History of paid taxes" />
+                android:text="History of paid taxes" />
 
             <ImageButton
                 android:id="@+id/homeAroundActBackBtn"

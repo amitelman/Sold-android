@@ -29,7 +29,7 @@ public class PreApproved4Fragment extends BaseFragment {
     }
 
     public interface On4Listener{
-        void onFrag4();
+        void onFrag4(String occupation);
     }
 
     @Override
@@ -57,10 +57,11 @@ public class PreApproved4Fragment extends BaseFragment {
     }
 
     private void initUi() {
+        final String occupation = mBinding.preApproved4ActInput.getText().toString();
         mBinding.preApproved4ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag4();
+                listener.onFrag4(occupation);
             }
         });
     }

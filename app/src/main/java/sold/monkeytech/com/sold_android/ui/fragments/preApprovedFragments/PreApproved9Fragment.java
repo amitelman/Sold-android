@@ -29,7 +29,7 @@ public class PreApproved9Fragment extends BaseFragment {
     }
 
     public interface On9Listener{
-        void onFrag9();
+        void onFrag9(String otherIncome);
     }
 
     @Override
@@ -57,10 +57,12 @@ public class PreApproved9Fragment extends BaseFragment {
     }
 
     private void initUi() {
+        final String otherIncome = mBinding.preApproved9ActInput.getText().toString();
+
         mBinding.preApproved9ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag9();
+                listener.onFrag9(otherIncome);
             }
         });
     }

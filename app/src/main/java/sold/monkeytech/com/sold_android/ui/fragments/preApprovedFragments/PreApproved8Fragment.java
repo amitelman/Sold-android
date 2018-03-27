@@ -29,7 +29,7 @@ public class PreApproved8Fragment extends BaseFragment {
     }
 
     public interface On8Listener{
-        void onFrag8();
+        void onFrag8(int disposableIncome);
     }
 
     @Override
@@ -57,10 +57,12 @@ public class PreApproved8Fragment extends BaseFragment {
     }
 
     private void initUi() {
+        final int disposableIncome = Integer.parseInt(mBinding.preApproved8ActInput.getText().toString());
+
         mBinding.preApproved8ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag8();
+                listener.onFrag8(disposableIncome);
             }
         });
     }

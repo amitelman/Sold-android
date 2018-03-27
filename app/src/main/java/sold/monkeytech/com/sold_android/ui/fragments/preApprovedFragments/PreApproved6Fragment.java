@@ -29,7 +29,7 @@ public class PreApproved6Fragment extends BaseFragment {
     }
 
     public interface On6Listener{
-        void onFrag6();
+        void onFrag6(int monthlyIncome);
     }
 
     @Override
@@ -57,10 +57,12 @@ public class PreApproved6Fragment extends BaseFragment {
     }
 
     private void initUi() {
+        final int monthlyIncome = Integer.parseInt(mBinding.preApproved6ActInput.getText().toString());
+
         mBinding.preApproved6ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag6();
+                listener.onFrag6(monthlyIncome);
             }
         });
     }

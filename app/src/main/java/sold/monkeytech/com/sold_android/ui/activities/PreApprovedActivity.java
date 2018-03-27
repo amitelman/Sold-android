@@ -51,6 +51,18 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
     private BaseFragment currentFrag;
     private String currentTag;
 
+    //submit params
+    private int purchaseType;
+    private int loanAmount;
+    private int employmentStatus;
+    private String occupation;
+    private int seniority;
+    private int monthlyIncome;
+    private int childCount;
+    private int disposableIncome;
+    private String otherIncome;
+    private int fixesExpanses;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,59 +146,69 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
         Log.d("wow","MainAct - loading success : " + tag);
     }
 
-
     @Override
     public void onStartFrag() {
         loadFragment(FRAG1);
     }
 
     @Override
-    public void onFrag1() {
+    public void onFrag1(int purchaseType) {
+        this.purchaseType = purchaseType;
         loadFragment(FRAG2);
     }
 
     @Override
-    public void onFrag2() {
+    public void onFrag2(int loanAmount) {
+        //todo: should add equity??
+        this.loanAmount = loanAmount;
         loadFragment(FRAG3);
     }
 
     @Override
-    public void onFrag3() {
+    public void onFrag3(int employmentStatus) {
+        this.employmentStatus = employmentStatus;
         loadFragment(FRAG4);
     }
 
     @Override
-    public void onFrag4() {
+    public void onFrag4(String occupation) {
+        this.occupation = occupation;
         loadFragment(FRAG5);
     }
 
     @Override
-    public void onFrag5() {
+    public void onFrag5(int seniority) {
+        this.seniority = seniority;
         loadFragment(FRAG6);
     }
 
     @Override
-    public void onFrag6() {
+    public void onFrag6(int monthlyIncome) {
+        this.monthlyIncome = monthlyIncome;
         loadFragment(FRAG7);
     }
 
     @Override
-    public void onFrag7() {
+    public void onFrag7(int childCount) {
+        this.childCount = childCount;
         loadFragment(FRAG8);
     }
 
     @Override
-    public void onFrag8() {
+    public void onFrag8(int disposableIncome) {
+        this.disposableIncome = disposableIncome;
         loadFragment(FRAG9);
     }
 
     @Override
-    public void onFrag9() {
+    public void onFrag9(String otherIncome) {
+        this.otherIncome = otherIncome;
         loadFragment(FRAG10);
     }
 
     @Override
-    public void onFrag10() {
+    public void onFrag10(int fixesExpanses) {
+        this.fixesExpanses = fixesExpanses;
         loadFragment(FRAG11);
     }
 

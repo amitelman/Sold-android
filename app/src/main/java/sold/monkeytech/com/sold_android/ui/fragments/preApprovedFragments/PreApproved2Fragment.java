@@ -27,13 +27,14 @@ public class PreApproved2Fragment extends BaseFragment {
 
     private FragmentPreApproved2Binding mBinding;
     public On2Listener listener;
+    private int loanAmount = 0;
 
     public PreApproved2Fragment() {
         // Required empty public constructor
     }
 
     public interface On2Listener{
-        void onFrag2();
+        void onFrag2(int loanAmout);
     }
 
     @Override
@@ -66,6 +67,7 @@ public class PreApproved2Fragment extends BaseFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mBinding.preApproved2ActAmount.setText(progress + "");
+                loanAmount = progress;
             }
 
             @Override
@@ -91,6 +93,7 @@ public class PreApproved2Fragment extends BaseFragment {
                 if(!TextUtils.isEmpty(input)){
                     mBinding.preApproved2ActSeekBar.setProgress(Integer.parseInt(input));
                     mBinding.preApproved2ActAmount.setSelection(mBinding.preApproved2ActAmount.getText().length());
+                    loanAmount = Integer.parseInt(input);
                 }
             }
 
@@ -103,7 +106,8 @@ public class PreApproved2Fragment extends BaseFragment {
         mBinding.preApproved2ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag2();
+                // todo : is there minimum loan amount ?
+                listener.onFrag2(loanAmount);
             }
         });
     }

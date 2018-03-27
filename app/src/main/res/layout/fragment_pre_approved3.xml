@@ -62,7 +62,7 @@
 
                 <CheckBox
                     android:padding="5dp"
-                    android:id="@+id/preApproved3ActFirstHome"
+                    android:id="@+id/preApproved3ActSelfEmployed"
                     android:button="@drawable/cb_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="17.7dp" />
@@ -87,7 +87,7 @@
 
                 <CheckBox
                     android:padding="5dp"
-                    android:id="@+id/preApproved3ActSellToBuy"
+                    android:id="@+id/preApproved3ActEmployee"
                     android:button="@drawable/cb_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="17.7dp" />

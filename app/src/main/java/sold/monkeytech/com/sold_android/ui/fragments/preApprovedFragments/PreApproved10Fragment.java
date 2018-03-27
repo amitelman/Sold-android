@@ -29,7 +29,7 @@ public class PreApproved10Fragment extends BaseFragment {
     }
 
     public interface On10Listener{
-        void onFrag10();
+        void onFrag10(int fixesExpanses);
     }
 
     @Override
@@ -57,10 +57,12 @@ public class PreApproved10Fragment extends BaseFragment {
     }
 
     private void initUi() {
+        final int fixesExpanses = Integer.parseInt(mBinding.preApproved10ActInput.getText().toString());
+
         mBinding.preApproved10ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag10();
+                listener.onFrag10(fixesExpanses);
             }
         });
     }

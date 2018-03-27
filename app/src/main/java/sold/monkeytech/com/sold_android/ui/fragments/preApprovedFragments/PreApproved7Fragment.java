@@ -29,13 +29,14 @@ public class PreApproved7Fragment extends BaseFragment {
     private FragmentPreApproved7Binding mBinding;
     public On7Listener listener;
     private TextView inputView;
+    private int childCount = 0;
 
     public PreApproved7Fragment() {
         // Required empty public constructor
     }
 
     public interface On7Listener{
-        void onFrag7();
+        void onFrag7(int childCount);
     }
 
     @Override
@@ -79,6 +80,7 @@ public class PreApproved7Fragment extends BaseFragment {
                     inputView.invalidate();
                 }
                 inputView.setText(String.valueOf(progress) + "");
+                childCount = progress;
             }
 
             @Override
@@ -95,7 +97,7 @@ public class PreApproved7Fragment extends BaseFragment {
         mBinding.preApproved7ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag7();
+                listener.onFrag7(childCount);
             }
         });
     }

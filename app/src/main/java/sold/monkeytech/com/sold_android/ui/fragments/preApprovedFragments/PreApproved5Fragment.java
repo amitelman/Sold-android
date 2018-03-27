@@ -29,13 +29,14 @@ public class PreApproved5Fragment extends BaseFragment {
     private FragmentPreApproved5Binding mBinding;
     public On5Listener listener;
     private TextView inputView;
+    private int seniority = 0;
 
     public PreApproved5Fragment() {
         // Required empty public constructor
     }
 
     public interface On5Listener{
-        void onFrag5();
+        void onFrag5(int seniority);
     }
 
     @Override
@@ -79,6 +80,7 @@ public class PreApproved5Fragment extends BaseFragment {
                     inputView.invalidate();
                 }
                 inputView.setText(String.valueOf(progress) + " years");
+                seniority = progress;
             }
 
             @Override
@@ -95,7 +97,7 @@ public class PreApproved5Fragment extends BaseFragment {
         mBinding.preApproved5ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag5();
+                listener.onFrag5(seniority);
             }
         });
     }
