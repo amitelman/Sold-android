@@ -6,7 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="#f7f5f5"
         android:layoutDirection="ltr">
 
         <android.support.design.widget.CoordinatorLayout
@@ -17,7 +17,7 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="#f7f5f5"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
@@ -26,121 +26,150 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_marginLeft="21.8dp"
-                        android:layout_marginRight="20.8dp"
+                        android:layout_marginLeft="13.8dp"
+                        android:layout_marginRight="13.8dp"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:layout_marginTop="16dp"
+                            android:paddingRight="7.7dp"
+                            android:paddingLeft="8dp"
+                            android:background="@drawable/shadowed_box"
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal">
+                            android:layout_height="156.3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|start"
+                                    android:layout_marginLeft="7.5dp"
+                                    android:drawablePadding="15.3dp"
+                                    android:drawableRight="@drawable/shape_crcle_dark"
+                                    android:text="125 Benton Ave"
+                                    android:id="@+id/propertyActTitle"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="19.2sp"
+                                    app:fontType="MULI_BOLD" />
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginRight="8.5dp"
+                                    android:gravity="end"
+                                    android:id="@+id/propertyActPrice"
+                                    android:text="$ 40 550 000"
+                                    android:textColor="@color/lipstick"
+                                    android:textSize="19.2sp"
+                                    app:fontType="MULI_EX_BOLD" />
+
+                            </LinearLayout>
 
                             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center|start"
                                 android:layout_marginLeft="7.5dp"
-                                android:drawablePadding="15.3dp"
-                                android:drawableRight="@drawable/shape_crcle_dark"
-                                android:text="125 Benton Ave"
+                                android:layout_marginTop="11.7dp"
+                                android:text="test string"
+                                android:id="@+id/propertyActAddress"
                                 android:textColor="@color/dark_grey_blue_two"
-                                android:textSize="19.2sp"
-                                app:fontType="MULI_BOLD" />
+                                android:textSize="12sp" />
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="14.2dp"
+                                android:background="@drawable/shape_line_red" />
+
+                            <LinearLayout
+                                android:gravity="center|start"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginRight="8.5dp"
-                                android:gravity="end"
-                                android:text="$ 40 550 000"
-                                android:textColor="@color/lipstick"
-                                android:textSize="19.2sp"
-                                app:fontType="MULI_EX_BOLD" />
+                                android:layout_marginTop="22.6dp"
+                                android:orientation="horizontal">
 
-                        </LinearLayout>
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/propertyActRoomsCounter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="12.9dp"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:drawableStart="@drawable/bed"
+                                    android:drawablePadding="5dp"
+                                    android:text="4"
+                                    android:textSize="11.5sp" />
 
-                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7.5dp"
-                            android:layout_marginTop="11.7dp"
-                            android:text="test string"
-                            android:textColor="@color/dark_grey_blue_two"
-                            android:textSize="12sp" />
+                                <View
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"/>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_marginTop="14.2dp"
-                            android:background="@drawable/shape_line_red" />
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/propertyActBathCounter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableStart="@drawable/shower"
+                                    android:drawablePadding="5dp"
+                                    android:text="4"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="11.5sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="23.6dp"
-                            android:orientation="horizontal"
-                            android:paddingBottom="21.3dp"
-                            android:weightSum="4">
+                                <View
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"/>
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:id="@+id/propertyActRoomsCounter"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="30.6dp"
-                                android:layout_weight="1"
-                                android:drawableLeft="@drawable/bed"
-                                android:drawablePadding="5dp"
-                                android:text="4"
-                                android:textSize="11.5sp" />
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/propertyActSize"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableStart="@drawable/icon_proprties_size"
+                                    android:drawablePadding="5dp"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="11.5sp"
+                                    tools:text="4" />
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:id="@+id/propertyActBathCounter"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="30.6dp"
-                                android:layout_weight="1"
-                                android:drawableLeft="@drawable/shower"
-                                android:drawablePadding="5dp"
-                                android:text="4"
-                                android:textColor="@color/dark_grey_blue_two"
-                                android:textSize="11.5sp" />
+                                <View
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"/>
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:id="@+id/propertyActSize"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="30.6dp"
-                                android:layout_weight="1"
-                                android:drawableLeft="@drawable/icon_proprties_size"
-                                android:drawablePadding="5dp"
-                                android:textColor="@color/dark_grey_blue_two"
-                                android:textSize="11.5sp"
-                                tools:text="4" />
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/propertyActSqrm"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_marginRight="13.7dp"
+                                    android:drawableStart="@drawable/house_size"
+                                    android:drawablePadding="5dp"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="11.5sp"
+                                    tools:text="4" />
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:id="@+id/propertyActSqrm"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="30.6dp"
-                                android:layout_marginRight="9dp"
-                                android:layout_weight="1"
-                                android:drawableLeft="@drawable/house_size"
-                                android:drawablePadding="5dp"
-                                android:textColor="@color/dark_grey_blue_two"
-                                android:textSize="11.5sp"
-                                tools:text="4" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:paddingEnd="7.7dp"
+                            android:paddingStart="8dp"
+                            android:paddingTop="13.5dp"
+                            android:paddingBottom="9.6dp"
+                            android:background="@drawable/shadowed_box"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="31.1dp"
@@ -157,7 +186,7 @@
                                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:drawableLeft="@drawable/arrow_red_copy_2"
+                                    android:drawableStart="@drawable/tour"
                                     android:drawablePadding="10dp"
                                     android:text="Go tour this house"
                                     android:textColor="@color/lipstick"
@@ -167,28 +196,32 @@
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="2dp"
-                                    android:layout_marginLeft="22.3dp"
+                                    android:layout_marginStart="22.3dp"
                                     android:background="@drawable/shape_line_dark" />
 
                                 <android.support.v7.widget.RecyclerView
+                                    android:layout_marginTop="16.8dp"
                                     android:id="@+id/propertyActDaysRecyclerView"
                                     android:layout_width="match_parent"
                                     android:layout_height="80.2dp"
-                                    android:layout_marginLeft="-5dp"
-                                    android:layout_marginRight="-20.8dp" />
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginStart="5dp" />
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/propertyActHoursRecyclerView"
                                     android:layout_width="match_parent"
                                     android:layout_height="31.7dp"
-                                    android:layout_marginLeft="-5dp"
-                                    android:layout_marginRight="-20.8dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginStart="5dp"
                                     android:layout_marginTop="3.4dp" />
 
                                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/propertyActRequestAShow"
+                                    android:clickable="false"
+                                    android:alpha="0.5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="9dp"
+                                    android:layout_marginStart="9dp"
                                     android:layout_marginTop="27.8dp"
                                     android:background="@drawable/shape_sqr_red"
                                     android:gravity="center"
@@ -204,6 +237,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="11.3dp"
                                     android:gravity="center"
+                                    android:layout_marginBottom="9.6dp"
                                     android:letterSpacing="-0.02"
                                     android:lineSpacingExtra="0.5sp"
                                     android:text="It’s free, with no obligation — cancel anytime"
@@ -215,6 +249,12 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility=""
+                            android:paddingRight="7.7dp"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="13.5dp"
+                            android:paddingBottom="8.5dp"
+                            android:background="@drawable/shadowed_box"
                             android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -247,7 +287,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="46.7dp"
+                                    android:layout_marginLeft="38.7dp"
                                     android:layout_marginRight="14.6dp"
                                     android:layout_marginTop="17dp"
                                     android:orientation="horizontal"
@@ -270,7 +310,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsStatus"
+                                            android:id="@+id/propertyActStatus"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -300,7 +340,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsPrice"
+                                            android:id="@+id/propertyActPricePSq"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -330,7 +370,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsType"
+                                            android:id="@+id/propertyActType"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -348,7 +388,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="46.7dp"
+                                    android:layout_marginLeft="38.7dp"
                                     android:layout_marginRight="14.6dp"
                                     android:layout_marginTop="17dp"
                                     android:orientation="horizontal"
@@ -371,7 +411,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsBuild"
+                                            android:id="@+id/propertyActBuild"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -401,7 +441,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsParking"
+                                            android:id="@+id/propertyActParking"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -431,7 +471,7 @@
                                             android:textSize="11.5sp" />
 
                                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                            android:id="@+id/propertyActDetailsTama"
+                                            android:id="@+id/propertyActTama"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginLeft="16.3dp"
@@ -448,11 +488,14 @@
 
                                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="29.3dp"
+                                    android:layout_height="62dp"
+                                    android:id="@+id/propertyActDescription"
+                                    android:layout_marginTop="24.3dp"
                                     android:ellipsize="end"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginStart="5dp"
                                     android:lineSpacingExtra="5.5sp"
-                                    android:lines="4"
+                                    android:lines="3"
                                     android:textColor="@color/dark_grey_blue_two"
                                     android:textSize="11.5sp"
                                     tools:text="Amazing views from this townhouse-style condominium at Telegraph Landing. 2 bedrooms, 2 1/2 baths with PRIVATE ROOF DECK. Relax and watch the cruise ships from the living room or the roof deck as they dock at Pier 27. Views of Bay Bridge...
@@ -463,11 +506,12 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginTop="16.7dp"
+                                    android:layout_marginTop="6.7dp"
+                                    android:layout_marginBottom="5dp"
                                     android:gravity="center_horizontal"
                                     android:letterSpacing="-0.02"
                                     android:lineSpacingExtra="-1.4sp"
-                                    android:text="Read More"
+                                    android:text="@string/read_more"
                                     android:textColor="@color/scarlet"
                                     android:textSize="14.4sp"
                                     app:fontType="MULI_BOLD" />
@@ -477,18 +521,29 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:paddingTop="9.6dp"
+                            android:paddingLeft="5.7dp"
+                            android:background="@drawable/shadowed_box"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:textSize="13.4sp"
-                                android:textColor="@color/scarlet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/homes_around_copy"
+                                android:drawablePadding="7.7dp"
                                 android:text="Property Features"
-                                app:fontType="MULI_BOLD"
-                                android:layout_marginTop="26.7dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:textColor="@color/lipstick"
+                                android:textSize="19.2sp"
+                                app:fontType="MULI_EX_BOLD" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="35.3dp"
+                                android:background="@drawable/shape_line_dark" />
 
                             <ListView
                                 android:layout_marginTop="16dp"
@@ -499,38 +554,177 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="8.8dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shadowed_box"
                             android:id="@+id/propertyActPOILayout"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/poi"
+                                android:drawablePadding="7.7dp"
+                                android:text="List of the POI in the area"
+                                android:textColor="@color/lipstick"
+                                android:textSize="19.2sp"
+                                app:fontType="MULI_EX_BOLD" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="35.3dp"
+                                android:background="@drawable/shape_line_dark" />
+
+                            <FrameLayout
+                                android:id="@+id/propertyActPOIContainer"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"/>
 
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="8.8dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shadowed_box"
                             android:id="@+id/propertyActCalculatorLayout"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/calculator"
+                                android:drawablePadding="7.7dp"
+                                android:text="Calculators"
+                                android:textColor="@color/lipstick"
+                                android:textSize="19.2sp"
+                                app:fontType="MULI_EX_BOLD" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="35.3dp"
+                                android:background="@drawable/shape_line_dark" />
+
+                            <include
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                layout="@layout/calculator_layout"/>
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/propertyActTaxLayout"
+                            tools:visibility="gone"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="8.8dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shadowed_box"
+                            android:id="@+id/propertyActHistoryLayout"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/history_copy"
+                                android:drawablePadding="7.7dp"
+                                android:text="History of deals"
+                                android:textColor="@color/lipstick"
+                                android:textSize="19.2sp"
+                                app:fontType="MULI_EX_BOLD" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="35.3dp"
+                                android:background="@drawable/shape_line_dark" />
+
+                            <ListView
+                                android:layout_marginTop="13dp"
+                                android:id="@+id/propertyActHistoryList"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
+                            
+                            <View
+                                android:background="@color/dark_grey_blue_two"
+                                android:layout_width="match_parent"
+                                android:layout_height="1.9dp"/>
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:textSize="14.4sp"
+                                android:layout_marginTop="15.2dp"
+                                android:layout_marginBottom="14.5dp"
+                                android:textColor="@color/scarlet"
+                                android:letterSpacing="-0.02"
+                                android:lineSpacingExtra="-1.4sp"
+                                android:gravity="center_horizontal"
+                                android:text="See all History of deals"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="8.8dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/shadowed_box"
                             android:id="@+id/propertyActAroundLayout"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/homes_around_copy"
+                                android:drawablePadding="7.7dp"
+                                android:text="Homes around This Property"
+                                android:textColor="@color/lipstick"
+                                android:textSize="19.2sp"
+                                app:fontType="MULI_EX_BOLD" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginLeft="35.3dp"
+                                android:background="@drawable/shape_line_dark" />
+                            
+                            <FrameLayout
+                                android:layout_marginTop="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="199.2dp"/>
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                android:textSize="14.4sp"
+                                android:layout_marginTop="13.5dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:textColor="@color/scarlet"
+                                android:letterSpacing="-0.02"
+                                android:lineSpacingExtra="-1.4sp"
+                                android:gravity="center_horizontal"
+                                android:drawableLeft="@drawable/icon_tab_map_normal_copy"
+                                android:text="See more on map"
+                                android:drawablePadding="9.3dp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
@@ -557,6 +751,13 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
 
                             <ImageView
                                 android:id="@+id/propertyActMailShare"
+                                android:layout_marginLeft="18dp"
+                                android:src="@drawable/whatsapp_share_copy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/propertyActFacebookShare"
                                 android:layout_marginLeft="18dp"
                                 android:src="@drawable/whatsapp_share_copy"
                                 android:layout_width="wrap_content"
@@ -591,16 +792,17 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         android:layout_height="0.5dp"/>
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:layout_marginTop="16.6dp"
+                        android:paddingTop="16.6dp"
                         android:layout_gravity="center"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="10.6sp"
-                        android:layout_marginBottom="22dp"
+                        android:paddingBottom="22dp"
+                        android:background="@color/white"
                         android:textColor="@color/dark_grey_blue_two"
                         android:lineSpacingExtra="2.9sp"
                         android:gravity="center_horizontal"
-                        tools:text="Property ID:A10305903. Association of SOLD.®.
+                        android:text="Property ID:A10305903. Association of SOLD.®.
 All rights reserved."/>
 
                 </LinearLayout>
@@ -608,10 +810,11 @@ All rights reserved."/>
             </android.support.v4.widget.NestedScrollView>
 
             <android.support.design.widget.AppBarLayout
+                tools:visibility="visible"
                 android:id="@+id/propertyActAppbar"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:background="@color/white"
+                android:background="#f7f5f5"
                 android:visibility="visible">
 
                 <android.support.design.widget.CollapsingToolbarLayout
@@ -640,26 +843,37 @@ All rights reserved."/>
                         android:visibility="visible"
                         app:layout_collapseMode="pin" />
 
-                    <FrameLayout
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="horizontal"
                         android:id="@+id/propertyAct3dLayout"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginTop="190dp"
-                        android:background="@drawable/shape_crcle_red">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp">
+
+                        <ImageView
+                            android:layout_marginRight="6dp"
+                            android:background="@drawable/shape_crcle_dark_white_stroke"
+                            android:src="@drawable/play"
+                            android:padding="7dp"
+                            android:layout_width="25.9dp"
+                            android:layout_height="wrap_content" />
 
                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:drawableLeft="@drawable/icon_tab_3_d_normal_copy"
-                            android:drawablePadding="6dp"
-                            android:text="3D"
+                            android:shadowColor="#87000000"
+                            android:shadowDx="6.123233995736766e-17"
+                            android:shadowDy="1"
+                            android:shadowRadius="4"
+                            android:textSize="12.6sp"
                             android:textColor="@color/white"
-                            android:textSize="12.4sp" />
+                            android:letterSpacing="0.02"
+                            android:lineSpacingExtra="2.9sp"
+                            android:text="Start 3D tour" />
 
-                    </FrameLayout>
+                    </LinearLayout>
 
 
                     <LinearLayout
@@ -686,10 +900,10 @@ All rights reserved."/>
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:drawableLeft="@drawable/icon_tab_photos_selected_copy"
+                                android:drawableLeft="@drawable/icon_tab_photos_selector"
                                 android:drawablePadding="6dp"
                                 android:text="Photos"
-                                android:textColor="@color/red_white_text_selector"
+                                android:textColor="@color/blue_white_text_selector"
                                 android:textSize="11.5sp" />
 
                         </FrameLayout>
@@ -709,7 +923,7 @@ All rights reserved."/>
                                 android:drawableLeft="@drawable/icon_tab_map_normal_copy"
                                 android:drawablePadding="6dp"
                                 android:text="Map View"
-                                android:textColor="@color/red_white_text_selector"
+                                android:textColor="@color/blue_white_text_selector"
                                 android:textSize="11.5sp" />
 
                         </FrameLayout>
@@ -722,12 +936,12 @@ All rights reserved."/>
         </android.support.design.widget.CoordinatorLayout>
 
         <LinearLayout
+            android:background="@drawable/white_transparent_gradiant"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="top"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="14.7dp"
-            android:layout_marginTop="5dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="14.7dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -760,7 +974,7 @@ All rights reserved."/>
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:background="@null"
-                android:src="@drawable/heart_full" />
+                android:src="@drawable/heart_empty" />
 
         </LinearLayout>
 

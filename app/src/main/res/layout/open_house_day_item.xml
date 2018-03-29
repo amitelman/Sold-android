@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:id="@+id/dayItemBkg"
+        android:layout_width="71dp"
+        android:gravity="center"
+        android:layout_height="71dp"
+        android:background="@drawable/open_house_bkg_selector">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/dayItemDay"
+            android:textSize="9.6sp"
+            android:textColor="@color/open_house_text_color_selector"
+            android:text="SUNDAY"
+            app:fontType="MULI_REG"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/dayItemNumber"
+            android:textSize="22.1sp"
+            android:textColor="@color/open_house_text_color_selector"
+            android:text="18"
+            app:fontType="MULI_EX_BOLD"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/dayItemMounth"
+            android:textSize="9.6sp"
+            android:textColor="@color/open_house_text_color_selector"
+            android:text="OCT"
+            app:fontType="MULI_BOLD"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/dayItemArrow"
+        android:layout_gravity="center"
+        android:rotation="90"
+        android:layout_marginTop="-4dp"
+        android:src="@drawable/shape_triangle"
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+</LinearLayout>

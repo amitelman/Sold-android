@@ -2,20 +2,32 @@ package sold.monkeytech.com.sold_android.ui.activities;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityPropertyPageBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
+import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
+import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
+import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PicturesSliderAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
 
 public class PropertyPageActivity extends BaseActivity {
 
@@ -23,6 +35,7 @@ public class PropertyPageActivity extends BaseActivity {
     private PicturesSliderAdapter pagerAdapter;
     private int dotscount;
     private ImageView[] dots;
+    private OpenHouseHoursAdapter hoursAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +49,86 @@ public class PropertyPageActivity extends BaseActivity {
     private void initUi() {
 
         initHeaderPager();
+        getProperty();
     }
+
+    private void getProperty() {
+        final Handler handler = new Handler();
+        new ApiGetPropertyById(this).request(5, new TAction<Property>() {
+            @Override
+            public void execute(final Property property) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        initProperty(property);
+                    }
+                });
+            }
+        }, null);
+    }
+
+    private void initProperty(Property property) {
+        mBinding.propertyActTitle.setText(property.getAddress().getStreetName());
+        mBinding.propertyActPrice.setText(property.getPrice().getFormatted());
+        mBinding.propertyActAddress.setText(property.getAddress().getCityName() + " ");
+        mBinding.propertyActRoomsCounter.setText(property.getRoomsCount() + "");
+        mBinding.propertyActBathCounter.setText(property.getBathroomCount() + "");
+        mBinding.propertyActSize.setText(property.getPlotArea() + " Sqm");
+        mBinding.propertyActSqrm.setText(property.getFloorArea() + " Sqm");
+
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
+        mBinding.propertyActDaysRecyclerView.setAdapter(new OpenHouseDaysAdapter(property.getOpenHouse(), getOnDayClickAction()));
+        mBinding.propertyActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
+        mBinding.propertyActDaysRecyclerView.addItemDecoration(itemDecoration);
+
+        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction());
+        mBinding.propertyActHoursRecyclerView.setAdapter(hoursAdapter);
+        mBinding.propertyActHoursRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
+        mBinding.propertyActHoursRecyclerView.addItemDecoration(itemDecoration);
+
+        mBinding.propertyActStatus.setText(property.getPropertyStatus());
+        mBinding.propertyActPricePSq.setText(property.getMeterPrice().getFormatted());
+        mBinding.propertyActType.setText(property.getPropertyType().getName());
+        mBinding.propertyActBuild.setText(property.getBuiltAt() + "");
+        mBinding.propertyActParking.setText(property.getParkingSlot()  + "");
+        mBinding.propertyActTama.setText("???"); //todo : fill this
+        mBinding.propertyActDescription.setText(property.getDescription());
+
+        mBinding.propertyActReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private TAction<OpenHouse> getOnDayClickAction() {
+        return new TAction<OpenHouse>() {
+            @Override
+            public void execute(OpenHouse openHouse) {
+//                Toast.makeText(PropertyPageActivity.this, "wow", Toast.LENGTH_SHORT).show();
+                hoursAdapter.updateItems(openHouse.getSlots());
+                mBinding.propertyActRequestAShow.setAlpha(0.5f);
+                mBinding.propertyActRequestAShow.setClickable(false);
+            }
+        };
+    }
+
+    private TAction<OpenHouseSlots> getOnHourClickAction() {
+        return new TAction<OpenHouseSlots>() {
+            @Override
+            public void execute(OpenHouseSlots openHouseSlots) {
+                if(openHouseSlots != null){
+                    mBinding.propertyActRequestAShow.setAlpha(1);
+                    mBinding.propertyActRequestAShow.setClickable(true);
+                }else{
+                    mBinding.propertyActRequestAShow.setAlpha(0.5f);
+                    mBinding.propertyActRequestAShow.setClickable(false);
+                }
+            }
+        };
+    }
+
 
     private void initHeaderPager() {
         pagerAdapter = new PicturesSliderAdapter(this);
