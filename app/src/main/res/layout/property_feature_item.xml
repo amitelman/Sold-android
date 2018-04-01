@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginStart="6.2dp"
             android:layout_marginBottom="10.6dp"
             android:layout_marginTop="16dp"
             android:orientation="vertical"
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_gravity="start"
                 android:id="@+id/featureItemTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
                 tools:text="• Bedrooms"/>
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_gravity="start"
                 android:id="@+id/featureItemValue"
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"

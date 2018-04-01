@@ -6,13 +6,17 @@ import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
@@ -20,13 +24,17 @@ import com.monkeytechy.ui.activities.BaseActivity;
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityPropertyPageBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
+import sold.monkeytech.com.sold_android.framework.models.Meta;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
 import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PicturesSliderAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesImagesAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
 
 public class PropertyPageActivity extends BaseActivity {
@@ -36,6 +44,8 @@ public class PropertyPageActivity extends BaseActivity {
     private int dotscount;
     private ImageView[] dots;
     private OpenHouseHoursAdapter hoursAdapter;
+    private boolean descriptionExpanded = false;
+    private PropertyFeaturesImagesAdapter imagesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +70,15 @@ public class PropertyPageActivity extends BaseActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        initProperty(property);
+                        initPropertyDetails(property);
+                        initPropertyFeatures(property);
                     }
                 });
             }
         }, null);
     }
 
-    private void initProperty(Property property) {
+    private void initPropertyDetails(Property property) {
         mBinding.propertyActTitle.setText(property.getAddress().getStreetName());
         mBinding.propertyActPrice.setText(property.getPrice().getFormatted());
         mBinding.propertyActAddress.setText(property.getAddress().getCityName() + " ");
@@ -97,9 +108,49 @@ public class PropertyPageActivity extends BaseActivity {
         mBinding.propertyActReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                    ViewGroup.LayoutParams params = mBinding.propertyActDescription.getLayoutParams();
+                if(!descriptionExpanded){
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    mBinding.propertyActDescription.setLayoutParams(params);
+                    descriptionExpanded = true;
+                }else{
+                    params.height = TextUtils.dpToPx(70);
+                    mBinding.propertyActDescription.setLayoutParams(params);
+                    descriptionExpanded = false;
+                    mBinding.propertyActDescription.setLines(4);
+                }
             }
         });
+    }
+
+    private void initPropertyFeatures(Property property) {
+        for(PropertyFeatures feature : property.getPropertyFeatures()){
+            View child = getLayoutInflater().inflate(R.layout.property_feature_item, null);
+            TextView title = child.findViewById(R.id.featureItemTitle);
+            TextView description = child.findViewById(R.id.featureItemValue);
+            RecyclerView imagesView = child.findViewById(R.id.featureItemList);
+            title.setText("• " + feature.getFeatureName());
+
+            final SpannableStringBuilder descFinal = new SpannableStringBuilder("");
+            final SpannableStringBuilder desc = new SpannableStringBuilder("");
+            for(Meta m : feature.getMeta()){
+                desc.append(m.getKey() + ": " + m.getValue() + ", ");
+
+                final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD); // Span to make text bold
+                desc.setSpan(bss, m.getKey().length() + 2, (m.getKey().length() + 2) + m.getValue().length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+                descFinal.append(desc);
+                desc.clear();
+            }
+            description.setText(descFinal.subSequence(0, descFinal.length() - 2));
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            imagesView.setLayoutManager(layoutManager);
+            imagesAdapter = new PropertyFeaturesImagesAdapter(this, feature.getImages());
+            imagesView.setAdapter(imagesAdapter);
+
+            mBinding.propertyFeaturesActList.addView(child);
+        }
     }
 
     private TAction<OpenHouse> getOnDayClickAction() {

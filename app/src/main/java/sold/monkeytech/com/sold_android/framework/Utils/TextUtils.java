@@ -1,5 +1,7 @@
 package sold.monkeytech.com.sold_android.framework.Utils;
 
+import android.util.DisplayMetrics;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -8,6 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import static sold.monkeytech.com.sold_android.SoldApplication.getContext;
 
 /**
  * Created by MonkeyFather on 24/09/2017.
@@ -63,6 +67,16 @@ public class TextUtils {
         long msDiff = Calendar.getInstance().getTimeInMillis() - date.getTime();
         long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
         return " (" + daysDiff + " days ago)";
+    }
+
+    public static int pxToDp(int px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 

@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,8 +40,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityPoilistBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
@@ -52,6 +57,8 @@ import sold.monkeytech.com.sold_android.framework.models.Meta;
 import sold.monkeytech.com.sold_android.framework.models.POI;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
+import sold.monkeytech.com.sold_android.ui.adapters.POIAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.POICategoryHeaderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.expandable.ThreeLevelListAdapter;
 import sold.monkeytech.com.sold_android.ui.fragments.SearchInMapFragment;
 
@@ -66,6 +73,9 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
     private GoogleMap map;
     private SearchInMapFragment mapFragment;
     private TAction<POI> onPoiClickAction;
+    private POICategoryHeaderAdapter categoryAdapter;
+    private HashMap<Category, List<POI>> categoryPoiList;
+    private POIAdapter poiAdapter;
 
 
     @Override
@@ -105,9 +115,18 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
 
         //parent level - categories
         List<Category> categories = POI.getSortedCategories(tempCategories);
+        tempCategories.clear();
 
-        // second level - poi items
-        List<List<POI>> poiItems = new ArrayList<>();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mBinding.poiListActCategoryList.setLayoutManager(layoutManager);
+        categoryAdapter = new POICategoryHeaderAdapter(this, categories, getOnCategoryClickAction());
+        mBinding.poiListActCategoryList.setAdapter(categoryAdapter);
+
+        poiAdapter = new POIAdapter(this, property, "",null, getOnPOIClickAction());
+        mBinding.poiListActListView.setAdapter(poiAdapter);
+
+//         second level - poi items
+        categoryPoiList = new HashMap<>();
 
         for (Category c : categories) {
             long categoryId = c.getId();
@@ -117,26 +136,54 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
                     tempPoi.add(poi);
                 }
             }
-            poiItems.add(tempPoi);
+            categoryPoiList.put(c, tempPoi);
             tempPoi = null;
         }
 
-        // third level - poi Meta data
-        List<HashMap<POI, List<Meta>>> thirdLevelData = new ArrayList<>();
+//        // third level - poi Meta data
+//        List<HashMap<POI, List<Meta>>> thirdLevelData = new ArrayList<>();
+//
+//        for (POI p : pois) {
+//            HashMap<POI, List<Meta>> oneItemMetaData = new HashMap<>();
+////            oneItemMetaData.put(p, p.getMeta());
+//            oneItemMetaData.put(p, MetaDataManager.getInstance().getMetaDataMap());
+//            thirdLevelData.add(oneItemMetaData);
+//            oneItemMetaData = null;
+//        }
+//
+//        threeLevelListAdapterAdapter = new ThreeLevelListAdapter(this, categories, poiItems, thirdLevelData, getOnPoiClickAction());
 
-        for (POI p : pois) {
-            HashMap<POI, List<Meta>> oneItemMetaData = new HashMap<>();
-//            oneItemMetaData.put(p, p.getMeta());
-            oneItemMetaData.put(p, MetaDataManager.getInstance().getMetaDataMap());
-            thirdLevelData.add(oneItemMetaData);
-            oneItemMetaData = null;
-        }
-
-        threeLevelListAdapterAdapter = new ThreeLevelListAdapter(this, categories, poiItems, thirdLevelData, getOnPoiClickAction());
-        tempCategories.clear();
 
         initUi();
 
+    }
+
+    private TAction<POI> getOnPOIClickAction() {
+        return new TAction<POI>() {
+            @Override
+            public void execute(POI poi) {
+
+            }
+        };
+    }
+
+    private TAction<Category> getOnCategoryClickAction() {
+        return new TAction<Category>() {
+            @Override
+            public void execute(Category category) {
+                Iterator it = categoryPoiList.entrySet().iterator();
+                while(it.hasNext()){
+                    Map.Entry pair = (Map.Entry) it.next();
+                    if(category.getId() == ((Category)pair.getKey()).getId()){
+                        List<POI> poiList = new ArrayList<>();
+                        poiList.add(null);
+                        poiList.addAll((List<POI>) pair.getValue());
+                        poiAdapter.updateItems(category.getName(), poiList);
+                    }
+//                it.remove();
+                }
+            }
+        };
     }
 
     private TAction<POI> getOnPoiClickAction() {
@@ -149,57 +196,57 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
     }
 
     private void initUi() {
-        mBinding.poiListActListView.setAdapter(threeLevelListAdapterAdapter);
-
-        mBinding.poiListActListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
-                Log.d("wowPOI", "poi1");
-                return false;
-            }
-        });
-
-        // OPTIONAL : Show one list at a time
-        mBinding.poiListActListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int previousGroup = -1;
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (groupPosition != previousGroup)
-                    mBinding.poiListActListView.collapseGroup(previousGroup);
-                previousGroup = groupPosition;
-            }
-        });
-
+//        mBinding.poiListActListView.setAdapter(threeLevelListAdapterAdapter);
+//
+//        mBinding.poiListActListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+//            @Override
+//            public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
+//                Log.d("wowPOI", "poi1");
+//                return false;
+//            }
+//        });
+//
+//        // OPTIONAL : Show one list at a time
+//        mBinding.poiListActListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            int previousGroup = -1;
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                if (groupPosition != previousGroup)
+//                    mBinding.poiListActListView.collapseGroup(previousGroup);
+//                previousGroup = groupPosition;
+//            }
+//        });
+//
         LayoutInflater inflater = getLayoutInflater();
-        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.poi_list_header, mBinding.poiListActListView, false);
+        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.poi_list_header, mBinding.poiListActCategoryList, false);
         mBinding.poiListActListView.addHeaderView(header, null, false);
         loadMap(header);
-
-        header.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Disallow ScrollView to intercept touch events.
-                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
-                        // Disable touch on transparent view
-                        return false;
-
-                    case MotionEvent.ACTION_UP:
-                        // Allow ScrollView to intercept touch events.
-                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(false);
-                        return true;
-
-                    case MotionEvent.ACTION_MOVE:
-                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
-                        return false;
-
-                    default:
-                        return true;
-                }
-            }
-        });
+//
+//        footer.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                int action = event.getAction();
+//                switch (action) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        // Disallow ScrollView to intercept touch events.
+//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
+//                        // Disable touch on transparent view
+//                        return false;
+//
+//                    case MotionEvent.ACTION_UP:
+//                        // Allow ScrollView to intercept touch events.
+//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(false);
+//                        return true;
+//
+//                    case MotionEvent.ACTION_MOVE:
+//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
+//                        return false;
+//
+//                    default:
+//                        return true;
+//                }
+//            }
+//        });
     }
 
     private void loadMap(ViewGroup header) {

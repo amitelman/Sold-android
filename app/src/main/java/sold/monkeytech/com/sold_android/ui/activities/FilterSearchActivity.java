@@ -16,9 +16,8 @@ import sold.monkeytech.com.sold_android.framework.Utils.KeyboardAndInputUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
 import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
 import sold.monkeytech.com.sold_android.framework.models.IdLabel;
-import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.models.PropertyType;
-import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.PropertyAdditionalFeaturesAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyTypeAdapter;
 import sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView;
 
@@ -26,7 +25,7 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
 
     private ActivityFilterSearchBinding mBinding;
     private PropertyTypeAdapter typesAdapter;
-    private PropertyFeaturesAdapter featuresAdapter;
+    private PropertyAdditionalFeaturesAdapter featuresAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
 
     private void initAddFeaturesBtns() {
         List<IdLabel> propertyFeatures = MetaDataManager.getInstance().getPropertyFeatures();
-        featuresAdapter = new PropertyFeaturesAdapter(this, propertyFeatures);
+        featuresAdapter = new PropertyAdditionalFeaturesAdapter(this, propertyFeatures);
         mBinding.filterSearchActAdditionalGridView.setAdapter(featuresAdapter);
     }
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:id="@+id/poiItemBkg"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_alignParentStart="true"
+        android:textSize="9.8sp"
+        app:fontType="MULI_BOLD"
+        android:paddingTop="9.8dp"
+        android:maxWidth="150dp"
+        android:id="@+id/poiItemTitle"
+        android:layout_centerVertical="true"
+        android:paddingBottom="10.7dp"
+        android:layout_marginStart="13.2dp"
+        android:textColor="@color/dark_grey_blue_two"
+        tools:text="South Pointe Elementary School very coool one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_marginLeft="253.9dp"
+        android:background="#939393"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"/>
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/poiItemDistance"
+        app:fontType="MULI_BOLD"
+        android:textSize="9.8sp"
+        android:gravity="center"
+        android:paddingBottom="10.7dp"
+        android:layout_toRightOf="@+id/separator"
+        android:layout_marginStart="10.4dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/dark_grey_blue_two"
+        tools:text="1.7 mi"/>
+
+</RelativeLayout>
