@@ -1,38 +1,36 @@
 package sold.monkeytech.com.sold_android.ui.activities;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.ui.activities.BaseActivity;
 
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.ActivityMainBinding;
 import sold.monkeytech.com.sold_android.databinding.ActivityPreApprovedBinding;
-import sold.monkeytech.com.sold_android.ui.fragments.MySoldFragment;
-import sold.monkeytech.com.sold_android.ui.fragments.SearchFragment;
-import sold.monkeytech.com.sold_android.ui.fragments.SellFragment;
-import sold.monkeytech.com.sold_android.ui.fragments.ServiceFragment;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPreApproved;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved10Fragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved11Fragment;
+import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved7Fragment;
+import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved8Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved1Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved2Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved3Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved4Fragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved5Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved6Fragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved7Fragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved8Fragment;
-import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved9Fragment;
+import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApproved5Fragment;
 import sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments.PreApprovedStartFragment;
 
-public class PreApprovedActivity extends BaseActivity implements PreApprovedStartFragment.OnStartListener, PreApproved1Fragment.On1Listener, PreApproved2Fragment.On2Listener, PreApproved3Fragment.On3Listener, PreApproved4Fragment.On4Listener, PreApproved5Fragment.On5Listener, PreApproved6Fragment.On6Listener, PreApproved7Fragment.On7Listener, PreApproved8Fragment.On8Listener, PreApproved9Fragment.On9Listener, PreApproved10Fragment.On10Listener, PreApproved11Fragment.On11Listener {
+public class PreApprovedActivity extends BaseActivity implements PreApprovedStartFragment.OnStartListener, PreApproved1Fragment.On1Listener, PreApproved2Fragment.On2Listener,
+        PreApproved3Fragment.On3Listener, PreApproved4Fragment.On4Listener, PreApproved5Fragment.On5Listener, PreApproved6Fragment.On6Listener, PreApproved7Fragment.On7Listener,
+        PreApproved8Fragment.On8Listener  {
 
     private final String START = "start";
     private final String FRAG1 = "frag1";
@@ -43,17 +41,18 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
     private final String FRAG6 = "frag6";
     private final String FRAG7 = "frag7";
     private final String FRAG8 = "frag8";
-    private final String FRAG9 = "frag9";
-    private final String FRAG10 = "frag10";
-    private final String FRAG11 = "frag11";
+
 
     private ActivityPreApprovedBinding mBinding;
+    private static Property propertyStat;
+    private Property curProperty;
     private BaseFragment currentFrag;
     private String currentTag;
 
     //submit params
     private int purchaseType;
     private int loanAmount;
+    private int equity;
     private int employmentStatus;
     private String occupation;
     private int seniority;
@@ -61,13 +60,15 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
     private int childCount;
     private int disposableIncome;
     private String otherIncome;
-    private int fixesExpanses;
+    private int fixedExpenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pre_approved);
+        curProperty = propertyStat;
+        propertyStat = null;
 
         loadFragment(START);
         initUi();
@@ -77,9 +78,16 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
         mBinding.preApprovedActBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                UserManager.getInstance().StartSignupFlow(PreApprovedActivity.this, null);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        currentTag = "";
     }
 
     public void loadFragment(String fragmentType){//}, final Bundle bundle) {
@@ -91,7 +99,7 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
                 setFragmentTransition(new PreApproved1Fragment(), fragmentType);
                 break;
             case FRAG2:
-                setFragmentTransition(new PreApproved2Fragment(), fragmentType);
+                setFragmentTransition(new PreApproved2Fragment().setPropertyValue(curProperty.getPrice().getValue()), fragmentType); //todo: add property value
                 break;
             case FRAG3:
                 setFragmentTransition(new PreApproved3Fragment(), fragmentType);
@@ -109,18 +117,13 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
                 setFragmentTransition(new PreApproved7Fragment(), fragmentType);
                 break;
             case FRAG8:
-                setFragmentTransition(new PreApproved8Fragment(), fragmentType);
+                if(UserManager.getInstance().getCurrentUser() == null){
+                    setFragmentTransition(new PreApproved8Fragment(), fragmentType);
+                }
+                else{
+                    sendInquiry();
+                }
                 break;
-            case FRAG9:
-                setFragmentTransition(new PreApproved9Fragment(), fragmentType);
-                break;
-            case FRAG10:
-                setFragmentTransition(new PreApproved10Fragment(), fragmentType);
-                break;
-            case FRAG11:
-                setFragmentTransition(new PreApproved11Fragment(), fragmentType);
-                break;
-
         }
     }
 
@@ -158,67 +161,74 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
     }
 
     @Override
-    public void onFrag2(int loanAmount) {
-        //todo: should add equity??
+    public void onFrag2(int loanAmount, int equity) {
         this.loanAmount = loanAmount;
+        this.equity = equity;
         loadFragment(FRAG3);
     }
 
     @Override
-    public void onFrag3(int employmentStatus) {
+    public void onFrag3(int employmentStatus, String occupation) {
         this.employmentStatus = employmentStatus;
+        this.occupation = occupation;
         loadFragment(FRAG4);
     }
 
     @Override
-    public void onFrag4(String occupation) {
-        this.occupation = occupation;
+    public void onFrag4(int seniority, int monthlyIncome) {
+        this.seniority = seniority;
+        this.monthlyIncome = monthlyIncome;
         loadFragment(FRAG5);
     }
 
     @Override
-    public void onFrag5(int seniority) {
-        this.seniority = seniority;
+    public void onFrag5(int childCount) {
+        this.childCount = childCount;
         loadFragment(FRAG6);
     }
 
     @Override
-    public void onFrag6(int monthlyIncome) {
-        this.monthlyIncome = monthlyIncome;
+    public void onFrag6(int disposableIncome, String otherIncome) {
+        this.disposableIncome = disposableIncome;
+        this.otherIncome = otherIncome;
         loadFragment(FRAG7);
     }
 
     @Override
-    public void onFrag7(int childCount) {
-        this.childCount = childCount;
-        loadFragment(FRAG8);
+    public void onFrag7(int fixedExpenses) {
+        this.fixedExpenses = fixedExpenses;
+        if(UserManager.getInstance().getInAppToken() == null)
+            loadFragment(FRAG8);
+        else{
+            sendInquiry();
+        }
     }
 
     @Override
-    public void onFrag8(int disposableIncome) {
-        this.disposableIncome = disposableIncome;
-        loadFragment(FRAG9);
-    }
-
-    @Override
-    public void onFrag9(String otherIncome) {
-        this.otherIncome = otherIncome;
-        loadFragment(FRAG10);
-    }
-
-    @Override
-    public void onFrag10(int fixesExpanses) {
-        this.fixesExpanses = fixesExpanses;
-        loadFragment(FRAG11);
-    }
-
-    @Override
-    public void onFrag11() {
+    public void onFrag8() {
         sendInquiry();
     }
 
+
     private void sendInquiry() {
-        //todo: send inquiry
-        finish();
+        //todo: remove comnt
+        new ApiPreApproved(this).request(curProperty.getId(), purchaseType, loanAmount, equity, employmentStatus, occupation, seniority, monthlyIncome,
+                childCount, disposableIncome, otherIncome, fixedExpenses, new Action() {
+                    @Override
+                    public void execute() {
+                        finish();
+                    }
+                }, new Action() {
+                    @Override
+                    public void execute() {
+
+                    }
+                });
+    }
+
+    public static void startWithProperty(Context context, Property property){
+        propertyStat = property;
+        Intent intent = new Intent(context, PreApprovedActivity.class);
+        context.startActivity(intent);
     }
 }

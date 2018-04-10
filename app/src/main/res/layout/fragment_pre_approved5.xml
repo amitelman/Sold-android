@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17.7dp"
                 android:gravity="center"
-                android:text="Step 5/11"
+                android:text="Step 5/8"
                 android:textColor="#80000000"
                 android:textSize="12.5sp" />
 
@@ -34,7 +34,7 @@
 
                 <ImageView
                     android:layout_gravity="left"
-                    android:layout_width="140.8dp"
+                    android:layout_width="175.8dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/shape_sqr_dark_grey" />
 
@@ -48,7 +48,7 @@
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="4.8sp"
-                android:text="My seniority:"
+                android:text="Number of children under 18:"
                 android:textColor="@color/dark_grey_blue_two"
                 android:textSize="20.2sp"
                 app:fontType="MULI_EX_BOLD" />
@@ -62,8 +62,8 @@
                     android:id="@+id/preApproved5ActSeekBar"
                     android:layout_width="match_parent"
                     android:layout_height="35.5dp"
-                    android:max="40"
-                    android:progress="5"
+                    android:max="10"
+                    android:progress="1"
                     android:progressBackgroundTint="@color/dark_grey_blue"
                     android:progressTint="@color/scarlet"
                     android:thumb="@drawable/seek_bar_thumb" />
@@ -71,8 +71,9 @@
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                     android:id="@+id/preApproved5ActText"
                     android:textSize="23sp"
-                    android:text="5 years"
+                    android:text="1"
                     android:lines="1"
+                    android:layout_marginLeft="40dp"
                     android:textColor="@color/black"
                     android:lineSpacingExtra="-0.7sp"
                     android:gravity="center_horizontal"

@@ -1,6 +1,9 @@
 package sold.monkeytech.com.sold_android.framework.models;
 
 
+import android.text.TextUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.framework.cache.PropertyCache;
@@ -367,5 +370,20 @@ public class Property extends BaseModel<Property> {
     @Override
     protected Class getType() {
         return Property.class;
+    }
+
+    public List<Meta> getHistorySales() {
+        Meta m = new Meta("הירקון 21, תל אביב", "2,500,000");
+        Meta m2 = new Meta("הירקון 91, תל אביב", "4,500,000");
+        List<Meta> salesAround = new ArrayList<>();
+        salesAround.add(m);
+        salesAround.add(m2);
+        return salesAround;
+    }
+
+    public String getFullAddress(){
+        if(getAddress() != null && !TextUtils.isEmpty(getHouseNumber()))
+            return getAddress().getStreetName() + " " + getHouseNumber();
+        return "";
     }
 }

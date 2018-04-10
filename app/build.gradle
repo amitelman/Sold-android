@@ -80,8 +80,11 @@ dependencies {
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.github.aakira:expandable-layout:1.5.1@aar'
     compile 'com.chabbal:slidingdotsplash:1.0.2'
+    compile 'com.google.android:flexbox:0.3.0-alpha2'
+    compile 'com.facebook.android:facebook-share:[4,5)'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

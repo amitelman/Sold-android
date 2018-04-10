@@ -65,7 +65,7 @@
                     android:id="@+id/preApproved1ActFirstHome"
                     android:button="@drawable/cb_selector"
                     android:layout_width="wrap_content"
-                    android:layout_height="17.7dp" />
+                    android:layout_height="wrap_content" />
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                     android:text="First home"
@@ -90,7 +90,7 @@
                     android:id="@+id/preApproved1ActSellToBuy"
                     android:button="@drawable/cb_selector"
                     android:layout_width="wrap_content"
-                    android:layout_height="17.7dp" />
+                    android:layout_height="wrap_content" />
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                     android:text="Selling my home to \nbuy this home"
@@ -115,7 +115,7 @@
                     android:id="@+id/preApproved1ActInvestment"
                     android:button="@drawable/cb_selector"
                     android:layout_width="wrap_content"
-                    android:layout_height="17.7dp" />
+                    android:layout_height="wrap_content" />
 
                 <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                     android:text="Home for investment"

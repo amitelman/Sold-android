@@ -3,19 +3,14 @@ package sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
-
+import android.widget.Toast;
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved6Binding;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved7Binding;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
@@ -28,15 +23,13 @@ public class PreApproved7Fragment extends BaseFragment {
 
     private FragmentPreApproved7Binding mBinding;
     public On7Listener listener;
-    private TextView inputView;
-    private int childCount = 0;
 
     public PreApproved7Fragment() {
         // Required empty public constructor
     }
 
     public interface On7Listener{
-        void onFrag7(int childCount);
+        void onFrag7(int fixesExpanses);
     }
 
     @Override
@@ -64,40 +57,17 @@ public class PreApproved7Fragment extends BaseFragment {
     }
 
     private void initUi() {
-        inputView = mBinding.preApproved7ActText;
-        mBinding.preApproved7ActSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-                p.addRule(RelativeLayout.BELOW, seekBar.getId());
-                Rect thumbRect =  seekBar.getThumb().getBounds();
-                Log.d("wowSeekBar","seek: " + thumbRect.centerX());
-                if(thumbRect.centerX() < 900){
-                    p.setMargins(thumbRect.centerX(),0, 0, 0);
-                    inputView.setLayoutParams(p);
-                    inputView.invalidate();
-                }
-                inputView.setText(String.valueOf(progress) + "");
-                childCount = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         mBinding.preApproved7ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag7(childCount);
+                String input = mBinding.preApproved7ActInput.getText().toString();
+                if (!TextUtils.isEmpty(input)) {
+                    final int fixesExpanses = Integer.parseInt(input);
+                    listener.onFrag7(fixesExpanses);
+                } else {
+                    Toast.makeText(getContext(), "Please Set your expanses", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

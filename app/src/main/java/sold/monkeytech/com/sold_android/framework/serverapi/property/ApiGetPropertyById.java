@@ -29,7 +29,7 @@ public class ApiGetPropertyById extends AbstractServerApiConnector {
         request(propertyId, null,null);
     }
 
-    public synchronized void request(final int propertyId, final TAction<Property> onSuccess, final Action onFail) {
+    public synchronized void request(final long propertyId, final TAction<Property> onSuccess, final Action onFail) {
         execute(new Runnable() {
             @Override
             public void run() {

@@ -89,6 +89,18 @@ public class MetaDataManager {
         return servicePages;
     }
 
+    public List<IdLabel> getSortables(){
+        List<IdLabel> sortables = new ArrayList<>();
+        if(metaData != null && getMetaData().length() != 0){
+            try {
+                sortables = new IdLabelParser().parseToList(getMetaData().getJSONArray("sortables"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return sortables;
+    }
+
     public List<Meta> getMetaDataMap(){
         List<Meta> meta = new ArrayList<>();
         meta.add(new Meta("wow","yes"));

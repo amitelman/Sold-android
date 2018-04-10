@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
 import sold.monkeytech.com.sold_android.framework.models.POI;
 import sold.monkeytech.com.sold_android.framework.models.Property;
@@ -52,7 +53,7 @@ public class POIAdapter extends BaseAdapter {
     public int getCount() {
         if (pois != null)
             return pois.size();
-        return 0;
+        else return 0;
     }
 
     @Override
@@ -113,17 +114,19 @@ public class POIAdapter extends BaseAdapter {
                 baseViewHolder.bkg.setBackgroundColor(context.getResources().getColor(R.color.silver_two));
             }
             baseViewHolder.title.setText(poi.getName());
-            String distance = LocManager.getInstance().getDistance(Float.parseFloat(property.getLat()), Float.parseFloat(property.getLng()),
-                    Float.parseFloat(poi.getLat()), Float.parseFloat(poi.getLng()));
-            baseViewHolder.distance.setText(distance);
+            if(!TextUtils.isEmpty(poi.getLat())){
+                String distance = LocManager.getInstance().getDistance(Float.parseFloat(property.getLat()), Float.parseFloat(property.getLng()),
+                        Float.parseFloat(poi.getLat()), Float.parseFloat(poi.getLng()));
+                baseViewHolder.distance.setText(distance);
+            }
             baseViewHolder.bkg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if(onPOIClick != null)
+                        onPOIClick.execute(poi);
                 }
             });
         }
-
 
         return convertView;
     }

@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityImageSliderBinding;
@@ -36,6 +37,7 @@ public class ImageSliderActivity extends Activity {
     private int dotsCount;
     private ImageView[] dots;
     private int currentPage = 0;
+    List<String> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class ImageSliderActivity extends Activity {
     }
 
     private void initHeaderPager() {
-        pagerAdapter = new PicturesSliderAdapter(this);
+        pagerAdapter = new PicturesSliderAdapter(this, images);
         mBinding.imageSliderActPager.setAdapter(pagerAdapter);
 
         dotsCount = pagerAdapter.getCount();

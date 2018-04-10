@@ -12,26 +12,42 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.monkeytechy.framework.interfaces.Action;
+import com.monkeytechy.framework.interfaces.TAction;
+
 import java.util.ArrayList;
 import java.util.List;
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
 import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinProperty;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiUnPinProperty;
+import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiGetFavorites;
 import sold.monkeytech.com.sold_android.pagination.abs.PagibaleAdapter;
+import sold.monkeytech.com.sold_android.ui.activities.PropertyPageActivity;
 
 /**
  * Created by monkey on 25/06/2015.
  */
-public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<List<Property>>, View.OnClickListener {
+public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<List<Property>> {
     private Context context;
     private List<Property> properties;
     private LayoutInflater inflater;
+
+    List<Property> favProp;
 
     public SearchInListAdapter(Context context, List<Property> properties) {
         this.context = context;
         if(properties != null)
             this.properties = properties;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        new ApiGetFavorites(context).request(new TAction<List<Property>>() {
+            @Override
+            public void execute(List<Property> properties) {
+               favProp = properties;
+            }
+        }, null);
     }
 
     public void updateList(List<Property> properties){
@@ -71,11 +87,10 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(View v) {
-
+    public void clearList() {
+        properties.clear();
+        notifyDataSetChanged();
     }
-
 
 
     public static class BaseViewHolder{
@@ -125,34 +140,48 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         baseViewHolder.size.setText(property.getFloorArea() + "");
         baseViewHolder.sqrm.setText(property.getPlotArea() + "");
 
-        baseViewHolder.favBtn.setOnClickListener(this);
+        if(favProp != null && favProp.contains(property)){
+            baseViewHolder.favBtn.setSelected(true);
+        }else{
+            baseViewHolder.favBtn.setSelected(false);
+        }
+
+        baseViewHolder.favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (v.isSelected()) {
+                    v.setSelected(false);
+                    favProp.remove(property);
+                    new ApiUnPinProperty(context).request(property.getId(), null, new Action() {
+                        @Override
+                        public void execute() {
+                            v.setSelected(true);
+                            favProp.add(property);
+                        }
+                    });
+                } else {
+                    v.setSelected(true);
+                    favProp.add(property);
+                    new ApiPinProperty(context).request(property.getId(), null, new Action() {
+                        @Override
+                        public void execute() {
+                            v.setSelected(false);
+                            favProp.remove(property);
+                        }
+                    });
+                }
+            }
+        });
+
+        baseViewHolder.bkg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PropertyPageActivity.startWithProperty(context, property);
+            }
+        });
 
         return convertView;
     }
 
 }
 
-
-//@Override
-//    public View getHeaderView(int position, View convertView, ViewGroup parent) {
-//        HeaderViewHolder holder;
-//        if (convertView == null) {
-//            holder = new HeaderViewHolder();
-//            convertView = inflater.inflate(R.layout.sold_search_item_header, parent, false);
-//            holder.title = (TextView) convertView.findViewById(R.id.searchItemHeaderTitle);
-//            holder.address = (TextView) convertView.findViewById(R.id.searchItemHeaderAddress);
-//            convertView.setTag(holder);
-//        } else {
-//            holder = (HeaderViewHolder) convertView.getTag();
-//        }
-//        //set header text as first char in name
-////        String headerText = "" + countries[position].subSequence(0, 1).charAt(0);
-////        holder.text.setText(headerText);
-//        return convertView;
-//    }
-//
-//    @Override
-//    public long getHeaderId(int position) {
-//        //return the first character of the country as ID because this is what headers are based upon
-//        return 0;//properties[position];
-//    }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.monkeytechy.framework.interfaces.TAction;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class POICategoryHeaderAdapter extends RecyclerView.Adapter<POICategoryHe
     Context mContext;
 
     private Category selectedItem;
+    private boolean isFirst = true;
+    private LinearLayout defaultItem;
 
     public POICategoryHeaderAdapter(Context mContext, List<Category> categories, TAction<Category> onCategoryAction) {
         this.categories = categories;
@@ -82,6 +85,19 @@ public class POICategoryHeaderAdapter extends RecyclerView.Adapter<POICategoryHe
 //                v.setSelected(!v.isSelected());
             }
         });
+
+        if(position == 0 && isFirst){
+            defaultItem = holder.bkg;
+            isFirst = false;
+        }
+
+
+//        ViewGroup.LayoutParams lp = holder.bkg.getLayoutParams();
+//        if (lp instanceof FlexboxLayoutManager.LayoutParams) {
+//            FlexboxLayoutManager.LayoutParams flexboxLp = (FlexboxLayoutManager.LayoutParams)
+//                    holder.bkg.getLayoutParams();
+//            flexboxLp.setFlexGrow(1.0f);
+//        }
 
     }
 

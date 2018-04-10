@@ -5,12 +5,13 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved4Binding;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved6Binding;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
@@ -29,7 +30,7 @@ public class PreApproved6Fragment extends BaseFragment {
     }
 
     public interface On6Listener{
-        void onFrag6(int monthlyIncome);
+        void onFrag6(int disposableIncome, String otherIncome);
     }
 
     @Override
@@ -57,12 +58,18 @@ public class PreApproved6Fragment extends BaseFragment {
     }
 
     private void initUi() {
-        final int monthlyIncome = Integer.parseInt(mBinding.preApproved6ActInput.getText().toString());
 
-        mBinding.preApproved6ActNext.setOnClickListener(new View.OnClickListener() {
+        mBinding.preApproved8ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag6(monthlyIncome);
+                String otherIncome = mBinding.preApproved6ActOtherInput.getText().toString();
+                String disposableIncomeStr = mBinding.preApproved6ActInput.getText().toString();
+                if (!TextUtils.isEmpty(disposableIncomeStr)) {
+                    final int disposableIncome = Integer.parseInt(disposableIncomeStr);
+                    listener.onFrag6(disposableIncome, otherIncome);
+                } else {
+                    Toast.makeText(getContext(), "Please Set your income", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

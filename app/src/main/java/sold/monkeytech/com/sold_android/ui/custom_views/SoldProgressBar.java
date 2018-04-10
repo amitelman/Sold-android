@@ -80,12 +80,14 @@ public class SoldProgressBar extends FrameLayout {
         Animation anim = mBinding.soldProgressBarLoader.getAnimation();
         if (anim != null)
             anim.cancel();
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
+        if(scrollView != null){
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
     }
 
     public SoldProgressBar isWithBkg(boolean isWithBkg) {

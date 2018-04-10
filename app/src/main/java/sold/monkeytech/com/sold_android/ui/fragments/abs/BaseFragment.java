@@ -37,9 +37,9 @@ public class BaseFragment extends Fragment {
     public void onLoaded() {
     }
 
-    public boolean onBackPreddes() {
-        return false;
-    }
+//    public boolean onBackPreddes() {
+//        return false;
+//    }
 
     public View getView() {
         return (View)(super.getView() == null ? new BaseFragment.DummyView(SoldApplication.getContext()) : super.getView());

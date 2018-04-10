@@ -15,8 +15,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved4Binding;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved5Binding;
+import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved7Binding;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
@@ -29,14 +29,14 @@ public class PreApproved5Fragment extends BaseFragment {
     private FragmentPreApproved5Binding mBinding;
     public On5Listener listener;
     private TextView inputView;
-    private int seniority = 0;
+    private int childCount = 0;
 
     public PreApproved5Fragment() {
         // Required empty public constructor
     }
 
     public interface On5Listener{
-        void onFrag5(int seniority);
+        void onFrag5(int childCount);
     }
 
     @Override
@@ -65,6 +65,7 @@ public class PreApproved5Fragment extends BaseFragment {
 
     private void initUi() {
         inputView = mBinding.preApproved5ActText;
+        childCount = mBinding.preApproved5ActSeekBar.getProgress();
         mBinding.preApproved5ActSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -74,13 +75,13 @@ public class PreApproved5Fragment extends BaseFragment {
                 p.addRule(RelativeLayout.BELOW, seekBar.getId());
                 Rect thumbRect =  seekBar.getThumb().getBounds();
                 Log.d("wowSeekBar","seek: " + thumbRect.centerX());
-                if(thumbRect.centerX() < 700){
+                if(thumbRect.centerX() < 900){
                     p.setMargins(thumbRect.centerX(),0, 0, 0);
                     inputView.setLayoutParams(p);
                     inputView.invalidate();
                 }
-                inputView.setText(String.valueOf(progress) + " years");
-                seniority = progress;
+                inputView.setText(String.valueOf(progress) + "");
+                childCount = progress;
             }
 
             @Override
@@ -97,8 +98,9 @@ public class PreApproved5Fragment extends BaseFragment {
         mBinding.preApproved5ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag5(seniority);
+                listener.onFrag5(childCount);
             }
         });
     }
+
 }

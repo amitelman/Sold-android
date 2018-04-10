@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/outside_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/alpha_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/black_70">
+
+            <RelativeLayout
+                android:clickable="true"
+                android:layout_width="333.6dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_sqr_white_rounded"
+                android:layoutDirection="ltr">
+
+                <ImageButton
+                    android:padding="5dp"
+                    android:id="@+id/loginDialogClose"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="13.5dp"
+                    android:layout_marginTop="20.7dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_close" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loginDialogClose"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="18.7dp"
+                    android:layout_marginRight="22.1dp"
+                    android:layout_marginTop="-11.8dp"
+                    android:orientation="vertical">
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/simpleDialogTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/dark"
+                        android:textSize="22.1sp"
+                        app:fontType="MULI_EX_BOLD"
+                        android:text="Login" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="21.1dp"
+                        android:drawableLeft="@drawable/phone"
+                        android:drawablePadding="16dp"
+                        android:gravity="center|start"
+                        android:letterSpacing="0.06"
+                        android:lineSpacingExtra="10.6sp"
+                        android:text="PHONE"
+                        android:textColor="#80000000"
+                        android:textSize="11.5sp" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                        android:id="@+id/loginDialogPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7.3dp"
+                        android:background="@null"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:hint="enter phone"
+                        android:textColorHint="#80000000"
+                        android:textSize="13.4sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="4.4dp"
+                        android:background="@color/black" />
+
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:id="@+id/loginDialogDoneBtn"
+                        android:layout_width="165.5dp"
+                        android:layout_height="37.4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="16.4dp"
+                        android:layout_marginTop="26.9dp"
+                        android:background="@drawable/shape_sqr_red"
+                        android:gravity="center"
+                        android:lineSpacingExtra="7.7sp"
+                        android:text="Login"
+                        android:textColor="@color/white"
+                        android:textSize="14.4sp"
+                        app:fontType="MULI_BOLD" />
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:text="@string/no_account_login"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:paddingBottom="10.4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+                android:id="@+id/loginDialogPb"
+                android:layout_gravity="center"
+                android:layout_width="333.6dp"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+    </FrameLayout>
+</layout>

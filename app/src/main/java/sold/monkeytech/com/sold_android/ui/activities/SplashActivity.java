@@ -1,14 +1,20 @@
 package sold.monkeytech.com.sold_android.ui.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 
 import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.ui.activities.BaseActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 import sold.monkeytech.com.sold_android.R;
@@ -32,9 +38,30 @@ public class SplashActivity extends BaseActivity {
 //                startMainActivity();
 //            }
 //        },1000);
+        getFacebookKeyHash();
         initUi();
 
+    }
 
+    private void getFacebookKeyHash() {
+        PackageInfo info;
+        try {
+            info = getPackageManager().getPackageInfo("sold.monkeytech.com", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String something = new String(Base64.encode(md.digest(), 0));
+                //String something = new String(Base64.encodeBytes(md.digest()));
+                Log.d("wowHashKey", something);
+            }
+        } catch (PackageManager.NameNotFoundException e1) {
+            Log.d("wowHashKey", e1.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("wowHashKey", e.toString());
+        } catch (Exception e) {
+            Log.d("wowHashKey", e.toString());
+        }
     }
 
     private void checkLang() {
@@ -58,12 +85,8 @@ public class SplashActivity extends BaseActivity {
             }
         }, 2000);
 
-        if (TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
-            ((SoldProgressBar) findViewById(R.id.splashActivityPb)).isWithBkg(false).show();
-            handleServerCall(onHandlerSuccess(), onHandlerFailed());
-
-        } else {
-        }
+        ((SoldProgressBar) findViewById(R.id.splashActivityPb)).isWithBkg(false).show();
+        handleServerCall(onHandlerSuccess(), onHandlerFailed());
 
     }
 
@@ -96,6 +119,7 @@ public class SplashActivity extends BaseActivity {
 
     public void startMainActivity() {
 //        Intent intent = new Intent(SplashActivity.this, FilterSearchActivity.class);
+//        Intent intent = new Intent(SplashActivity.this, PropertyPageActivity.class);
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

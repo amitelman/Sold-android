@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f5f5"
+        android:layoutDirection="ltr">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_header_height"
+                android:background="@color/dark_grey_blue"
+                android:layoutDirection="ltr"
+                android:orientation="vertical">
+
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:textSize="17.3sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageButton
+                    android:padding="5dp"
+                    android:tint="@color/white"
+                    android:paddingEnd="15dp"
+                    android:id="@+id/favoriteActBackBtn"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:paddingStart="13.2dp"
+                    android:src="@drawable/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+
+        <ListView
+            android:layout_marginTop="20dp"
+            android:id="@+id/favoriteActListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/white"
+            android:dividerHeight="1.5dp" />
+
+        </LinearLayout>
+
+        <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+            android:id="@+id/favoriteActPb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</layout>

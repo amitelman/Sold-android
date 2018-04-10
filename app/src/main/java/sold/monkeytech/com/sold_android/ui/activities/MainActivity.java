@@ -145,25 +145,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
-    public void onMarkerClick(Property property) {
+    public void onBackPressed() {
+        if (currentTag == SEARCH_FRAGMENT)
+            ((SearchFragment) currentFrag).backPressed();
+        else
+            super.onBackPressed();
+    }
+
+    //        @Override
+//    public boolean onBackPressed() {
+//        if(mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
+//            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//            return true;
+//        }
+//        return super.onBackPressed();
+//
+//    }
+
+
+    @Override
+    public void onMapTouch(int type) {
 
     }
 
     @Override
-    public void onMapTouch() {
-
+    public void onMarkerClick(Property property) {
+        if (currentTag == SEARCH_FRAGMENT) {
+            if (property != null) {
+                ((SearchFragment) currentFrag).setBottomItemAndShow(property);
+            }else{
+                ((SearchFragment) currentFrag).hideBottomItem();
+            }
+        }
     }
-
-//    @Override
-//    public void onMarkerClick(Property property) {
-////        if (currentTag == SEARCH_FRAGMENT) {
-////            if (property != null) {
-////                ((SearchFragment) currentFrag).setBottomItemAndShow(property);
-////            }else{
-////                ((SearchFragment) currentFrag).hideBottomItem();
-////            }
-////        }
-//    }
 //
 //    @Override
 //    public void onMapTouch() {

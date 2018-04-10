@@ -2,6 +2,7 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentMySoldBinding;
+import sold.monkeytech.com.sold_android.ui.activities.FavoriteActivity;
 import sold.monkeytech.com.sold_android.ui.activities.MainActivity;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
@@ -69,6 +71,14 @@ public class MySoldFragment extends BaseFragment {
             public void onClick(View v) {
                 listener.MySoldFragmentAction(SETTINGS);
             }
+        });
+
+        mBinding.mySoldActFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FavoriteActivity.class);
+                startActivity(intent);
+;            }
         });
     }
 }

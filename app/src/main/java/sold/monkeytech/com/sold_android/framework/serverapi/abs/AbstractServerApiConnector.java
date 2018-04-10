@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 
+import com.monkeytechy.framework.managers.BaseUserManager;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -51,7 +53,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,6 +70,7 @@ import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ArrayPara
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.BaseParam;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.TextParam;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.TwoDArrayParam;
 
 //import com.mid.mid.ui.activities.OAuth.OAuthActivity;
 
@@ -221,20 +226,79 @@ public class AbstractServerApiConnector {
         return this.performHTTPPost(true, url, new ParamBuilder());
     }
 
+//    protected RemoteResponseString performHTTPPost(String url, ParamBuilder pm) {
+//        return this.performHTTPPost(true, url, pm);
+//    }
+
     protected RemoteResponseString performSpecificHTTPPost(String url) {
         return this.performHTTPPost(false, url, new ParamBuilder());
     }
 
-    protected RemoteResponseString performHTTPPost(boolean shouldUseBase, String url, ParamBuilder pm) {
-        Handler handler = new Handler(Looper.getMainLooper());
-        HttpPost httppost = new HttpPost(shouldUseBase ? getBaseUrl() : "" + url);
+    protected RemoteResponseString performHTTPPost(String url, ParamBuilder pm) {
+        HttpPost httppost = new HttpPost(getBaseUrl() + url);
 
         if (UserManager.getInstance().getInAppToken() != null) {
-            String keyWord = UserManager.getInstance().getAppKeyWord();
-            String token = UserManager.getInstance().getInAppToken();
-            httppost.addHeader("Authorization", keyWord + " " + token);
-            httppost.addHeader("Content-Type", "application/json");
+            pm.addURLEncodedText("token", UserManager.getInstance().getInAppToken());
         }
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            HashMap<String, BaseParam> map = pm.build();
+            for (String key : map.keySet()) {
+                BaseParam val = map.get(key);
+                if (val != null && val instanceof ArrayParam) {
+                    if (((ArrayParam) val).getValue().isEmpty()) {
+                        nameValuePairs.add(new BasicNameValuePair(key + "[]", ""));
+                    } else {
+                        for (int i = 0; i < ((ArrayParam) val).getValue().size(); i++)
+                            nameValuePairs.add(new BasicNameValuePair(key + "[]", "" + ((ArrayParam) val).getValue().get(i)));
+                    }
+                } else if (val != null && val instanceof TextParam) {
+                    String value = ((TextParam) val).getValue();
+                    if (value != null)
+                        nameValuePairs.add(new BasicNameValuePair(key, "" + value));
+                } else if (val != null && val instanceof TwoDArrayParam) {
+                    HashMap<String, String> value = ((TwoDArrayParam) val).getValue();
+                    Iterator it = value.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        nameValuePairs.add(new BasicNameValuePair(key + "[][" + pair.getKey() + "]", "" + pair.getValue()));
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                }
+            }
+
+            // Execute HTTP Post Request
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+            HttpResponse response = getHTTPClient().execute(httppost);
+            String strResponse = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+            Log.d("HTTPsss", url + "[POST] Response : " + response.getStatusLine().getStatusCode());
+            if (context != null) {
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK || response.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED)
+                    return new RemoteResponseString(true, strResponse, response.getStatusLine().getStatusCode());
+                else
+                    return new RemoteResponseString(false, strResponse, response.getStatusLine().getStatusCode());
+            } else
+                return getOutOfContextRemoteResponse();
+        } catch (Exception e) {
+            Log.d("HTTPsss", "Error on " + url + " : " + e.getMessage());
+            if (context != null)
+                return new RemoteResponseString(false, e.getMessage(), 0);
+            else
+                return getOutOfContextRemoteResponse();
+        }
+
+    }
+
+    protected RemoteResponseString performHTTPPost(boolean shouldUseBase, String url, ParamBuilder pm) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        HttpPost httppost = new HttpPost((shouldUseBase ? getBaseUrl() : "") + url);
+
+//        if (UserManager.getInstance().getInAppToken() != null) {
+//            String keyWord = UserManager.getInstance().getAppKeyWord();
+//            String token = UserManager.getInstance().getInAppToken();
+//            httppost.addHeader("Authorization", keyWord + " " + token);
+//            httppost.addHeader("Content-Type", "application/json");
+//        }
         // Execute HTTP Post Request
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
@@ -252,6 +316,10 @@ public class AbstractServerApiConnector {
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();
         }
+//        if (UserManager.getInstance().getInAppToken() != null) {
+//            params = params + (params.isEmpty()?"?":"&") + UserManager.getInstance().getInAppTokenKey() + "=" + UserManager.getInstance().getInAppToken();
+//        }
+
 
         HttpResponse response = null;
         String strResponse = "";
@@ -329,11 +397,12 @@ public class AbstractServerApiConnector {
                 }
             }
 
+            if (UserManager.getInstance().getInAppToken() != null) {
+                params = params + (params.isEmpty()?"?":"&") + UserManager.getInstance().getInAppTokenKey() + "=" + UserManager.getInstance().getInAppToken();
+            }
             HttpGet httpGet = new HttpGet((useBase ? getBaseUrl() : "") + url + params);
 //            if (UserManager.getInstance().getInAppToken() != null) {
-//                String keyWord = UserManager.getInstance().getAppKeyWord();
-//                String token = UserManager.getInstance().getInAppToken();
-//                httpGet.addHeader("Authorization", keyWord + " " + token);
+//                pm.addURLEncodedText("token", UserManager.getInstance().getInAppToken());
 //            }
             response = getHTTPClient().execute(httpGet);
 //            response = getHTTPClient().execute(new HttpGet((useBase ? getBaseUrl() : "") + url + params));

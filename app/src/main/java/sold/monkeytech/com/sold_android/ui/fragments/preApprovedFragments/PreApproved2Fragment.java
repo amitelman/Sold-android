@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved1Binding;
@@ -28,13 +29,19 @@ public class PreApproved2Fragment extends BaseFragment {
     private FragmentPreApproved2Binding mBinding;
     public On2Listener listener;
     private int loanAmount = 0;
+    private int propertyValue = 0;
 
     public PreApproved2Fragment() {
         // Required empty public constructor
     }
 
+    public BaseFragment setPropertyValue(int propertyValue) {
+        this.propertyValue = propertyValue;
+        return this;
+    }
+
     public interface On2Listener{
-        void onFrag2(int loanAmout);
+        void onFrag2(int loanAmout, int equity);
     }
 
     @Override
@@ -68,6 +75,7 @@ public class PreApproved2Fragment extends BaseFragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mBinding.preApproved2ActAmount.setText(progress + "");
                 loanAmount = progress;
+                mBinding.preApproved2ActEquity.setText(propertyValue - progress + "");
             }
 
             @Override
@@ -107,7 +115,13 @@ public class PreApproved2Fragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 // todo : is there minimum loan amount ?
-                listener.onFrag2(loanAmount);
+                String equityStr = mBinding.preApproved2ActEquity.getText().toString();
+                if(!TextUtils.isEmpty(equityStr)){
+                    int equity = Integer.parseInt(equityStr.replaceAll("\\D+",""));
+                    listener.onFrag2(loanAmount, equity);
+                }else{
+                    Toast.makeText(getContext(), "Please Set your loan", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

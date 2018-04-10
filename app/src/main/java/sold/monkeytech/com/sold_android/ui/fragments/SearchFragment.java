@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 
 import sold.monkeytech.com.sold_android.R;
@@ -41,8 +43,13 @@ import sold.monkeytech.com.sold_android.databinding.FragmentSearchBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
+import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.AutoComplete;
 import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinProperty;
+import sold.monkeytech.com.sold_android.ui.activities.FilterSearchActivity;
+import sold.monkeytech.com.sold_android.ui.activities.PropertyPageActivity;
 import sold.monkeytech.com.sold_android.ui.activities.SortFiltersActivity;
 import sold.monkeytech.com.sold_android.ui.adapters.AutoCompleteAdapter;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
@@ -55,12 +62,16 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
 
     private static final int LIST_FRAG = 0;
     private static final int MAP_FRAG = 1;
+    private static final int MY_LOCATION = 0;
+    private static final int NEW_LOCATION = 1;
+    private static final int FILTER_INTENT = 100;
     private FragmentSearchBinding mBinding;
     private GoogleMap map;
     private BottomSheetBehavior<View> mBottomSheetBehavior;
     private int currentFragType = MAP_FRAG;
     private AutoCompleteAdapter autoCompleteAdapter;
     private Fragment currentFrag;
+    private LatLng previousSearch;
 
 
     public SearchFragment() {
@@ -80,24 +91,16 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
     public void onResume() {
         super.onResume();
 
-        loadMap();
+        if(currentFragType == MAP_FRAG){
+            loadMap();
+        }else{
+            loadList();
+        }
         initUi();
         initBottomItem();
         initAutoComplete();
 
 
-//        //todo: delete:
-//        mBinding.searchFragListBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(flag == false)
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                else{
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                }
-//                flag = !flag;
-//            }
-//        });
     }
 
     private void initAutoComplete() {
@@ -122,8 +125,10 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
                             Place myPlace = places.get(0);
                             Log.i("wow", "Place found: " + myPlace.getName());
                             final LatLng placeLocation = myPlace.getLatLng();
-                            navigateToNewLocation(placeLocation);
+                            SearchParamManager.getInstance().setLastSearchLatLng(placeLocation);
+//                            previousSearch = placeLocation;
                             places.release();
+                            animateToLocation(placeLocation);
                         } else {
                             Log.e("wowAutoComplete", "Place not found.");
                         }
@@ -133,18 +138,13 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         });
     }
 
-    private void navigateToNewLocation(LatLng placeLocation) {
-        if(currentFragType == MAP_FRAG) {
-            ((SearchInMapFragment) currentFrag).animateCamera(placeLocation);
-            ((SearchInMapFragment) currentFrag).initPropertiesMarkers(placeLocation);
-        }
-    }
+
 
     private void initUi() {
         mBinding.searchFragMyLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                animateToMyLocation();
+                animateToLocation(LocManager.getInstance().getLastLatLng());
             }
         });
 
@@ -161,8 +161,8 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         mBinding.searchFragFilterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), SortFiltersActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), FilterSearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -170,13 +170,16 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SortFiltersActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, FILTER_INTENT);
             }
         });
+
     }
+
 
     private void loadList() {
         currentFragType = LIST_FRAG;
+        mBinding.searchFragSortBtn.setVisibility(View.VISIBLE);
         mBinding.searchFragSwitchBtn.setImageResource(R.drawable.map);
         mBinding.searchFragMyLocationBtn.setVisibility(View.GONE);
         final FragmentManager fragmentManager = getFragmentManager();
@@ -194,9 +197,9 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
-    public void setBottomItemAndShow(Property property){
+    public void setBottomItemAndShow(final Property property){
         if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
-            View bottomSheet = mBinding.searchFragBottomItemLayout;
+            final View bottomSheet = mBinding.searchFragBottomItemLayout;
             ;
             ImageLoaderUtils.loadBigPictureImage(property.getCoverPhoto(), (ImageView)bottomSheet.findViewById(R.id.searchItemBkg), null);
             ((TextView)bottomSheet.findViewById(R.id.searchItemPrice)).setText(property.getPrice().getFormatted());
@@ -210,7 +213,27 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
             ((ImageButton)bottomSheet.findViewById(R.id.searchItemFavorite)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: fave!
+                    ((TextView)bottomSheet.findViewById(R.id.searchItemSqrm)).setSelected(true);
+                    final Handler handler = new Handler();
+                    new ApiPinProperty(getContext()).request(property.getId(), null, new Action() {
+                        @Override
+                        public void execute() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((TextView)bottomSheet.findViewById(R.id.searchItemSqrm)).setSelected(false);
+                                }
+                            });
+
+                        }
+                    });
+                }
+            });
+
+            bottomSheet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PropertyPageActivity.startWithProperty(getContext(), property);
                 }
             });
 
@@ -218,6 +241,8 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         }else{
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         }
+
+
     }
 
     public void hideBottomItem() {
@@ -227,6 +252,7 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
 
     private void loadMap() {
         currentFragType = MAP_FRAG;
+        mBinding.searchFragSortBtn.setVisibility(View.GONE);
         mBinding.searchFragSwitchBtn.setImageResource(R.drawable.list);
         mBinding.searchFragMyLocationBtn.setVisibility(View.VISIBLE);
         final FragmentManager fragmentManager = getFragmentManager();
@@ -254,7 +280,7 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
                 map.getUiSettings().setZoomGesturesEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
 
-                animateToMyLocation();
+                animateToLocation(null);
 
                 LocManager.getInstance().getCurrentLatLng(new TAction<LatLng>() {
                     @Override
@@ -273,14 +299,36 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         });
     }
 
-    private void animateToMyLocation() {
+    private void animateToLocation(LatLng latLng) {
+        if(latLng != null){
+            navigateToNewLocation(latLng);
+            return;
+        }
+        if(latLng == null && SearchParamManager.getInstance().getLastSearchLatLng() != null){
+            navigateToNewLocation(SearchParamManager.getInstance().getLastSearchLatLng());
+            return;
+        }
         if(PermissionUtils.checkPermissions(getActivity(), PermissionUtils.LOCATION_PERMISSIONS_1)){
             if(map != null){
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LocManager.getInstance().getLastLatLng(), 7);
                 map.animateCamera(cameraUpdate);
+                if(currentFragType == MAP_FRAG && map != null)
+                    ((SearchInMapFragment) currentFrag).initPropertiesMarkers(LocManager.getInstance().getLastLatLng());
             }
         }
+
     }
+
+    private void navigateToNewLocation(LatLng placeLocation) {
+        if(currentFragType == MAP_FRAG && map != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(placeLocation, 12);
+            map.animateCamera(cameraUpdate);
+            ((SearchInMapFragment) currentFrag).initPropertiesMarkers(placeLocation);
+        }else if(currentFragType == LIST_FRAG){
+            ((SearchInListFragment) currentFrag).refreshSearch(placeLocation);
+        }
+    }
+
 
     @Override
     public void onMarkerClick(Property property) {
@@ -294,8 +342,14 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
     }
 
     @Override
-    public void onMapTouch() {
+    public void onMapTouch(int type) {
 
+    }
+
+    public void backPressed() {
+        if(mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED){
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
     }
 
 

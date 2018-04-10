@@ -22,7 +22,7 @@
                 android:layout_marginTop="17.7dp"
                 android:textSize="12.5sp"
                 android:textColor="#80000000"
-                android:text="Step 3/11"
+                android:text="Step 3/8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -39,68 +39,124 @@
 
             </FrameLayout>
 
-            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                android:layout_marginTop="68dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20.2sp"
-                app:fontType="MULI_EX_BOLD"
-                android:layout_gravity="center"
-                android:textColor="@color/dark_grey_blue_two"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="4.8sp"
-                android:gravity="center_horizontal"
-                android:text="I am:"/>
-
-            <LinearLayout
-                android:layout_marginLeft="8.6dp"
-                android:gravity="left|center"
-                android:layout_marginTop="37dp"
-                android:orientation="horizontal"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:padding="5dp"
-                    android:id="@+id/preApproved3ActSelfEmployed"
-                    android:button="@drawable/cb_selector"
-                    android:layout_width="wrap_content"
-                    android:layout_height="17.7dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:text="Self employed"
-                    android:textSize="23sp"
-                    android:layout_marginLeft="7.6dp"
-                    android:textColor="@color/dark_grey_blue_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_marginTop="41dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20.2sp"
+                        app:fontType="MULI_EX_BOLD"
+                        android:layout_gravity="center"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="4.8sp"
+                        android:gravity="center_horizontal"
+                        android:text="I am:"/>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="8.6dp"
+                        android:gravity="left|center"
+                        android:layout_marginTop="37dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_marginLeft="8.6dp"
-                android:gravity="left|center"
-                android:layout_marginTop="47dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                        <CheckBox
+                            android:padding="5dp"
+                            android:id="@+id/preApproved3ActSelfEmployed"
+                            android:button="@drawable/cb_selector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
-                <CheckBox
-                    android:padding="5dp"
-                    android:id="@+id/preApproved3ActEmployee"
-                    android:button="@drawable/cb_selector"
-                    android:layout_width="wrap_content"
-                    android:layout_height="17.7dp" />
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:text="Self employed"
+                            android:textSize="23sp"
+                            android:layout_marginLeft="7.6dp"
+                            android:textColor="@color/dark_grey_blue_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
-                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                    android:text="Employee"
-                    android:textSize="23sp"
-                    android:layout_marginLeft="7.6dp"
-                    android:textColor="@color/dark_grey_blue_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="8.6dp"
+                        android:gravity="left|center"
+                        android:layout_marginTop="28dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:padding="5dp"
+                            android:id="@+id/preApproved3ActEmployee"
+                            android:button="@drawable/cb_selector"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:text="Employee"
+                            android:textSize="23sp"
+                            android:layout_marginLeft="7.6dp"
+                            android:textColor="@color/dark_grey_blue_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="38dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey_blue"/>
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_marginTop="41dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20.2sp"
+                        app:fontType="MULI_EX_BOLD"
+                        android:layout_gravity="center"
+                        android:textColor="@color/dark_grey_blue_two"
+                        android:letterSpacing="-0.02"
+                        android:lineSpacingExtra="4.8sp"
+                        android:gravity="center_horizontal"
+                        android:text="My occupation:"/>
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:layout_marginTop="52dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13.4sp"
+                        android:layout_marginLeft="8.6dp"
+                        android:textColor="#80000000"
+                        android:letterSpacing="0.06"
+                        android:lineSpacingExtra="8.6sp"
+                        android:gravity="center_horizontal"
+                        android:text="OCCUPATION"/>
+
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/black"
+                        app:fontType="MULI_BOLD"
+                        app:backgroundTint="@color/black"
+                        android:id="@+id/preApproved3ActOccupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
 
             <View
                 android:layout_weight="1"

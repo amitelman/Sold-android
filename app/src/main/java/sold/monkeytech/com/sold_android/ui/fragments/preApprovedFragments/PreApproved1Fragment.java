@@ -71,6 +71,8 @@ public class PreApproved1Fragment extends BaseFragment {
                 unCheckAll();
                 buttonView.setChecked(isChecked);
                 selected = FIRST_APT;
+                if(!isChecked)
+                    selected = null;
             }});
 
         mBinding.preApproved1ActSellToBuy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -79,6 +81,8 @@ public class PreApproved1Fragment extends BaseFragment {
                 unCheckAll();
                 buttonView.setChecked(isChecked);
                 selected = BUY_SELL;
+                if(!isChecked)
+                    selected = null;
             }});
 
         mBinding.preApproved1ActInvestment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -87,6 +91,8 @@ public class PreApproved1Fragment extends BaseFragment {
                 unCheckAll();
                 buttonView.setChecked(isChecked);
                 selected = INVESTMENT;
+                if(!isChecked)
+                    selected = null;
             }});
 
         mBinding.preApproved1ActNext.setOnClickListener(new View.OnClickListener() {

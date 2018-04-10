@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -53,6 +54,11 @@ public class ValuesRangeView extends RangeViewAbs {
         });
     }
 
+    public void clearRanges(){
+        getFromEditText().setText("");
+        getToEditText().setText("");
+    }
+
     public String getRangeValues(){
         String values = mBinding.valuesRangeViewFrom.getText().toString() + " - " + mBinding.valuesRangeViewTo.getText().toString();
         return values;
@@ -93,6 +99,19 @@ public class ValuesRangeView extends RangeViewAbs {
         return mBinding.valuesRangeViewTo;
     }
 
+    public int getMinimum(){
+        String input = getFromEditText().getText().toString();
+        if(!TextUtils.isEmpty(input))
+            return Integer.parseInt(getFromEditText().getText().toString());
+        return 0;
+    }
+
+    public int getMaximum(){
+        String input = getToEditText().getText().toString();
+        if(!TextUtils.isEmpty(input))
+            return Integer.parseInt(getFromEditText().getText().toString());
+        return 0;
+    }
 //    @Override
 //    public ImageButton getCancelBtn() {
 ////        return mBinding.valuesRangeViewCancel;

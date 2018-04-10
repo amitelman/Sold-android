@@ -4,6 +4,7 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -11,11 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.monkeytechy.framework.interfaces.TAction;
+
+import java.util.HashMap;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSeachInListBinding;
 import sold.monkeytech.com.sold_android.databinding.FragmentSellBinding;
+import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
 import sold.monkeytech.com.sold_android.pagination.utils.ListViewReloader;
@@ -50,8 +58,6 @@ public class SearchInListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        initUi();
-
         initList();
     }
 
@@ -80,8 +86,11 @@ public class SearchInListFragment extends BaseFragment {
         reloader.reloadList();
     }
 
-    private void initUi() {
-
-
+    public void refreshSearch(LatLng latLng){
+        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
+        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
+        adapter.clearList();
+        reloader.init(0);
+        reloader.reloadList();
     }
 }

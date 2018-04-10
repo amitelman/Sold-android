@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
@@ -30,15 +31,18 @@ import sold.monkeytech.com.sold_android.framework.models.PropertyType;
 /**
  * Created by monkey on 25/06/2015.
  */
-public class PropertyAdditionalFeaturesAdapter extends BaseAdapter implements View.OnClickListener {
+public class PropertyAdditionalFeaturesAdapter extends BaseAdapter {
     private Context context;
     private List<IdLabel> properties;
     private LayoutInflater inflater;
+
+    private List<IdLabel> selectedProperties;
 
     public PropertyAdditionalFeaturesAdapter(Context context, List<IdLabel> properties) {
         this.context = context;
         if (properties != null)
             this.properties = properties;
+        selectedProperties = new ArrayList<>();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -49,6 +53,20 @@ public class PropertyAdditionalFeaturesAdapter extends BaseAdapter implements Vi
         return 0;
     }
 
+    public String getPropertiesIdCsv(){
+        String selectedCsv = "";
+        for(IdLabel item: properties){
+            selectedCsv += item.getId() + ",";
+        }
+        return selectedCsv;
+    }
+
+    public void clearSelected(){
+        selectedProperties.clear();
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public IdLabel getItem(int i) {
         return properties.get(i);
@@ -57,11 +75,6 @@ public class PropertyAdditionalFeaturesAdapter extends BaseAdapter implements Vi
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
 
@@ -88,17 +101,22 @@ public class PropertyAdditionalFeaturesAdapter extends BaseAdapter implements Vi
         final IdLabel item = getItem(position);
         baseViewHolder.item.setText(item.getLabel());
 
+        if (selectedProperties.contains(item)) {
+            baseViewHolder.item.setSelected(true);
+        } else {
+            baseViewHolder.item.setSelected(false);
+        }
 
-        final BaseViewHolder finalBaseViewHolder = baseViewHolder;
+
         baseViewHolder.bkg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(finalBaseViewHolder.item.isSelected()){
-                   finalBaseViewHolder.item.setSelected(false);
-               }else{
-                   finalBaseViewHolder.item.setSelected(true);
-               }
-
+                if (selectedProperties.contains(item)) {
+                    selectedProperties.remove(item);
+                } else {
+                    selectedProperties.add(item);
+                }
+                notifyDataSetChanged();
             }
         });
 

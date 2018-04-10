@@ -17,11 +17,11 @@
             android:background="@color/black_70">
 
             <RelativeLayout
+                android:clickable="true"
                 android:layout_width="333.6dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="50dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="top|center"
                 android:background="@drawable/shape_sqr_white_rounded">
 
                 <ImageButton
@@ -32,9 +32,10 @@
                     android:layout_marginRight="13.5dp"
                     android:layout_marginTop="20.7dp"
                     android:background="@null"
-                    android:src="@drawable/my_sold_pressed" />
+                    android:src="@drawable/icon_close" />
 
                 <LinearLayout
+                    android:id="@+id/main_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/verificationDialogClose"
@@ -51,7 +52,7 @@
                         android:textColor="@color/dark"
                         android:textSize="22.1sp"
                         app:fontType="MULI_EX_BOLD"
-                        tools:text="Confirm my phone number" />
+                        android:text="Confirm my phone number" />
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:id="@+id/verificationDialogBody"
@@ -65,7 +66,7 @@
                         android:textColor="@color/greyish_brown"
                         android:textSize="14.4sp"
                         app:fontType="MULI_REG"
-                        tools:text="You need to confirm your phone number
+                        android:text="You need to confirm your phone number
 by entering the pin code for activation
  your number." />
 
@@ -86,10 +87,13 @@ by entering the pin code for activation
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:id="@+id/signupDialogInput1"
                                 android:maxLength="1"
+                                android:background="@null"
+                                android:inputType="number"
                                 android:textSize="30.3sp"
+                                android:layout_gravity="center"
                                 android:textColor="@color/scarlet"
                                 android:gravity="center_horizontal"
                                 tools:text="X"
@@ -112,7 +116,7 @@ by entering the pin code for activation
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:id="@+id/signupDialogInput2"
                                 android:maxLength="1"
                                 android:textSize="30.3sp"
@@ -138,7 +142,7 @@ by entering the pin code for activation
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:id="@+id/signupDialogInput3"
                                 android:maxLength="1"
                                 android:textSize="30.3sp"
@@ -164,7 +168,7 @@ by entering the pin code for activation
                             android:layout_width="0dp"
                             android:layout_height="wrap_content">
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:id="@+id/signupDialogInput4"
                                 android:maxLength="1"
                                 android:textSize="30.3sp"
@@ -232,8 +236,14 @@ by entering the pin code for activation
                         android:text="@string/didn_t_get_the_code_send_again"/>
 
                 </LinearLayout>
+
             </RelativeLayout>
 
         </FrameLayout>
+        <sold.monkeytech.com.sold_android.ui.custom_views.NumPadView
+            android:layout_gravity="bottom"
+            android:id="@+id/verificationDialogNumPadView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 </layout>

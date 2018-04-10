@@ -1,0 +1,54 @@
+package sold.monkeytech.com.sold_android.framework.serverapi.user;
+
+import android.content.Context;
+
+import com.monkeytechy.framework.interfaces.TAction;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.models.User;
+import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
+
+
+/**
+ * Created by monkey on 08/06/2015.
+ */
+public class ApiGetFavorites extends AbstractServerApiConnector {
+
+    public ApiGetFavorites(Context context) {
+        super(context);
+    }
+
+    public synchronized void request(final TAction<List<Property>> onSuccess, final TAction<String> onFail) {
+        execute(new Runnable() {
+            @Override
+            public void run() {
+                ParamBuilder params = new ParamBuilder();
+                RemoteResponseString remoteResponseString = performHTTPGet("/users/me/favorites", params);
+                if (remoteResponseString.isSuccess()) {
+                    List<Property> properties = null;
+                    try {
+                        properties = new PropertyParser(PropertyParser.TYPE_SHORT).parseToList(new JSONArray(remoteResponseString.getMessage()));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if(onSuccess != null){
+                        onSuccess.execute(properties);
+                    }
+                } else {
+                    if(onFail!=null)
+                        onFail.execute(remoteResponseString.getMessage());
+                }
+            }
+        });
+    }
+}

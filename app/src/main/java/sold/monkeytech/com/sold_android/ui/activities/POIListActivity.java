@@ -2,6 +2,7 @@ package sold.monkeytech.com.sold_android.ui.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -27,6 +28,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -64,16 +70,15 @@ import sold.monkeytech.com.sold_android.ui.fragments.SearchInMapFragment;
 
 public class POIListActivity extends BaseActivity implements SearchInMapFragment.OnMapFragmentListener {
 
-    private static final float MAP_ZOOM = 10;
-    private static final float POI_MAP_ZOOM = 13;
+    private static final float MAP_ZOOM = 11;
+    private static final float POI_MAP_ZOOM = 10;
     public Property property;
-    List<POI> pois;
-    ThreeLevelListAdapter threeLevelListAdapterAdapter;
+    private List<POI> pois;
     private ActivityPoilistBinding mBinding;
     private GoogleMap map;
     private SearchInMapFragment mapFragment;
-    private TAction<POI> onPoiClickAction;
     private POICategoryHeaderAdapter categoryAdapter;
+    private List<Category> categories;
     private HashMap<Category, List<POI>> categoryPoiList;
     private POIAdapter poiAdapter;
 
@@ -91,17 +96,28 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
 
     private void getProperty() {
         final Handler handler = new Handler();
-        new ApiGetPropertyById(this).request(5, new TAction<Property>() {
+        long id = getIntent().getLongExtra("propertyId", -1);
+        new ApiGetPropertyById(this).request(id, new TAction<Property>() {
             @Override
             public void execute(final Property property) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        initUi();
                         initListData(property);
                     }
                 });
             }
         }, null);
+    }
+
+    private void initUi() {
+        mBinding.poiListActBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initListData(Property property) {
@@ -114,9 +130,14 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
         }
 
         //parent level - categories
-        List<Category> categories = POI.getSortedCategories(tempCategories);
+        categories = POI.getSortedCategories(tempCategories);
         tempCategories.clear();
 
+//        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager();
+//        layoutManager.setFlexWrap(FlexWrap.WRAP);
+//        layoutManager.setAlignItems(AlignItems.BASELINE);
+//        layoutManager.setFlexDirection(FlexDirection.ROW);
+//        layoutManager.setJustifyContent(JustifyContent.CENTER);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mBinding.poiListActCategoryList.setLayoutManager(layoutManager);
         categoryAdapter = new POICategoryHeaderAdapter(this, categories, getOnCategoryClickAction());
@@ -140,29 +161,31 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
             tempPoi = null;
         }
 
-//        // third level - poi Meta data
-//        List<HashMap<POI, List<Meta>>> thirdLevelData = new ArrayList<>();
-//
-//        for (POI p : pois) {
-//            HashMap<POI, List<Meta>> oneItemMetaData = new HashMap<>();
-////            oneItemMetaData.put(p, p.getMeta());
-//            oneItemMetaData.put(p, MetaDataManager.getInstance().getMetaDataMap());
-//            thirdLevelData.add(oneItemMetaData);
-//            oneItemMetaData = null;
-//        }
-//
-//        threeLevelListAdapterAdapter = new ThreeLevelListAdapter(this, categories, poiItems, thirdLevelData, getOnPoiClickAction());
+        loadMap();
 
 
-        initUi();
 
+    }
+
+    private void setDefault(final List<POI> pois) {
+        final int mIndexCount = mBinding.poiListActCategoryList.getAdapter().getItemCount()-1;
+        Log.d("wowPOI","item count: " + mIndexCount);
+        if(mIndexCount > -1){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mBinding.poiListActCategoryList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.poiCategoryItemBkg).performClick();
+                    initMarkers(pois);
+                }
+            },100);
+        }
     }
 
     private TAction<POI> getOnPOIClickAction() {
         return new TAction<POI>() {
             @Override
             public void execute(POI poi) {
-
+                animateToLocation(Double.parseDouble(poi.getLat()), Double.parseDouble(poi.getLng()));
             }
         };
     }
@@ -179,8 +202,8 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
                         poiList.add(null);
                         poiList.addAll((List<POI>) pair.getValue());
                         poiAdapter.updateItems(category.getName(), poiList);
+                        initMarkers(poiList);
                     }
-//                it.remove();
                 }
             }
         };
@@ -195,66 +218,13 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
         };
     }
 
-    private void initUi() {
-//        mBinding.poiListActListView.setAdapter(threeLevelListAdapterAdapter);
-//
-//        mBinding.poiListActListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//            @Override
-//            public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
-//                Log.d("wowPOI", "poi1");
-//                return false;
-//            }
-//        });
-//
-//        // OPTIONAL : Show one list at a time
-//        mBinding.poiListActListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-//            int previousGroup = -1;
-//            @Override
-//            public void onGroupExpand(int groupPosition) {
-//                if (groupPosition != previousGroup)
-//                    mBinding.poiListActListView.collapseGroup(previousGroup);
-//                previousGroup = groupPosition;
-//            }
-//        });
-//
-        LayoutInflater inflater = getLayoutInflater();
-        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.poi_list_header, mBinding.poiListActCategoryList, false);
-        mBinding.poiListActListView.addHeaderView(header, null, false);
-        loadMap(header);
-//
-//        footer.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int action = event.getAction();
-//                switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        // Disallow ScrollView to intercept touch events.
-//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
-//                        // Disable touch on transparent view
-//                        return false;
-//
-//                    case MotionEvent.ACTION_UP:
-//                        // Allow ScrollView to intercept touch events.
-//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(false);
-//                        return true;
-//
-//                    case MotionEvent.ACTION_MOVE:
-//                        mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
-//                        return false;
-//
-//                    default:
-//                        return true;
-//                }
-//            }
-//        });
-    }
 
-    private void loadMap(ViewGroup header) {
+    private void loadMap() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         mapFragment = new SearchInMapFragment();
 
-        FrameLayout container = header.findViewById(R.id.poiListHeaderContainer);
+        FrameLayout container = findViewById(R.id.poiListActContainer);
         fragmentTransaction.replace(container.getId(), mapFragment);
         fragmentTransaction.commit();
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -278,6 +248,9 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
 
                 animateToMyLocation();
 
+                //set property marker
+                mapFragment.initPOIHomeMarkers(property, map);
+
 //                LocManager.getInstance().getCurrentLatLng(new TAction<LatLng>() {
 //                    @Override
 //                    public void execute(LatLng latLng) {
@@ -286,26 +259,30 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
 //                        map.animateCamera(cameraUpdate);
 //                    }
 //                });
-                initMarkers();
+//                initMarkers();
+                setDefault(categoryPoiList.get(categories.get(0)));
             }
         });
 
     }
 
-    private void initMarkers() {
-        mapFragment.initPOIMarkers(property, pois, map);
-        mapFragment.initPOIHomeMarkers(property, map);
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if(!TextUtils.isEmpty(marker.getTitle())){
-                    marker.showInfoWindow();
-                    return false;
-                }else{
-                    return true;
+    private void initMarkers(List<POI> pois) {
+        if(map != null){
+            map.clear();
+            mapFragment.initPOIHomeMarkers(property, map);
+            mapFragment.initPOIMarkers(property, pois, map);
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    if(!TextUtils.isEmpty(marker.getTitle())){
+                        marker.showInfoWindow();
+                        return false;
+                    }else{
+                        return true;
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 
@@ -321,7 +298,7 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
     private void animateToLocation(double lat, double lng) {
         if(PermissionUtils.checkPermissions(this, PermissionUtils.LOCATION_PERMISSIONS_1)){
             if(map != null){
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), POI_MAP_ZOOM);
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18);
                 map.animateCamera(cameraUpdate);
             }
         }
@@ -333,9 +310,16 @@ public class POIListActivity extends BaseActivity implements SearchInMapFragment
     }
 
     @Override
-    public void onMapTouch() {
+    public void onMapTouch(int type) {
         Log.d("wow","onMapTouch");
         mBinding.poiListActListView.requestDisallowInterceptTouchEvent(true);
+    }
+
+    public static void startWithProperty(Context context, Property property){
+        Intent intent = new Intent(context, POIListActivity.class);
+//        propertyStat = property;
+        intent.putExtra("propertyId", property.getId());
+        context.startActivity(intent);
     }
 
 }

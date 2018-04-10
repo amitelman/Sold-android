@@ -4,14 +4,18 @@ package sold.monkeytech.com.sold_android.ui.fragments.preApprovedFragments;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.monkeytechy.framework.interfaces.Action;
+
 import sold.monkeytech.com.sold_android.R;
-import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved6Binding;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved8Binding;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.serverapi.auth.ApiGetCode;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
@@ -29,7 +33,7 @@ public class PreApproved8Fragment extends BaseFragment {
     }
 
     public interface On8Listener{
-        void onFrag8(int disposableIncome);
+        void onFrag8();
     }
 
     @Override
@@ -57,12 +61,42 @@ public class PreApproved8Fragment extends BaseFragment {
     }
 
     private void initUi() {
-        final int disposableIncome = Integer.parseInt(mBinding.preApproved8ActInput.getText().toString());
-
         mBinding.preApproved8ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag8(disposableIncome);
+                if(UserManager.getInstance().getCurrentUser() == null){
+                    mBinding.preApproved8Pb.show();
+                    String first = mBinding.preApproved8First.getText().toString();
+                    String last = mBinding.preApproved8Last.getText().toString();
+                    String email = mBinding.preApproved8Email.getText().toString();
+                    String phone = mBinding.preApproved8Phone.getText().toString();
+                    final Handler handler = new Handler();
+                    new ApiGetCode(getContext()).request(phone, first, last, email, UserManager.getInstance().getValidationDialog(getContext(), phone, new Action() {
+                        @Override
+                        public void execute() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBinding.preApproved8Pb.hide();
+                                    listener.onFrag8();
+                                }
+                            });
+                        }
+                    }), new Action() {
+                        @Override
+                        public void execute() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBinding.preApproved8Pb.hide();
+
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    listener.onFrag8();
+                }
             }
         });
     }

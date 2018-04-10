@@ -5,10 +5,12 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentPreApproved1Binding;
@@ -34,7 +36,7 @@ public class PreApproved3Fragment extends BaseFragment {
     }
 
     public interface On3Listener{
-        void onFrag3(int employmentStatus);
+        void onFrag3(int employmentStatus, String occupation);
     }
 
     @Override
@@ -65,7 +67,12 @@ public class PreApproved3Fragment extends BaseFragment {
         mBinding.preApproved3ActNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFrag3(employmentStatus);
+                String occupation = mBinding.preApproved3ActOccupation.getText().toString();
+                if(!TextUtils.isEmpty(occupation) && employmentStatus != -1){
+                    listener.onFrag3(employmentStatus, occupation);
+                }else{
+                    Toast.makeText(getContext(), "Please Set your status and occupation", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -75,6 +82,8 @@ public class PreApproved3Fragment extends BaseFragment {
                 unCheckAll();
                 buttonView.setChecked(isChecked);
                 employmentStatus = SELF_EMPLOYED;
+                if(!isChecked)
+                    employmentStatus = -1;
             }
         });
 
@@ -84,6 +93,8 @@ public class PreApproved3Fragment extends BaseFragment {
                 unCheckAll();
                 buttonView.setChecked(isChecked);
                 employmentStatus = EMPLOYEE;
+                if(!isChecked)
+                    employmentStatus = -1;
             }
         });
     }

@@ -9,6 +9,8 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 
+import com.monkeytechy.framework.interfaces.Action;
+
 /**
  * Created by MonkeyFather on 11/07/2017.
  */
@@ -102,7 +104,7 @@ public class MyAnimationUtils {
         view.startAnimation(rotate);
     }
 
-    public static void fadeOut(final View view) {
+    public static void fadeOut(final View view, final Action action) {
         if(view.getVisibility() == View.VISIBLE){
             Animation fadeOut = new AlphaAnimation(1, 0);
             fadeOut.setInterpolator(new AccelerateInterpolator()); //add this
@@ -118,6 +120,8 @@ public class MyAnimationUtils {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     view.setVisibility(View.GONE);
+                    if(action != null)
+                        action.execute();
                 }
 
                 @Override

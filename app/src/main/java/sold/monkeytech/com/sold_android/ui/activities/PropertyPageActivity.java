@@ -1,9 +1,17 @@
 package sold.monkeytech.com.sold_android.ui.activities;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,40 +20,92 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityPropertyPageBinding;
+import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
+import sold.monkeytech.com.sold_android.framework.managers.LocManager;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.models.Category;
 import sold.monkeytech.com.sold_android.framework.models.Meta;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
+import sold.monkeytech.com.sold_android.framework.models.POI;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinProperty;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiUnPinProperty;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.POIAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.POICategoryHeaderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PicturesSliderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesImagesAdapter;
+import sold.monkeytech.com.sold_android.ui.adapters.PropertyPageHeaderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
+import sold.monkeytech.com.sold_android.ui.fragments.SearchInMapFragment;
 
-public class PropertyPageActivity extends BaseActivity {
+public class PropertyPageActivity extends BaseActivity implements SearchInMapFragment.OnMapFragmentListener {
 
     private ActivityPropertyPageBinding mBinding;
-    private PicturesSliderAdapter pagerAdapter;
+    private PropertyPageHeaderAdapter pagerAdapter;
     private int dotscount;
     private ImageView[] dots;
     private OpenHouseHoursAdapter hoursAdapter;
     private boolean descriptionExpanded = false;
     private PropertyFeaturesImagesAdapter imagesAdapter;
+
+    //POI
+    private List<POI> pois;
+    private ArrayList<Category> poiCategories;
+    private HashMap<Category, List<POI>> categoryPoiList;
+    private POICategoryHeaderAdapter categoryAdapter;
+
+    public static Property propertyStat;
+    private Property curProperty;
+
+    private SearchInMapFragment poiMapFragment;
+    private SearchInMapFragment aroundMapFragment;
+    private SearchInMapFragment generalMapFragment;
+
+    private GoogleMap poiMap;
+    private GoogleMap aroundMap;
+    private GoogleMap generalMap;
+    private boolean generalMapReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +113,75 @@ public class PropertyPageActivity extends BaseActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_property_page);
 
-        initUi();
+        getProperty(propertyStat);
+//        initUi();
     }
 
-    private void initUi() {
-
-        initHeaderPager();
-        getProperty();
-    }
-
-    private void getProperty() {
+    private void getProperty(final Property fullProperty) {
         final Handler handler = new Handler();
-        new ApiGetPropertyById(this).request(5, new TAction<Property>() {
+        mBinding.propertyActPb.show();
+        new ApiGetPropertyById(this).request(propertyStat.getId(), new TAction<Property>() {
             @Override
             public void execute(final Property property) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        initPropertyDetails(property);
-                        initPropertyFeatures(property);
+                        curProperty = fullProperty;
+                        propertyStat = null;
+                        initUi();
                     }
                 });
             }
-        }, null);
+        }, new Action() {
+            @Override
+            public void execute() {
+
+            }
+        });
     }
 
+    private void initUi() {
+//        curProperty = propertyStat;
+//        propertyStat = null;
+
+        initHeaderPager();
+        initPropertyDetails(curProperty);
+        initPropertyFeatures(curProperty);
+        initPropertyPOIMap(curProperty);
+        initDealsAround();
+        initPropertiesAround(curProperty);
+        initButtonsAndText(curProperty);
+        mBinding.propertyActPb.hide();
+//        getProperty();
+    }
+
+//    private void getProperty() {
+//        final Handler handler = new Handler();
+//        new ApiGetPropertyById(this).request(5, new TAction<Property>() {
+//
+//            @Override
+//            public void execute(final Property property) {
+//                curProperty = property;
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        initHeaderPager();
+//                        initPropertyDetails(property);
+//                        initPropertyFeatures(property);
+//                        initPropertyPOIMap(property);
+//                        initDealsAround();
+//                        initPropertiesAround(property);
+//                        initButtonsAndText(property);
+//                    }
+//                });
+//            }
+//        }, null);
+//    }
+
     private void initPropertyDetails(Property property) {
-        mBinding.propertyActTitle.setText(property.getAddress().getStreetName());
+        mBinding.propertyActTitle.setText(property.getFullAddress());
         mBinding.propertyActPrice.setText(property.getPrice().getFormatted());
-        mBinding.propertyActAddress.setText(property.getAddress().getCityName() + " ");
+        mBinding.propertyActAddress.setText(property.getFullAddress());
         mBinding.propertyActRoomsCounter.setText(property.getRoomsCount() + "");
         mBinding.propertyActBathCounter.setText(property.getBathroomCount() + "");
         mBinding.propertyActSize.setText(property.getPlotArea() + " Sqm");
@@ -101,19 +201,19 @@ public class PropertyPageActivity extends BaseActivity {
         mBinding.propertyActPricePSq.setText(property.getMeterPrice().getFormatted());
         mBinding.propertyActType.setText(property.getPropertyType().getName());
         mBinding.propertyActBuild.setText(property.getBuiltAt() + "");
-        mBinding.propertyActParking.setText(property.getParkingSlot()  + "");
+        mBinding.propertyActParking.setText(property.getParkingSlot() + "");
         mBinding.propertyActTama.setText("???"); //todo : fill this
         mBinding.propertyActDescription.setText(property.getDescription());
 
         mBinding.propertyActReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ViewGroup.LayoutParams params = mBinding.propertyActDescription.getLayoutParams();
-                if(!descriptionExpanded){
+                ViewGroup.LayoutParams params = mBinding.propertyActDescription.getLayoutParams();
+                if (!descriptionExpanded) {
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     mBinding.propertyActDescription.setLayoutParams(params);
                     descriptionExpanded = true;
-                }else{
+                } else {
                     params.height = TextUtils.dpToPx(70);
                     mBinding.propertyActDescription.setLayoutParams(params);
                     descriptionExpanded = false;
@@ -124,33 +224,309 @@ public class PropertyPageActivity extends BaseActivity {
     }
 
     private void initPropertyFeatures(Property property) {
-        for(PropertyFeatures feature : property.getPropertyFeatures()){
-            View child = getLayoutInflater().inflate(R.layout.property_feature_item, null);
-            TextView title = child.findViewById(R.id.featureItemTitle);
-            TextView description = child.findViewById(R.id.featureItemValue);
-            RecyclerView imagesView = child.findViewById(R.id.featureItemList);
-            title.setText("• " + feature.getFeatureName());
+        if (property.getPropertyFeatures() != null) {
+            for (PropertyFeatures feature : property.getPropertyFeatures()) {
+                View child = getLayoutInflater().inflate(R.layout.property_feature_item, null);
+                TextView title = child.findViewById(R.id.featureItemTitle);
+                TextView description = child.findViewById(R.id.featureItemValue);
+                RecyclerView imagesView = child.findViewById(R.id.featureItemList);
+                title.setText("• " + feature.getFeatureName());
 
-            final SpannableStringBuilder descFinal = new SpannableStringBuilder("");
-            final SpannableStringBuilder desc = new SpannableStringBuilder("");
-            for(Meta m : feature.getMeta()){
-                desc.append(m.getKey() + ": " + m.getValue() + ", ");
+                final SpannableStringBuilder descFinal = new SpannableStringBuilder("");
+                final SpannableStringBuilder desc = new SpannableStringBuilder("");
+                for (Meta m : feature.getMeta()) {
+                    desc.append(m.getKey() + ": " + m.getValue() + ", ");
 
-                final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD); // Span to make text bold
-                desc.setSpan(bss, m.getKey().length() + 2, (m.getKey().length() + 2) + m.getValue().length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD); // Span to make text bold
+                    desc.setSpan(bss, m.getKey().length() + 2, (m.getKey().length() + 2) + m.getValue().length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
-                descFinal.append(desc);
-                desc.clear();
+                    descFinal.append(desc);
+                    desc.clear();
+                }
+
+                description.setText(descFinal.subSequence(0, descFinal.length()));
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                imagesView.setLayoutManager(layoutManager);
+                imagesAdapter = new PropertyFeaturesImagesAdapter(this, feature.getImages());
+                imagesView.setAdapter(imagesAdapter);
+
+                mBinding.propertyFeaturesActList.addView(child);
             }
-            description.setText(descFinal.subSequence(0, descFinal.length() - 2));
+        }
+    }
+
+    //poi methods
+    private void initPropertyPOIMap(final Property property) {
+        if (property.getPoi() != null) {
+            pois = property.getPoi();
+
+            List<Category> tempCategories = new ArrayList<>();
+            for (POI poi : pois) {
+                tempCategories.add(poi.getCategory());
+            }
+
+            //parent level - categories
+            poiCategories = POI.getSortedCategories(tempCategories);
+            tempCategories.clear();
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            imagesView.setLayoutManager(layoutManager);
-            imagesAdapter = new PropertyFeaturesImagesAdapter(this, feature.getImages());
-            imagesView.setAdapter(imagesAdapter);
+            mBinding.propertyFeaturesActCategoryList.setLayoutManager(layoutManager);
+            categoryAdapter = new POICategoryHeaderAdapter(this, poiCategories, getOnCategoryClickAction());
+            mBinding.propertyFeaturesActCategoryList.setAdapter(categoryAdapter);
 
-            mBinding.propertyFeaturesActList.addView(child);
+            //        poiAdapter = new POIAdapter(this, property, "", null, null);
+            //        mBinding.propertyFeaturesActPoiListView.setAdapter(poiAdapter);
+
+            //         second level - poi items
+            categoryPoiList = new HashMap<>();
+
+            for (Category c : poiCategories) {
+                long categoryId = c.getId();
+                List<POI> tempPoi = new ArrayList<>();
+                for (POI poi : pois) {
+                    if (categoryId == poi.getCategory().getId()) {
+                        tempPoi.add(poi);
+                    }
+                }
+                categoryPoiList.put(c, tempPoi);
+                tempPoi = null;
+            }
+
+            loadPOIMap(property);
+
+            mBinding.propertyActSeeMorePoi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    POIListActivity.startWithProperty(PropertyPageActivity.this, property);
+                }
+            });
         }
+    }
+
+    private void loadPOIMap(final Property property) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        poiMapFragment = new SearchInMapFragment();
+
+        FrameLayout container = findViewById(R.id.propertyFeaturesActPoiContainer);
+        fragmentTransaction.replace(container.getId(), poiMapFragment);
+        fragmentTransaction.commit();
+        poiMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                Log.d("wowMap", "onMapReady");
+                poiMap = googleMap;
+                if (ContextCompat.checkSelfPermission(PropertyPageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    if (poiMap != null)
+                        poiMap.setMyLocationEnabled(true);
+                    Log.d("wowMap", "PERMISSION_GRANTED");
+                } else {
+                    Log.d("wowMap", "PERMISSION_NOT_GRANTED");
+                    PermissionUtils.askPermissions(PropertyPageActivity.this, PermissionUtils.LOCATION_PERMISSIONS_1, PermissionUtils.PERMISSION_LOCATION_1_REQUEST_CODE, getString(R.string.perm_location_rationale));
+                }
+
+                poiMap.getUiSettings().setScrollGesturesEnabled(false);
+                poiMap.getUiSettings().setZoomGesturesEnabled(false);
+                poiMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                animateToMyLocation(poiMap, property);
+
+                //set property marker
+                poiMapFragment.initPOIHomeMarkers(property, poiMap);
+
+                setDefault(categoryPoiList.get(poiCategories.get(0)));
+            }
+        });
+    }
+
+    private void setDefault(final List<POI> pois) {
+        final int mIndexCount = mBinding.propertyFeaturesActCategoryList.getAdapter().getItemCount() - 1;
+        Log.d("wowPOI", "item count: " + mIndexCount);
+        if (mIndexCount > -1) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mBinding.propertyFeaturesActCategoryList.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.poiCategoryItemBkg).performClick();
+                    initPOIMarkers(pois);
+                }
+            }, 100);
+        }
+    }
+
+    private void initPOIMarkers(List<POI> pois) {
+        if (poiMap != null) {
+            poiMap.clear();
+            poiMapFragment.initPOIHomeMarkers(curProperty, poiMap);
+            poiMapFragment.initPOIMarkers(curProperty, pois, poiMap);
+            poiMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    if (!TextUtils.isEmpty(marker.getTitle())) {
+                        marker.showInfoWindow();
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            });
+
+        }
+    }
+
+    private void animateToMyLocation(GoogleMap map, Property property) {
+        if (PermissionUtils.checkPermissions(this, PermissionUtils.LOCATION_PERMISSIONS_1)) {
+            if (map != null) {
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(property.getLat()), Double.parseDouble(property.getLng().toString())), 12);
+                map.animateCamera(cameraUpdate);
+            }
+        }
+    }
+
+    private TAction<Category> getOnCategoryClickAction() {
+        return new TAction<Category>() {
+            @Override
+            public void execute(Category category) {
+                Iterator it = categoryPoiList.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+                    if (category.getId() == ((Category) pair.getKey()).getId()) {
+                        List<POI> poiList = new ArrayList<>();
+                        poiList.add(null);
+                        poiList.addAll((List<POI>) pair.getValue());
+                        initPOIList(category, poiList);
+                        initPOIMarkers(poiList);
+                    }
+                }
+            }
+        };
+    }
+
+    public void initPOIList(Category category, final List<POI> pois) {
+        mBinding.propertyActPOIContainer.removeAllViews();
+        for (int i = 0; i < pois.size(); i++) {
+            if (i >= 4)
+                return;
+            View child = getLayoutInflater().inflate(R.layout.poi_item, null);
+            RelativeLayout bkg = child.findViewById(R.id.poiItemBkg);
+            TextView title = child.findViewById(R.id.poiItemTitle);
+            TextView distance = child.findViewById(R.id.poiItemDistance);
+            if (i == 0) {
+                title.setText(category.getName() + " באזור");
+                title.setTextColor(getResources().getColor(R.color.white));
+                distance.setText("Distance");
+                distance.setTextColor(getResources().getColor(R.color.white));
+                bkg.setBackgroundColor(getResources().getColor(R.color.dark_grey_blue_two));
+            } else {
+                if (i % 2 == 0) {
+                    bkg.setBackgroundColor(getResources().getColor(R.color.white));
+                } else {
+                    bkg.setBackgroundColor(getResources().getColor(R.color.silver_two));
+                }
+                title.setText(pois.get(i).getName());
+                if (!TextUtils.isEmpty(pois.get(i).getLat())) {
+                    String distance2 = LocManager.getInstance().getDistance(Float.parseFloat(curProperty.getLat()), Float.parseFloat(curProperty.getLng()),
+                            Float.parseFloat(pois.get(i).getLat()), Float.parseFloat(pois.get(i).getLng()));
+                    distance.setText(distance2);
+                }
+                final int finalI = i;
+                bkg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        poiMapFragment.animateCamera(new LatLng(Double.parseDouble(pois.get(finalI).getLat()), Double.parseDouble(pois.get(finalI).getLng())));
+                    }
+                });
+            }
+            mBinding.propertyActPOIContainer.addView(child);
+
+        }
+    }
+    //poi methods done
+
+    public void initDealsAround() {
+        mBinding.propertyActHistoryContainer.removeAllViews();
+        List<Meta> aroundSales = curProperty.getHistorySales();
+        for (int i = -1; i < aroundSales.size(); i++) {
+            if (i >= 4)
+                return;
+            View child = getLayoutInflater().inflate(R.layout.poi_item, null);
+            RelativeLayout bkg = child.findViewById(R.id.poiItemBkg);
+            TextView title = child.findViewById(R.id.poiItemTitle);
+            TextView distance = child.findViewById(R.id.poiItemDistance);
+            if (i == -1) {
+                title.setText("כתובת");
+                title.setTextColor(getResources().getColor(R.color.white));
+                distance.setText("סכום");
+                distance.setTextColor(getResources().getColor(R.color.white));
+                bkg.setBackgroundColor(getResources().getColor(R.color.dark_grey_blue_two));
+            } else {
+                if (i % 2 == 0) {
+                    bkg.setBackgroundColor(getResources().getColor(R.color.white));
+                } else {
+                    bkg.setBackgroundColor(getResources().getColor(R.color.silver_two));
+                }
+                title.setText(aroundSales.get(i).getKey());
+                distance.setText(aroundSales.get(i).getValue());
+            }
+            mBinding.propertyActHistoryContainer.addView(child);
+
+            mBinding.propertyActSeeMoreHistory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(PropertyPageActivity.this, TaxHistoryActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+
+        }
+    }
+
+    public void initPropertiesAround(final Property property) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        aroundMapFragment = new SearchInMapFragment();
+
+        FrameLayout container = findViewById(R.id.propertyActAroundContainer);
+        fragmentTransaction.replace(container.getId(), aroundMapFragment);
+        fragmentTransaction.commit();
+        aroundMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                Log.d("wowMap", "onMapReady");
+                aroundMap = googleMap;
+                if (ContextCompat.checkSelfPermission(PropertyPageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    if (aroundMap != null)
+                        aroundMap.setMyLocationEnabled(true);
+                    Log.d("wowMap", "PERMISSION_GRANTED");
+                } else {
+                    Log.d("wowMap", "PERMISSION_NOT_GRANTED");
+                    PermissionUtils.askPermissions(PropertyPageActivity.this, PermissionUtils.LOCATION_PERMISSIONS_1, PermissionUtils.PERMISSION_LOCATION_1_REQUEST_CODE, getString(R.string.perm_location_rationale));
+                }
+
+                aroundMap.getUiSettings().setScrollGesturesEnabled(false);
+                aroundMap.getUiSettings().setZoomGesturesEnabled(false);
+                aroundMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                animateToMyLocation(aroundMap, property);
+
+                //set property marker
+                aroundMapFragment.initPOIHomeMarkers(property, aroundMap);
+                aroundMapFragment.initPropertiesAroundMarkers(property, aroundMap);
+            }
+        });
+
+        mBinding.propertyActSeeMoreAround.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeAroundActivity.startWithProperty(PropertyPageActivity.this, property);
+//                Intent intent = new Intent(PropertyPageActivity.this, HomeAroundActivity.class);
+//                startActivity(intent);
+
+            }
+        });
     }
 
     private TAction<OpenHouse> getOnDayClickAction() {
@@ -169,10 +545,10 @@ public class PropertyPageActivity extends BaseActivity {
         return new TAction<OpenHouseSlots>() {
             @Override
             public void execute(OpenHouseSlots openHouseSlots) {
-                if(openHouseSlots != null){
+                if (openHouseSlots != null) {
                     mBinding.propertyActRequestAShow.setAlpha(1);
                     mBinding.propertyActRequestAShow.setClickable(true);
-                }else{
+                } else {
                     mBinding.propertyActRequestAShow.setAlpha(0.5f);
                     mBinding.propertyActRequestAShow.setClickable(false);
                 }
@@ -180,9 +556,14 @@ public class PropertyPageActivity extends BaseActivity {
         };
     }
 
-
     private void initHeaderPager() {
-        pagerAdapter = new PicturesSliderAdapter(this);
+        List<String> headerItems = new ArrayList<>();
+        headerItems.add("http://www.google.co.il");
+
+        if (curProperty.getAlbum() != null) {
+            headerItems.addAll(curProperty.getAlbum());
+        }
+        pagerAdapter = new PropertyPageHeaderAdapter(this, headerItems);
         mBinding.propertyActViewPager.setAdapter(pagerAdapter);
 
         dotscount = pagerAdapter.getCount();
@@ -211,7 +592,7 @@ public class PropertyPageActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
 
-                for(int i = 0; i< dotscount; i++){
+                for (int i = 0; i < dotscount; i++) {
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.vp_circle_unselected));
                 }
 
@@ -225,20 +606,26 @@ public class PropertyPageActivity extends BaseActivity {
             }
         });
 
+        mBinding.propertyActHeaderTitle.setText(curProperty.getFullAddress());
+
         mBinding.propertyActAppbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                Log.d("wowOffset","" + verticalOffset);
-                if(verticalOffset < -400){
-                    Log.d("wowOffset","fadeOut");
-                    MyAnimationUtils.fadeOut(mBinding.propertyActDotsLayout);
-                    MyAnimationUtils.fadeOut(mBinding.propertyAct3dLayout);
-                    MyAnimationUtils.fadeOut(mBinding.propertyActBtnsLayout);
-                }else if(verticalOffset > -400){
-                    Log.d("wowOffset","fadeIn");
-                    MyAnimationUtils.fadeIn(mBinding.propertyActDotsLayout);
-                    MyAnimationUtils.fadeIn(mBinding.propertyAct3dLayout);
-                    MyAnimationUtils.fadeIn(mBinding.propertyActBtnsLayout);
+                Log.d("wowOffset", "" + verticalOffset);
+                if (verticalOffset < -400) {
+                    Log.d("wowOffset", "fadeOut");
+                    MyAnimationUtils.fadeOut(mBinding.propertyActDotsLayout, null);
+                    MyAnimationUtils.fadeOut(mBinding.propertyActBtnsLayout, null);
+                    MyAnimationUtils.fadeIn(mBinding.propertyActHeaderTitle);
+                } else if (verticalOffset > -400) {
+                    Log.d("wowOffset", "fadeIn");
+                    MyAnimationUtils.fadeOut(mBinding.propertyActHeaderTitle, new Action() {
+                        @Override
+                        public void execute() {
+                            MyAnimationUtils.fadeIn(mBinding.propertyActDotsLayout);
+                            MyAnimationUtils.fadeIn(mBinding.propertyActBtnsLayout);
+                        }
+                    });
                 }
             }
         });
@@ -250,6 +637,8 @@ public class PropertyPageActivity extends BaseActivity {
                 mBinding.propertyActPhotosBtn.setSelected(true);
                 mBinding.propertyActMapViewBtnLayout.setSelected(false);
                 mBinding.propertyActMapViewBtn.setSelected(false);
+                mBinding.propertyActViewPager.setVisibility(View.VISIBLE);
+                mBinding.propertyActGeneralMapContainer.setVisibility(View.GONE);
             }
         });
         mBinding.propertyActMapViewBtn.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +648,9 @@ public class PropertyPageActivity extends BaseActivity {
                 mBinding.propertyActPhotosBtn.setSelected(false);
                 mBinding.propertyActMapViewBtnLayout.setSelected(true);
                 mBinding.propertyActMapViewBtn.setSelected(true);
+                mBinding.propertyActViewPager.setVisibility(View.GONE);
+                mBinding.propertyActGeneralMapContainer.setVisibility(View.VISIBLE);
+                initGeneralMap();
             }
         });
 
@@ -268,5 +660,188 @@ public class PropertyPageActivity extends BaseActivity {
         mBinding.propertyActMapViewBtn.setSelected(false);
     }
 
+    private void initGeneralMap() {
+        if (generalMapReady)
+            return;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        generalMapFragment = new SearchInMapFragment().setType(1);
 
+        final FrameLayout container = findViewById(R.id.propertyActGeneralMapContainer);
+        fragmentTransaction.replace(container.getId(), generalMapFragment);
+        fragmentTransaction.commit();
+        generalMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(final GoogleMap googleMap) {
+                Log.d("wowMap", "onMapReady");
+                generalMap = googleMap;
+                if (ContextCompat.checkSelfPermission(PropertyPageActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    if (generalMap != null)
+                        generalMap.setMyLocationEnabled(true);
+                    Log.d("wowMap", "PERMISSION_GRANTED");
+                } else {
+                    Log.d("wowMap", "PERMISSION_NOT_GRANTED");
+                    PermissionUtils.askPermissions(PropertyPageActivity.this, PermissionUtils.LOCATION_PERMISSIONS_1, PermissionUtils.PERMISSION_LOCATION_1_REQUEST_CODE, getString(R.string.perm_location_rationale));
+                }
+
+                generalMap.getUiSettings().setScrollGesturesEnabled(true);
+                generalMap.getUiSettings().setZoomGesturesEnabled(false);
+                generalMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                animateToMyLocation(generalMap, curProperty);
+
+                //set property marker
+                generalMapFragment.initPOIHomeMarkers(curProperty, generalMap);
+                generalMapReady = true;
+
+            }
+        });
+
+//        mBinding.propertyActGeneralMapContainer.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_MOVE:
+//                        Log.d("wowMap","move");
+//                        mBinding.propertyActScrollView.requestDisallowInterceptTouchEvent(true);
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                    case MotionEvent.ACTION_CANCEL:
+//                        Log.d("wowMap","upcancel");
+//                        mBinding.propertyActScrollView.requestDisallowInterceptTouchEvent(false);
+//                        break;
+//                }
+//                return container.onTouchEvent(event);
+//            }
+//        });
+
+
+//        ((SearchInMapFragment) getSupportFragmentManager().findFragmentById(R.id.propertyActGeneralMapContainer)).setListener(new WorkaroundMapFragment.OnTouchListener() {
+//            @Override
+//            public void onTouch() {
+//                mScrollView.requestDisallowInterceptTouchEvent(true);
+//            }
+//        });
+    }
+
+    private void initButtonsAndText(final Property property) {
+        mBinding.propertyActCrmId.setText("Property ID:" + property.getCrmId() + getString(R.string.crm_id_text));
+        mBinding.propertyActWhatsappShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                whatsappIntent.setType("text/plain");
+                whatsappIntent.setPackage("com.whatsapp");
+                whatsappIntent.putExtra(Intent.EXTRA_TEXT, "The text you wanted to share");
+                try {
+                    startActivity(whatsappIntent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(PropertyPageActivity.this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mBinding.propertyActMailShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mailTo = "";
+                Intent email_intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", mailTo, null));
+                email_intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+                email_intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
+                startActivity(Intent.createChooser(email_intent, "Send email..."));
+            }
+        });
+
+        mBinding.propertyActFacebookShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ShareLinkContent content = new ShareLinkContent.Builder()
+//                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
+//                        .build();
+                ImageLoaderUtils.loadHighResPicture(curProperty.getCoverPhoto(), new TAction<Bitmap>() {
+                    @Override
+                    public void execute(Bitmap bitmap) {
+                        SharePhoto photo = new SharePhoto.Builder()
+                                .setBitmap(bitmap)
+                                .build();
+                        SharePhotoContent content = new SharePhotoContent.Builder()
+                                .addPhoto(photo)
+                                .build();
+                        ShareDialog shareDialog = new ShareDialog(PropertyPageActivity.this);
+                        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
+                    }
+                });
+
+            }
+        });
+
+        mBinding.propertyActFavoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Handler handler = new Handler();
+                if (mBinding.propertyActFavoriteBtn.isSelected()) {
+                    mBinding.propertyActFavoriteBtn.setSelected(false);
+                    new ApiUnPinProperty(PropertyPageActivity.this).request(property.getId(), null, new Action() {
+                        @Override
+                        public void execute() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBinding.propertyActFavoriteBtn.setSelected(true);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    mBinding.propertyActFavoriteBtn.setSelected(true);
+                    new ApiPinProperty(PropertyPageActivity.this).request(property.getId(), null, new Action() {
+                        @Override
+                        public void execute() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mBinding.propertyActFavoriteBtn.setSelected(false);
+                                }
+                            });
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        mBinding.propertyActShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mBinding.propertyActBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onMarkerClick(Property property) {
+
+    }
+
+    @Override
+    public void onMapTouch(int type) {
+        if (type == 1)
+            mBinding.propertyActScrollView.requestDisallowInterceptTouchEvent(true);
+    }
+
+    public static void startWithProperty(Context context, Property property) {
+        Intent intent = new Intent(context, PropertyPageActivity.class);
+        propertyStat = property;
+        context.startActivity(intent);
+    }
 }

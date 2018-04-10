@@ -16,6 +16,7 @@ import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 
 import java.util.HashMap;
+import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.Utils.ImageLoaderUtils;
@@ -28,20 +29,22 @@ public class PicturesSliderAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private String [] images = {"https://static.birgun.net/resim/haber-detay-resim/2018/02/20/mezbahaya-goturulmeye-calisilan-inek-yuzerek-karsi-adaya-kacti-429916-5.jpg",
-            "https://media.mnn.com/assets/images/2017/01/cow-in-pasture.jpg.838x0_q80.jpg","https://cdn.shopify.com/s/files/1/0032/7522/products/Awkward_Cow_1_1024x1024.jpg?v=1400623244",
-            "https://i2-prod.mirror.co.uk/incoming/article11948636.ece/ALTERNATES/s615b/Cow-self-image.jpg"
-    };
+    private List<String> images;
+    // = {"https://static.birgun.net/resim/haber-detay-resim/2018/02/20/mezbahaya-goturulmeye-calisilan-inek-yuzerek-karsi-adaya-kacti-429916-5.jpg",
+//            "https://media.mnn.com/assets/images/2017/01/cow-in-pasture.jpg.838x0_q80.jpg","https://cdn.shopify.com/s/files/1/0032/7522/products/Awkward_Cow_1_1024x1024.jpg?v=1400623244",
+//            "https://i2-prod.mirror.co.uk/incoming/article11948636.ece/ALTERNATES/s615b/Cow-self-image.jpg"
+//    };
     private HashMap<Integer, Bitmap> currentBitmap;
 
-    public PicturesSliderAdapter(Context context) {
+    public PicturesSliderAdapter(Context context, List<String> images) {
         this.context = context;
+        this.images = images;
         currentBitmap = new HashMap<>();
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return images.size();
     }
 
     @Override
@@ -56,7 +59,7 @@ public class PicturesSliderAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.view_pager_slide, null);
         final ImageView imageView = (ImageView) view.findViewById(R.id.image);
 
-        ImageLoaderUtils.loadHighResPicture(images[position], new TAction<Bitmap>() {
+        ImageLoaderUtils.loadHighResPicture(images.get(position), new TAction<Bitmap>() {
             @Override
             public void execute(Bitmap bitmap) {
                 Log.d("wowViewPager", "sucess");

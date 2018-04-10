@@ -38,7 +38,6 @@
         app:fontType="MULI_BOLD"
         android:textSize="9.8sp"
         android:gravity="center"
-        android:paddingBottom="10.7dp"
         android:layout_toRightOf="@+id/separator"
         android:layout_marginStart="10.4dp"
         android:layout_centerVertical="true"

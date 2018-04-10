@@ -38,15 +38,18 @@ import sold.monkeytech.com.sold_android.pagination.abs.PagibaleAdapter;
 /**
  * Created by monkey on 25/06/2015.
  */
-public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickListener {
+public class PropertyTypeAdapter extends BaseAdapter {
     private Context context;
     private List<PropertyType> properties;
     private LayoutInflater inflater;
+
+    private List<PropertyType> selectedTypes;
 
     public PropertyTypeAdapter(Context context, List<PropertyType> properties) {
         this.context = context;
         if (properties != null)
             this.properties = properties;
+        selectedTypes = new ArrayList<>();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -55,6 +58,19 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
         if (properties != null)
             return properties.size();
         return 0;
+    }
+
+    public String getSelectedTypesIdCsv(){
+        String selectedCsv = "";
+        for(PropertyType pt : selectedTypes){
+            selectedCsv += pt.getId() + ",";
+        }
+        return selectedCsv;
+    }
+
+    public void clearSelected(){
+        selectedTypes.clear();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -67,17 +83,11 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
         return position;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
 
     public static class BaseViewHolder {
         LinearLayout bkg;
         AppCompatImageView icon;
         TextView item;
-
     }
 
     @Override
@@ -98,7 +108,7 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
         final PropertyType item = getItem(position);
         baseViewHolder.item.setText(item.getName());
 
-        final BaseViewHolder finalBaseViewHolder1 = baseViewHolder;
+        final BaseViewHolder finalBaseViewHolder = baseViewHolder;
         ImageLoader.getInstance().loadImage(item.getIcon(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -112,7 +122,7 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    ((ImageView)finalBaseViewHolder1.icon).setImageBitmap(loadedImage);
+                    ((ImageView)finalBaseViewHolder.icon).setImageBitmap(loadedImage);
             }
 
             @Override
@@ -121,24 +131,28 @@ public class PropertyTypeAdapter extends BaseAdapter implements View.OnClickList
             }
         });
 
-        final BaseViewHolder finalBaseViewHolder = baseViewHolder;
+        if(selectedTypes.contains(item)) {
+            finalBaseViewHolder.icon.setColorFilter(context.getResources().getColor(R.color.white));
+            finalBaseViewHolder.item.setSelected(true);
+            finalBaseViewHolder.bkg.setSelected(true);
+        }else{
+            finalBaseViewHolder.icon.setColorFilter(context.getResources().getColor(R.color.lipstick));
+            finalBaseViewHolder.item.setSelected(false);
+            finalBaseViewHolder.bkg.setSelected(false);
+        }
+
         baseViewHolder.bkg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSelected = item.isSelected();
-                if (isSelected){//set selected ui
-                    finalBaseViewHolder.icon.setColorFilter(context.getResources().getColor(R.color.lipstick));
+                if(selectedTypes.contains(item)){
+                    selectedTypes.remove(item);
                 }else{
-                    finalBaseViewHolder.icon.setColorFilter(context.getResources().getColor(R.color.white));
+                    selectedTypes.add(item);
                 }
-                    finalBaseViewHolder.item.setSelected(!isSelected);
-                    finalBaseViewHolder.bkg.setSelected(!isSelected);
-                    item.setSelected(!isSelected);
-//                notifyDataSetChanged();
-
-
+                notifyDataSetChanged();
             }
         });
+
 
         return convertView;
     }

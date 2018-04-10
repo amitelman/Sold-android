@@ -92,6 +92,14 @@ public class ClickValuesRangeView extends LinearLayout {
         }
     }
 
+    public void clearClickRange(){
+        mBinding.clickValuesRangeViewInput.setText("");
+    }
+
+    public int getCounter(){
+        return counter;
+    }
+
 
 
 

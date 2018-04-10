@@ -7,12 +7,20 @@ import android.view.View;
 
 import com.monkeytechy.ui.activities.BaseActivity;
 
+import java.util.List;
+
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivitySortFiltersBinding;
+import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
+import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.models.IdLabel;
+import sold.monkeytech.com.sold_android.ui.adapters.SortFilterAdapter;
 
-public class SortFiltersActivity extends BaseActivity implements View.OnClickListener {
+public class SortFiltersActivity extends BaseActivity {
 
     private ActivitySortFiltersBinding mBinding;
+    private SortFilterAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,61 +31,36 @@ public class SortFiltersActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initUi() {
-//        mBinding.sortActAZ.setOnClickListener(this);
-//        mBinding.sortActZA.setOnClickListener(this);
-//        mBinding.sortActPrice.setOnClickListener(this);
-//        mBinding.sortActRooms.setOnClickListener(this);
-//        mBinding.sortActSize.setOnClickListener(this);
-//        mBinding.sortActTime.setOnClickListener(this);
-//        mBinding.sortActPriceDown.setOnClickListener(this);
-//        mBinding.sortActBackBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
+
+        List<IdLabel> sortables = MetaDataManager.getInstance().getSortables();
+        adapter = new SortFilterAdapter(this, sortables);
+        mBinding.sortActListView.setAdapter(adapter);
+
+        mBinding.sortActBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveAndFinish();
+            }
+        });
+
     }
 
     @Override
-    public void onClick(View view) {
-        deselectAll();
-        selectThis(view);
+    public void onBackPressed() {
+        saveAndFinish();
+//        super.onBackPressed();
     }
 
-    public void deselectAll(){
-//        mBinding.sortActAZV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActZAV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActPriceV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActRoomsV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActSizeV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActTimeV.setVisibility(View.INVISIBLE);
-//        mBinding.sortActPriceDownV.setVisibility(View.INVISIBLE);
-    }
-
-    public void selectThis(View view){
-//        switch (view.getId()){
-//            case R.id.sortActAZ:
-//                mBinding.sortActAZV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActZA:
-//                mBinding.sortActZAV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActPrice:
-//                mBinding.sortActPriceV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActRooms:
-//                mBinding.sortActRoomsV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActSize:
-//                mBinding.sortActSizeV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActTime:
-//                mBinding.sortActTimeV.setVisibility(View.VISIBLE);
-//                break;
-//            case R.id.sortActPriceDown:
-//                mBinding.sortActPriceDownV.setVisibility(View.VISIBLE);
-//                break;
-//        }
+    private void saveAndFinish() {
+        if(adapter != null){
+            long sortId = adapter.getSotrableId();
+            String direction = adapter.getSortDirection();
+            SearchParamManager.getInstance().updateParams("sortable_id", (int) sortId);
+            SearchParamManager.getInstance().updateParams("sort_direction", direction);
+//            SearchParamManager.getInstance().setSortId(sortId);
+//            SearchParamManager.getInstance().setSortDirection(direction);
+            finish();
+        }
     }
 }
 

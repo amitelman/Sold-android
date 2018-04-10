@@ -1,5 +1,8 @@
 package sold.monkeytech.com.sold_android.framework.managers;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 /**
@@ -8,8 +11,15 @@ import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuil
 
 public class SearchParamManager {
 
+    private static final String SORT_ID = "sortId";
+    private static final String SORT_DIRECTION = "sortDirection";
+
     public static SearchParamManager instance;
     ParamBuilder paramBuilder;
+
+    private long sortId;
+    private String sortDirection;
+    private LatLng lastSearchLatLng;
 
     public static SearchParamManager getInstance(){
         if(instance == null){
@@ -21,8 +31,11 @@ public class SearchParamManager {
     public ParamBuilder getParams(){
         if (paramBuilder == null){
             paramBuilder = new ParamBuilder();
-            paramBuilder.addDouble("lat",32.0853); //TelAviv LatLng
-            paramBuilder.addDouble("lng",34.7818);
+            paramBuilder.addDouble("lat",10.0853); //TelAviv LatLng
+            paramBuilder.addDouble("lng",10.7818);
+
+            paramBuilder.addInt("sortable_id", getSortId());
+            paramBuilder.addText("sort_direction", getSortDirection());
         }
         return paramBuilder;
     }
@@ -55,4 +68,29 @@ public class SearchParamManager {
         paramBuilder = null;
     }
 
+    public void setSortId(long sortId) {
+        this.sortId = sortId;
+        Prefs.putInt(SORT_ID, (int) sortId);
+    }
+
+    public int getSortId() {
+        return Prefs.getInt(SORT_ID, 0);
+    }
+
+    public void setSortDirection(String sortDirection) {
+        this.sortDirection = sortDirection;
+        Prefs.putString(SORT_DIRECTION, sortDirection);
+    }
+
+    public String getSortDirection() {
+        return Prefs.getString(SORT_DIRECTION, "");
+    }
+
+    public void setLastSearchLatLng(LatLng lastSearchLatLng) {
+        this.lastSearchLatLng = lastSearchLatLng;
+    }
+
+    public LatLng getLastSearchLatLng() {
+        return lastSearchLatLng;
+    }
 }

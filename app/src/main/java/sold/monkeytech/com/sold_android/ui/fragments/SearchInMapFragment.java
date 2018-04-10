@@ -61,10 +61,12 @@ public class SearchInMapFragment extends SupportMapFragment {
     private HashMap<Marker, Property> myMarkers;
     private HashMap<Marker, POI> myPOIMarkers;
     private OnMapFragmentListener listener;
+    private int type = -1;
+
 
     public interface OnMapFragmentListener{
         void onMarkerClick(Property property);
-        void onMapTouch();
+        void onMapTouch(int type);
     }
 
     @Override
@@ -73,8 +75,13 @@ public class SearchInMapFragment extends SupportMapFragment {
         try {
             listener = (OnMapFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnItemClickedListener");
+            throw new ClassCastException(activity.toString() + " must implement OnMapFragmentListener");
         }
+    }
+
+    public SearchInMapFragment setType(int type){
+        this.type = type;
+        return this;
     }
 
     @Override
@@ -87,9 +94,7 @@ public class SearchInMapFragment extends SupportMapFragment {
         View layout = super.onCreateView(layoutInflater, viewGroup, bundle);
 
         TouchableWrapper frameLayout = new TouchableWrapper(getActivity());
-
         frameLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-
         ((ViewGroup) layout).addView(frameLayout,
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -106,10 +111,10 @@ public class SearchInMapFragment extends SupportMapFragment {
         public boolean dispatchTouchEvent(MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    listener.onMapTouch();
+                    listener.onMapTouch(type);
                     break;
                 case MotionEvent.ACTION_UP:
-                    listener.onMapTouch();
+                    listener.onMapTouch(type);
                     break;
             }
             return super.dispatchTouchEvent(event);
@@ -217,8 +222,7 @@ public class SearchInMapFragment extends SupportMapFragment {
                         for (Property p : properties) {
                             LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
                             MarkerOptions markerOptions = new MarkerOptions().position(location)
-                                    .icon(getBitmapFromVectorDrawable(POI_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
-
+                                    .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
                             mMarker = map.addMarker(markerOptions);
                             if(myMarkers == null)
                                 myMarkers = new HashMap<Marker, Property>();
@@ -238,22 +242,23 @@ public class SearchInMapFragment extends SupportMapFragment {
 
     public void initPOIMarkers(Property property, List<POI> pois, GoogleMap map) {
         for (POI p : pois) {
-            LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
-            MarkerOptions markerOptions = new MarkerOptions().position(location).title(p.getCategory().getName()).snippet(p.getName())
-                    .icon(getBitmapFromVectorDrawable(POI_MARKER, R.drawable.poi_marker, p.getCategory().getColor()));
+            if(p != null && !TextUtils.isEmpty(p.getLat())){
+                LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
+                MarkerOptions markerOptions = new MarkerOptions().position(location).title(p.getCategory().getName()).snippet(p.getName())
+                        .icon(getBitmapFromVectorDrawable(POI_MARKER, R.drawable.poi_marker, p.getCategory().getColor()));
 
-            Marker poiMarker = map.addMarker(markerOptions);
-            String distance = LocManager.getInstance().getDistance(Float.parseFloat(property.getLat()), Float.parseFloat(property.getLng())
-                    , Float.parseFloat(p.getLat()), Float.parseFloat(p.getLng()));
-            poiMarker.setTag(distance);
-            if(myPOIMarkers == null)
-                myPOIMarkers = new HashMap<Marker, POI>();
-            myPOIMarkers.put(poiMarker, p);
+                Marker poiMarker = map.addMarker(markerOptions);
+                String distance = LocManager.getInstance().getDistance(Float.parseFloat(property.getLat()), Float.parseFloat(property.getLng())
+                        , Float.parseFloat(p.getLat()), Float.parseFloat(p.getLng()));
+                poiMarker.setTag(distance);
+                if(myPOIMarkers == null)
+                    myPOIMarkers = new HashMap<Marker, POI>();
+                myPOIMarkers.put(poiMarker, p);
+                animateCamera(new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng())));
+            }
         }
         CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(getContext());
         map.setInfoWindowAdapter(customInfoWindow);
-
-
     }
 
     public void initPOIHomeMarkers(Property property, GoogleMap map) {
@@ -262,6 +267,24 @@ public class SearchInMapFragment extends SupportMapFragment {
                 .icon(getBitmapFromVectorDrawable(2, R.drawable.poi_home_marker, ""));
 
         map.addMarker(markerOptions);
+    }
+
+    public void initPropertiesAroundMarkers(Property property, GoogleMap aroundMap) {
+        if(property.getNearbyProperties() != null){
+            List<Property> nearbyProperties = property.getNearbyProperties();
+            for (Property p : nearbyProperties) {
+                LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
+                MarkerOptions markerOptions = new MarkerOptions().position(location)
+                        .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, property.getPrice().getShorted()));
+
+                mMarker = aroundMap.addMarker(markerOptions);
+                if(myMarkers == null)
+                    myMarkers = new HashMap<Marker, Property>();
+                myMarkers.put(mMarker, p);
+            }
+            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(getContext());
+            aroundMap.setInfoWindowAdapter(customInfoWindow);
+        }
     }
 
     public static int convertToPixels(Context context, int nDP){

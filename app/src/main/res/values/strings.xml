@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Sold-android</string>
     <string name="google_maps_api_key">AIzaSyDKTkiq5nS0Tv8fHL9p4ckhtni0owNpP9w</string>
-
+    <string name="facebook_app_id">192653321460639</string>
 
     <string name="permissions_rational_title">Permissions error</string>
     <string name="perm_pdf_rationale">In order to view PDF please confirm permission</string>
@@ -15,6 +15,10 @@
     <string name="title_activity_filter_search">FilterSearchActivity</string>
     <string name="didn_t_get_the_code_send_again">Didn’t get the code? <u>Send again!</u></string>
     <string name="read_more"><u>Read More</u></string>
+    <string name="crm_id_text"> Association of SOLD.®. All rights reserved.</string>
+    <string name="already_have_account_login">Already have account? <u>Login</u></string>
+    <string name="no_account_login">No Account? <u>Sign up!</u></string>
+    <string name="title_activity_favorite">FavoriteActivity</string>
 
 
 </resources>

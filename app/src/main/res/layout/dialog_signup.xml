@@ -19,6 +19,7 @@
             android:background="@color/black_70">
 
             <RelativeLayout
+                android:clickable="true"
                 android:layout_width="333.6dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -26,14 +27,15 @@
                 android:layoutDirection="ltr">
 
                 <ImageButton
+                    android:padding="5dp"
                     android:id="@+id/signupDialogClose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="13.5dp"
                     android:layout_marginTop="20.7dp"
                     android:background="@null"
-                    android:src="@drawable/my_sold_pressed" />
+                    android:src="@drawable/icon_close" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,7 +56,7 @@
                         android:textColor="@color/dark"
                         android:textSize="22.1sp"
                         app:fontType="MULI_EX_BOLD"
-                        tools:text="Signup" />
+                        android:text="Sign up" />
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:layout_width="match_parent"
@@ -69,21 +71,67 @@
                         android:textColor="#80000000"
                         android:textSize="11.5sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/talkToAgentActEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
                         android:layout_marginTop="7.3dp"
-                        android:background="@null"
-                        android:hint="enter name"
-                        android:textColorHint="#80000000"
-                        android:textSize="13.4sp" />
-
-                    <View
+                        android:weightSum="2"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="4.4dp"
-                        android:background="@color/black" />
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogFirstName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:lines="1"
+                                android:imeOptions="actionNext"
+                                android:hint="enter first name"
+                                android:textColorHint="#80000000"
+                                android:textSize="13.4sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="4.4dp"
+                                android:background="@color/black" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                android:id="@+id/signupDialogLastName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:lines="1"
+                                android:imeOptions="actionNext"
+                                android:hint="enter last name"
+                                android:textColorHint="#80000000"
+                                android:textSize="13.4sp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="4.4dp"
+                                android:background="@color/black" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:layout_width="match_parent"
@@ -99,12 +147,15 @@
                         android:textSize="11.5sp" />
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/talkToAgentActPhone"
+                        android:id="@+id/signupDialogEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
                         android:hint="enter email"
+                        android:lines="1"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp" />
 
@@ -128,11 +179,14 @@
                         android:textSize="11.5sp" />
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/talkToAgentActDescription"
+                        android:id="@+id/signupDialogPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
                         android:hint="enter phone"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp" />
@@ -143,10 +197,10 @@
                         android:layout_marginTop="4.4dp"
                         android:background="@color/black" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                    <!--<View-->
+                        <!--android:layout_width="1dp"-->
+                        <!--android:layout_height="0dp"-->
+                        <!--android:layout_weight="1" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -157,12 +211,12 @@
                         android:orientation="horizontal">
 
                         <CheckBox
-                            android:id="@+id/talkToAgentActCb"
+                            android:id="@+id/signupDialogCb"
                             android:layout_width="wrap_content"
                             android:layout_height="17.7dp"
                             android:layout_gravity="center|end"
                             android:button="@drawable/cb_selector"
-                            android:checked="true"
+                            android:checked="false"
                             android:padding="5dp" />
 
                         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
@@ -176,11 +230,11 @@
                     </LinearLayout>
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:id="@+id/talkToAgentActContactBtn"
+                        android:id="@+id/signupDialogDoneBtn"
                         android:layout_width="165.5dp"
                         android:layout_height="37.4dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="26.4dp"
+                        android:layout_marginBottom="16.4dp"
                         android:layout_marginTop="26.9dp"
                         android:background="@drawable/shape_sqr_red"
                         android:gravity="center"
@@ -190,8 +244,24 @@
                         android:textSize="14.4sp"
                         app:fontType="MULI_BOLD" />
 
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                        android:text="@string/already_have_account_login"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:id="@+id/signupDialogLogin"
+                        android:paddingBottom="10.4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
             </RelativeLayout>
+
+            <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+                android:id="@+id/signupDialogPb"
+                android:layout_gravity="center"
+                android:layout_width="333.6dp"
+                android:layout_height="wrap_content"/>
 
         </FrameLayout>
     </FrameLayout>

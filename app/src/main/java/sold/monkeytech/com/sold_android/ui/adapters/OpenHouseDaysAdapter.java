@@ -85,6 +85,8 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
 
     @Override
     public int getItemCount() {
+        if(openHouses == null)
+            return 0;
         return openHouses.size();
     }
 

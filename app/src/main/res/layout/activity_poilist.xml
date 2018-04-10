@@ -51,7 +51,14 @@
 
         </FrameLayout>
 
+        <FrameLayout
+            android:background="@color/white"
+            android:id="@+id/poiListActContainer"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
         <LinearLayout
+            android:paddingTop="20.2dp"
             android:paddingStart="12.6dp"
             android:layoutDirection="ltr"
             android:gravity="start"
@@ -61,7 +68,8 @@
             android:background="@color/white">
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginBottom="14.8dp"
+                android:layout_gravity="start"
+                android:layout_marginBottom="10.8dp"
                 android:id="@+id/poiListActCategoryList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
