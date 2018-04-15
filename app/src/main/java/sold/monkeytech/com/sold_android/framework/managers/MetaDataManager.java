@@ -5,6 +5,7 @@ import android.content.Context;
 import com.monkeytechy.framework.interfaces.TAction;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.models.IdLabel;
+import sold.monkeytech.com.sold_android.framework.models.Location;
 import sold.monkeytech.com.sold_android.framework.models.Meta;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
@@ -99,6 +101,38 @@ public class MetaDataManager {
             }
         }
         return sortables;
+    }
+
+    public JSONArray getSettings(){
+        JSONArray settings = null;
+        if(metaData != null && getMetaData().length() != 0){
+            try {
+                settings = getMetaData().getJSONArray("settings");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return settings;
+    }
+
+
+    public Location getDefaultLocation(){
+        Location location = new Location();
+        if(getSettings() != null){
+            for (int i = 0; i < getSettings().length(); i++) {
+                JSONObject row = null;
+                try {
+                    row = getSettings().getJSONObject(i);
+                    if(row.get("key").equals("default_search_location_id"))
+                        location.setId(row.getLong("value"));
+                    if(row.get("key").equals("default_search_location_type"))
+                        location.setLocationType((String) row.get("value"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return location;
     }
 
     public List<Meta> getMetaDataMap(){

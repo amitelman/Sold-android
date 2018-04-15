@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/simpleItemLayout"
+    tools:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="51.4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_marginStart="8.5dp"
+        android:textSize="15.5sp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/dark_grey_blue_two"
+        tools:text="South Pointe Elementary School"
+        app:fontType="MULI_REG"
+        android:id="@+id/simpleItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

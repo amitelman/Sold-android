@@ -110,6 +110,18 @@ public class Property extends BaseModel<Property> {
         this.lat = lat;
     }
 
+    public double getDoubleLat(){
+        if(!TextUtils.isEmpty(getLat()))
+            return Double.parseDouble(getLat());
+        return 0;
+    }
+
+    public double getDoubleLng(){
+        if(!TextUtils.isEmpty(getLng()))
+            return Double.parseDouble(getLng());
+        return 0;
+    }
+
     public String getLng() {
         return lng;
     }

@@ -46,6 +46,7 @@ import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.CustomInfoWindowGoogleMap;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
 import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
+import sold.monkeytech.com.sold_android.framework.models.Location;
 import sold.monkeytech.com.sold_android.framework.models.POI;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
@@ -64,8 +65,9 @@ public class SearchInMapFragment extends SupportMapFragment {
     private int type = -1;
 
 
-    public interface OnMapFragmentListener{
+    public interface OnMapFragmentListener {
         void onMarkerClick(Property property);
+
         void onMapTouch(int type);
     }
 
@@ -79,7 +81,7 @@ public class SearchInMapFragment extends SupportMapFragment {
         }
     }
 
-    public SearchInMapFragment setType(int type){
+    public SearchInMapFragment setType(int type) {
         this.type = type;
         return this;
     }
@@ -137,24 +139,24 @@ public class SearchInMapFragment extends SupportMapFragment {
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        if(myMarkers != null){
+                        if (myMarkers != null) {
                             HashMap<Marker, Property> tempHash = new HashMap<Marker, Property>();
                             tempHash.putAll(myMarkers);
                             Iterator it = tempHash.entrySet().iterator();
                             while (it.hasNext()) {
-                                Map.Entry pair = (Map.Entry)it.next();
+                                Map.Entry pair = (Map.Entry) it.next();
 //                                System.out.println(pair.getKey() + " = " + pair.getValue());
-                                if(marker.getPosition().latitude == ((Marker)pair.getKey()).getPosition().latitude){
+                                if (marker.getPosition().latitude == ((Marker) pair.getKey()).getPosition().latitude) {
                                     Log.d("wow", "wow");
-                                    listener.onMarkerClick((Property)pair.getValue());
+                                    listener.onMarkerClick((Property) pair.getValue());
                                 }
                                 it.remove(); // avoids a ConcurrentModificationException
                             }
                         }
-                        if(!TextUtils.isEmpty(marker.getTitle())){
+                        if (!TextUtils.isEmpty(marker.getTitle())) {
                             marker.showInfoWindow();
                             return false;
-                        }else{
+                        } else {
                             return true;
                         }
                     }
@@ -166,40 +168,65 @@ public class SearchInMapFragment extends SupportMapFragment {
                         listener.onMarkerClick(null);
                     }
                 });
+
+                showLastSearch();
             }
         });
     }
 
-    private GoogleMap.CancelableCallback cameraAnimation = new GoogleMap.CancelableCallback() {
-//        GoogleMap map = getMap();
-        private LatLng latLng = (map == null) ? new LatLng(0, 0) : map.getCameraPosition().target;
-        //initial zoom
-        static final int initZoom = 13;
-        //steps the zoom
-        int stepZoom = 0;
-        // number of steps in zoom, be careful with this number!
-        int stepZoomMax = 15;
-        //number of .zoom steps in a step
-        int stepZoomDetent = (18 - initZoom) / stepZoomMax;
-        //when topause zoom for spin
-        int stepToSpin = 4;
-        //steps the spin
-        int stepSpin = 0;
-        //number of steps in spin (factor of 360)
-        int stepSpinMax = 4;
-        //number of degrees in stepSpin
-        int stepSpinDetent = 360 / stepSpinMax;
-        final int mapHopDelay = 2000;
+    private void showLastSearch() {
+        Location lastLocation = SearchParamManager.getInstance().getLastSearchLocation(); //return last or defualt search
+        if (lastLocation != null) {
+            final Handler handler = new Handler();
 
-        @Override
-        public void onFinish() {
+            new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
+                @Override
+                public void execute(final List<Property> properties) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (properties.size() > 0) {
+                                LatLng latLng = new LatLng(properties.get(0).getDoubleLat(), properties.get(0).getDoubleLng());
+                                animateCamera(latLng);
+                                initPropertiesMarkers(properties);
+                            }
+                        }
+                    });
+                }
+            }, null);
         }
+    }
 
-        @Override
-        public void onCancel() {
-        }
+        private GoogleMap.CancelableCallback cameraAnimation = new GoogleMap.CancelableCallback() {
+            //        GoogleMap map = getMap();
+            private LatLng latLng = (map == null) ? new LatLng(0, 0) : map.getCameraPosition().target;
+            //initial zoom
+            static final int initZoom = 13;
+            //steps the zoom
+            int stepZoom = 0;
+            // number of steps in zoom, be careful with this number!
+            int stepZoomMax = 15;
+            //number of .zoom steps in a step
+            int stepZoomDetent = (18 - initZoom) / stepZoomMax;
+            //when topause zoom for spin
+            int stepToSpin = 4;
+            //steps the spin
+            int stepSpin = 0;
+            //number of steps in spin (factor of 360)
+            int stepSpinMax = 4;
+            //number of degrees in stepSpin
+            int stepSpinDetent = 360 / stepSpinMax;
+            final int mapHopDelay = 2000;
 
-    };
+            @Override
+            public void onFinish() {
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+        };
 
     public void animateCamera(LatLng latLng) {
         if (map != null) {
@@ -208,41 +235,53 @@ public class SearchInMapFragment extends SupportMapFragment {
         }
     }
 
-    public void initPropertiesMarkers(LatLng latLng) {
-        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
-        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
-        final Handler handler = new Handler();
-        new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
-            @Override
-            public void execute(final List<Property> properties) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d("wowInMap", "success");
-                        for (Property p : properties) {
-                            LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
-                            MarkerOptions markerOptions = new MarkerOptions().position(location)
-                                    .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
-                            mMarker = map.addMarker(markerOptions);
-                            if(myMarkers == null)
-                                myMarkers = new HashMap<Marker, Property>();
-                            myMarkers.put(mMarker, p);
-                        }
-                    }
-                });
-            }
-        }, new TAction<String>() {
-            @Override
-            public void execute(String s) {
+//    public void initPropertiesMarkers(LatLng latLng) {
+//        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
+//        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
+//        final Handler handler = new Handler();
+//        new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
+//            @Override
+//            public void execute(final List<Property> properties) {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d("wowInMap", "success");
+//                        for (Property p : properties) {
+//                            LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
+//                            MarkerOptions markerOptions = new MarkerOptions().position(location)
+//                                    .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
+//                            mMarker = map.addMarker(markerOptions);
+//                            if(myMarkers == null)
+//                                myMarkers = new HashMap<Marker, Property>();
+//                            myMarkers.put(mMarker, p);
+//                        }
+//                    }
+//                });
+//            }
+//        }, new TAction<String>() {
+//            @Override
+//            public void execute(String s) {
+//
+//            }
+//        });
+//    }
 
-            }
-        });
+    public void initPropertiesMarkers(List<Property> properties) {
+        for (Property p : properties) {
+            LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
+            MarkerOptions markerOptions = new MarkerOptions().position(location)
+                    .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
+            mMarker = map.addMarker(markerOptions);
+            if (myMarkers == null)
+                myMarkers = new HashMap<Marker, Property>();
+            myMarkers.put(mMarker, p);
+        }
     }
 
 
     public void initPOIMarkers(Property property, List<POI> pois, GoogleMap map) {
         for (POI p : pois) {
-            if(p != null && !TextUtils.isEmpty(p.getLat())){
+            if (p != null && !TextUtils.isEmpty(p.getLat())) {
                 LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
                 MarkerOptions markerOptions = new MarkerOptions().position(location).title(p.getCategory().getName()).snippet(p.getName())
                         .icon(getBitmapFromVectorDrawable(POI_MARKER, R.drawable.poi_marker, p.getCategory().getColor()));
@@ -251,7 +290,7 @@ public class SearchInMapFragment extends SupportMapFragment {
                 String distance = LocManager.getInstance().getDistance(Float.parseFloat(property.getLat()), Float.parseFloat(property.getLng())
                         , Float.parseFloat(p.getLat()), Float.parseFloat(p.getLng()));
                 poiMarker.setTag(distance);
-                if(myPOIMarkers == null)
+                if (myPOIMarkers == null)
                     myPOIMarkers = new HashMap<Marker, POI>();
                 myPOIMarkers.put(poiMarker, p);
                 animateCamera(new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng())));
@@ -270,7 +309,7 @@ public class SearchInMapFragment extends SupportMapFragment {
     }
 
     public void initPropertiesAroundMarkers(Property property, GoogleMap aroundMap) {
-        if(property.getNearbyProperties() != null){
+        if (property.getNearbyProperties() != null) {
             List<Property> nearbyProperties = property.getNearbyProperties();
             for (Property p : nearbyProperties) {
                 LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
@@ -278,7 +317,7 @@ public class SearchInMapFragment extends SupportMapFragment {
                         .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, property.getPrice().getShorted()));
 
                 mMarker = aroundMap.addMarker(markerOptions);
-                if(myMarkers == null)
+                if (myMarkers == null)
                     myMarkers = new HashMap<Marker, Property>();
                 myMarkers.put(mMarker, p);
             }
@@ -287,9 +326,9 @@ public class SearchInMapFragment extends SupportMapFragment {
         }
     }
 
-    public static int convertToPixels(Context context, int nDP){
+    public static int convertToPixels(Context context, int nDP) {
         final float conversionScale = context.getResources().getDisplayMetrics().density;
-        return (int) ((nDP * conversionScale) + 0.5f) ;
+        return (int) ((nDP * conversionScale) + 0.5f);
     }
 
     public BitmapDescriptor getBitmapFromVectorDrawable(int type, int drawableId, String text) {
@@ -301,11 +340,11 @@ public class SearchInMapFragment extends SupportMapFragment {
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
 
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
 
-        if(type == PROPERTY_MARKER) {
+        if (type == PROPERTY_MARKER) {
             Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Muli-Regular.ttf");
 
             Paint paint = new Paint();
@@ -328,7 +367,7 @@ public class SearchInMapFragment extends SupportMapFragment {
             int yTextPos = convertToPixels(getActivity(), 18);
 
             canvas.drawText(text, xTextPos, yTextPos, paint);
-        }else if(type == POI_MARKER){
+        } else if (type == POI_MARKER) {
             Paint paint = new Paint();
             ColorFilter filter = new PorterDuffColorFilter(Color.parseColor(text), PorterDuff.Mode.SRC_IN);
             paint.setColorFilter(filter);

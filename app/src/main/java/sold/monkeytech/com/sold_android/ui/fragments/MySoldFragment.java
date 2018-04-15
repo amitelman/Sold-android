@@ -15,6 +15,7 @@ import sold.monkeytech.com.sold_android.databinding.FragmentMySoldBinding;
 import sold.monkeytech.com.sold_android.ui.activities.FavoriteActivity;
 import sold.monkeytech.com.sold_android.ui.activities.MainActivity;
 import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
+import sold.monkeytech.com.sold_android.ui.activities.SavedSearchesActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
 /**
@@ -79,6 +80,14 @@ public class MySoldFragment extends BaseFragment {
                 Intent intent = new Intent(getContext(), FavoriteActivity.class);
                 startActivity(intent);
 ;            }
+        });
+
+        mBinding.mySoldActSaved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SavedSearchesActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }

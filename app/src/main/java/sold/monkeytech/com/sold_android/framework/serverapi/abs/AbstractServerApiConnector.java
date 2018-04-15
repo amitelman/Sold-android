@@ -436,18 +436,34 @@ public class AbstractServerApiConnector {
         }
     }
 
-    protected RemoteResponseString performHTTPDelete(String url) {
+    protected RemoteResponseString performHTTPDelete(String url, ParamBuilder pm) {
         Handler handler = new Handler(Looper.getMainLooper());
         try {
             HttpResponse response = null;
             InputStream content = null;
 //            url += "?token=" + UserManager.getInstance().getInAppToken();
-            HttpDelete httpDelete = new HttpDelete(getBaseUrl() + url);
-            if (UserManager.getInstance().getInAppToken() != null) {
-                String keyWord = UserManager.getInstance().getAppKeyWord();
-                String token = UserManager.getInstance().getInAppToken();
-                httpDelete.addHeader("Authorization", keyWord + " " + token);
+            String params = "";
+            if(pm != null) {
+                HashMap<String, BaseParam> map = pm.build();
+
+                for (String key : map.keySet()) {
+                    BaseParam val = map.get(key);
+                    if (val != null && val instanceof TextParam) {
+                        String value = ((TextParam) val).getValue();
+                        params += (params.isEmpty() ? "?" : "&") + key + "=" + value;
+                    }
+                    if (val != null && val instanceof ArrayParam) {
+                        List<String> value = ((ArrayParam) val).getValue();
+                        for (String v : value)
+                            params += (params.isEmpty() ? "?" : "&") + key + "[]=" + v;
+                    }
+                }
             }
+            if (UserManager.getInstance().getInAppToken() != null) {
+                params = params + (params.isEmpty()?"?":"&") + UserManager.getInstance().getInAppTokenKey() + "=" + UserManager.getInstance().getInAppToken();
+            }
+            HttpDelete httpDelete = new HttpDelete(getBaseUrl() + url + params);
+
             response = getHTTPClient().execute(httpDelete);
             String strResponse = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
             Log.d("HTTPsss", url + "[DELETE] Response : " + response.getStatusLine().getStatusCode());

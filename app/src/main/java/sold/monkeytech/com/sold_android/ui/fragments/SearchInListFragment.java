@@ -24,6 +24,7 @@ import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSeachInListBinding;
 import sold.monkeytech.com.sold_android.databinding.FragmentSellBinding;
 import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
+import sold.monkeytech.com.sold_android.framework.models.Location;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
 import sold.monkeytech.com.sold_android.pagination.utils.ListViewReloader;
@@ -82,13 +83,15 @@ public class SearchInListFragment extends BaseFragment {
                 return 1;
             }
         };
+        Log.d("wowInList","initList");
         reloader.init(0);
         reloader.reloadList();
     }
 
-    public void refreshSearch(LatLng latLng){
-        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
-        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
+    public void refreshSearch(List<Property> properties){
+//        SearchParamManager.getInstance().updateParams("lat", latLng.latitude);
+//        SearchParamManager.getInstance().updateParams("lng", latLng.longitude);
+        Log.d("wowInList","refreshSearch");
         adapter.clearList();
         reloader.init(0);
         reloader.reloadList();

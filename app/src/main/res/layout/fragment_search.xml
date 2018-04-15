@@ -49,7 +49,7 @@
                         <!--android:textColorHint="@color/white"-->
                         <!--android:textSize="14.4sp" />-->
 
-                    <sold.monkeytech.com.sold_android.ui.custom_views.ClearableAutoCompleteTextView
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:paddingRight="10dp"
                         android:lines="1"
                         android:layout_width="match_parent"
@@ -62,8 +62,9 @@
                         android:hint="Search"
                         android:textColorHint="@color/white"
                         android:textSize="14.4sp"
-                        xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/searchFragAutoComplete" />
+
+
 
                 <ImageButton
                     android:id="@+id/searchFragFilterBtn"
@@ -111,7 +112,7 @@
                     android:layout_marginTop="11.7dp"
                     android:background="@color/white"
                     android:textColor="@color/dark_grey_blue_two"
-                    android:text="Showing 3987 Homes"
+                    android:text="Showing 0 Homes"
                     android:textSize="13.2sp"/>
 
             </FrameLayout>
@@ -136,6 +137,7 @@
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                 android:text="Nearby"
+                android:visibility="gone"
                 android:id="@+id/searchFragMyLocationBtn"
                 android:textSize="8.6sp"
                 android:gravity="center"

@@ -26,6 +26,7 @@
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="6.8sp"
                     android:text="Cancel"
+                    android:id="@+id/filterActCancelBtn"
                     android:textSize="13.4sp"
                     android:textColor="@color/lipstick"
                     app:fontType="MULI_REG" />
@@ -49,6 +50,7 @@
                     android:letterSpacing="-0.02"
                     android:lineSpacingExtra="6.8sp"
                     android:text="Apply"
+                    android:padding="5dp"
                     android:id="@+id/filterActApplyBtn"
                     android:textSize="13.4sp"
                     android:textColor="@color/lipstick"
@@ -454,12 +456,12 @@
                         android:textColor="@color/dark_grey_blue_two"
                         android:letterSpacing="-0.02"
                         android:lineSpacingExtra="2.9sp"
-                        android:text="Hide Pending/Continent"
+                        android:text="Has Parking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <Switch
-                        android:id="@+id/filterActContinentSwitch"
+                        android:id="@+id/filterActParkingSwitch"
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:track="@drawable/switch_track_selector"

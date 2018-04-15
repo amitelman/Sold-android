@@ -21,12 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.monkeytechy.framework.interfaces.TAction;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
@@ -83,6 +85,19 @@ public class PropertyTypeAdapter extends BaseAdapter {
         return position;
     }
 
+    public void restoreLast(String typesCsv) {
+        if(typesCsv.length() > 0){
+            List<String> items = Arrays.asList(typesCsv.split("\\s*,\\s*"));
+                for(PropertyType pt : properties){
+                    for(String s: items){
+                        if(pt.getId() == Long.parseLong(s))
+                            selectedTypes.add(pt);
+                    }
+                }
+                notifyDataSetChanged();
+        }
+    }
+
 
     public static class BaseViewHolder {
         LinearLayout bkg;
@@ -109,27 +124,13 @@ public class PropertyTypeAdapter extends BaseAdapter {
         baseViewHolder.item.setText(item.getName());
 
         final BaseViewHolder finalBaseViewHolder = baseViewHolder;
-        ImageLoader.getInstance().loadImage(item.getIcon(), new ImageLoadingListener() {
+        ImageLoaderUtils.loadHighResPicture(item.getIcon(), new TAction<Bitmap>() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    ((ImageView)finalBaseViewHolder.icon).setImageBitmap(loadedImage);
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-
+            public void execute(Bitmap bitmap) {
+                ((ImageView)finalBaseViewHolder.icon).setImageBitmap(bitmap);
             }
         });
+
 
         if(selectedTypes.contains(item)) {
             finalBaseViewHolder.icon.setColorFilter(context.getResources().getColor(R.color.white));

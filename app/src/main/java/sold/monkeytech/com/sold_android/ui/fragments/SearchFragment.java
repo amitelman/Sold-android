@@ -2,6 +2,7 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,10 +34,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
+
+import java.util.HashMap;
+import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSearchBinding;
@@ -45,11 +51,14 @@ import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
 import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.AutoComplete;
+import sold.monkeytech.com.sold_android.framework.models.Location;
 import sold.monkeytech.com.sold_android.framework.models.Property;
+import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinProperty;
 import sold.monkeytech.com.sold_android.ui.activities.FilterSearchActivity;
 import sold.monkeytech.com.sold_android.ui.activities.PropertyPageActivity;
+import sold.monkeytech.com.sold_android.ui.activities.SearchLocationActivity;
 import sold.monkeytech.com.sold_android.ui.activities.SortFiltersActivity;
 import sold.monkeytech.com.sold_android.ui.adapters.AutoCompleteAdapter;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
@@ -104,49 +113,113 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
     }
 
     private void initAutoComplete() {
-        autoCompleteAdapter = new AutoCompleteAdapter(getContext(), android.R.layout.simple_dropdown_item_1line);
-        mBinding.searchFragAutoComplete.setAdapter(autoCompleteAdapter);
-        mBinding.searchFragAutoComplete.setThreshold(0);
-
-        mBinding.searchFragAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mBinding.searchFragAutoComplete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InputMethodManager in = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-                Log.d("wow", "wowclick" );
-                AutoComplete selected = autoCompleteAdapter.getItemById(position);
-                mBinding.searchFragAutoComplete.setText(selected.getName().toString());
-                GeoDataClient mGeoDataClient = Places.getGeoDataClient(getContext(), null);
-                mGeoDataClient.getPlaceById(selected.getPlaceId()).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
-                    @Override
-                    public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
-                        if (task.isSuccessful()) {
-                            PlaceBufferResponse places = task.getResult();
-                            Place myPlace = places.get(0);
-                            Log.i("wow", "Place found: " + myPlace.getName());
-                            final LatLng placeLocation = myPlace.getLatLng();
-                            SearchParamManager.getInstance().setLastSearchLatLng(placeLocation);
-//                            previousSearch = placeLocation;
-                            places.release();
-                            animateToLocation(placeLocation);
-                        } else {
-                            Log.e("wowAutoComplete", "Place not found.");
-                        }
-                    }
-                });
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchLocationActivity.class);
+                intent.putExtra("type", SearchLocationActivity.CHOOSE_BOTH);
+                startActivityForResult(intent, SearchLocationActivity.CHOOSE_BOTH);
             }
         });
+        return;
+//        autoCompleteAdapter = new AutoCompleteAdapter(getContext(), android.R.layout.simple_dropdown_item_1line);
+//        mBinding.searchFragAutoComplete.setAdapter(autoCompleteAdapter);
+//        mBinding.searchFragAutoComplete.setThreshold(0);
+//
+//        mBinding.searchFragAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                InputMethodManager in = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+//                Log.d("wow", "wowclick" );
+//                AutoComplete selected = autoCompleteAdapter.getItemById(position);
+//                mBinding.searchFragAutoComplete.setText(selected.getName().toString());
+//                GeoDataClient mGeoDataClient = Places.getGeoDataClient(getContext(), null);
+//                mGeoDataClient.getPlaceById(selected.getPlaceId()).addOnCompleteListener(new OnCompleteListener<PlaceBufferResponse>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<PlaceBufferResponse> task) {
+//                        if (task.isSuccessful()) {
+//                            PlaceBufferResponse places = task.getResult();
+//                            Place myPlace = places.get(0);
+//                            Log.i("wow", "Place found: " + myPlace.getName());
+//                            final LatLng placeLocation = myPlace.getLatLng();
+//                            SearchParamManager.getInstance().setLastSearchLatLng(placeLocation);
+////                            previousSearch = placeLocation;
+//                            places.release();
+//                            animateToLocation(placeLocation);
+//                        } else {
+//                            Log.e("wowAutoComplete", "Place not found.");
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == SearchLocationActivity.CHOOSE_BOTH){
+                long id = data.getLongExtra("id", -1);
+                String name = data.getStringExtra("name");
+                String type = data.getStringExtra("type");
+                Location location = new Location(id, name, type);
+                Log.d("wow","location: " + id + " - " + name + "/" + type);
+                SearchParamManager.getInstance().updateParams("location_id", location.getId());
+                SearchParamManager.getInstance().updateParams("location_type", location.getLocationType());
+                SearchParamManager.getInstance().setLastSearchLocation(location);
 
+                final Handler handler = new Handler();
+                new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
+                    @Override
+                    public void execute(final List<Property> properties) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBinding.searchFragCounter.setText("Showing " + properties.size() + " Home" + (properties.size() > 0 ? "s" : ""));
+                                Log.d("wowSearch", "success list of properties: " + properties.size());
+                                if(currentFragType == MAP_FRAG){
+                                    if(properties.size() > 0){
+                                        LatLng latLng = new LatLng(properties.get(0).getDoubleLat(), properties.get(0).getDoubleLng());
+                                        ((SearchInMapFragment) currentFrag).animateCamera(latLng);
+                                        ((SearchInMapFragment) currentFrag).initPropertiesMarkers(properties);
+                                    }
+                                }else{
+                                    if(properties.size() > 0){
+//                                        ((SearchInListFragment) currentFrag).refreshSearch(properties);
+                                    }
+                                }
+//                                for (Property p : properties) {
+//                                    LatLng location = new LatLng(Double.parseDouble(p.getLat()), Double.parseDouble(p.getLng()));
+//                                    MarkerOptions markerOptions = new MarkerOptions().position(location)
+//                                            .icon(getBitmapFromVectorDrawable(PROPERTY_MARKER, R.drawable.map_marker, p.getPrice().getShorted()));
+//                                    mMarker = map.addMarker(markerOptions);
+//                                    if(myMarkers == null)
+//                                        myMarkers = new HashMap<Marker, Property>();
+//                                    myMarkers.put(mMarker, p);
+//                                }
+                            }
+                        });
+                    }
+                }, new TAction<String>() {
+                    @Override
+                    public void execute(String s) {
+
+                    }
+                });
+//                animateToLocation(placeLocation);
+            }
+        }
+    }
 
     private void initUi() {
-        mBinding.searchFragMyLocationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                animateToLocation(LocManager.getInstance().getLastLatLng());
-            }
-        });
+//        mBinding.searchFragMyLocationBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                animateToLocation(LocManager.getInstance().getLastLatLng());
+//            }
+//        });
 
         mBinding.searchFragSwitchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +254,7 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         currentFragType = LIST_FRAG;
         mBinding.searchFragSortBtn.setVisibility(View.VISIBLE);
         mBinding.searchFragSwitchBtn.setImageResource(R.drawable.map);
-        mBinding.searchFragMyLocationBtn.setVisibility(View.GONE);
+//        mBinding.searchFragMyLocationBtn.setVisibility(View.GONE);
         final FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SearchInListFragment listFragment = new SearchInListFragment();
@@ -254,7 +327,7 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         currentFragType = MAP_FRAG;
         mBinding.searchFragSortBtn.setVisibility(View.GONE);
         mBinding.searchFragSwitchBtn.setImageResource(R.drawable.list);
-        mBinding.searchFragMyLocationBtn.setVisibility(View.VISIBLE);
+//        mBinding.searchFragMyLocationBtn.setVisibility(View.VISIBLE);
         final FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SearchInMapFragment mapFragment = new SearchInMapFragment();
@@ -280,7 +353,8 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
                 map.getUiSettings().setZoomGesturesEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
 
-                animateToLocation(null);
+                //todo: restore this
+//                animateToLocation(null);
 
                 LocManager.getInstance().getCurrentLatLng(new TAction<LatLng>() {
                     @Override
@@ -299,35 +373,35 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         });
     }
 
-    private void animateToLocation(LatLng latLng) {
-        if(latLng != null){
-            navigateToNewLocation(latLng);
-            return;
-        }
-        if(latLng == null && SearchParamManager.getInstance().getLastSearchLatLng() != null){
-            navigateToNewLocation(SearchParamManager.getInstance().getLastSearchLatLng());
-            return;
-        }
-        if(PermissionUtils.checkPermissions(getActivity(), PermissionUtils.LOCATION_PERMISSIONS_1)){
-            if(map != null){
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LocManager.getInstance().getLastLatLng(), 7);
-                map.animateCamera(cameraUpdate);
-                if(currentFragType == MAP_FRAG && map != null)
-                    ((SearchInMapFragment) currentFrag).initPropertiesMarkers(LocManager.getInstance().getLastLatLng());
-            }
-        }
+//    private void animateToLocation(LatLng latLng) {
+//        if(latLng != null){
+//            navigateToNewLocation(latLng);
+//            return;
+//        }
+//        if(latLng == null && SearchParamManager.getInstance().getLastSearchLatLng() != null){
+//            navigateToNewLocation(SearchParamManager.getInstance().getLastSearchLatLng());
+//            return;
+//        }
+//        if(PermissionUtils.checkPermissions(getActivity(), PermissionUtils.LOCATION_PERMISSIONS_1)){
+//            if(map != null){
+//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(LocManager.getInstance().getLastLatLng(), 7);
+//                map.animateCamera(cameraUpdate);
+//                if(currentFragType == MAP_FRAG && map != null)
+//                    ((SearchInMapFragment) currentFrag).initPropertiesMarkers(LocManager.getInstance().getLastLatLng());
+//            }
+//        }
+//
+//    }
 
-    }
-
-    private void navigateToNewLocation(LatLng placeLocation) {
-        if(currentFragType == MAP_FRAG && map != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(placeLocation, 12);
-            map.animateCamera(cameraUpdate);
-            ((SearchInMapFragment) currentFrag).initPropertiesMarkers(placeLocation);
-        }else if(currentFragType == LIST_FRAG){
-            ((SearchInListFragment) currentFrag).refreshSearch(placeLocation);
-        }
-    }
+//    private void navigateToNewLocation(LatLng placeLocation) {
+//        if(currentFragType == MAP_FRAG && map != null) {
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(placeLocation, 12);
+//            map.animateCamera(cameraUpdate);
+//            ((SearchInMapFragment) currentFrag).initPropertiesMarkers(placeLocation);
+//        }else if(currentFragType == LIST_FRAG){
+//            ((SearchInListFragment) currentFrag).refreshSearch(placeLocation);
+//        }
+//    }
 
 
     @Override

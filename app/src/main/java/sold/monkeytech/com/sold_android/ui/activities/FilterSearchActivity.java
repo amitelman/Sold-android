@@ -8,11 +8,13 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.monkeytechy.framework.interfaces.Action;
 
+import java.util.HashMap;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
@@ -25,6 +27,7 @@ import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
 import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.IdLabel;
 import sold.monkeytech.com.sold_android.framework.models.PropertyType;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.BaseParam;
 import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiSaveSearch;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyAdditionalFeaturesAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyTypeAdapter;
@@ -52,7 +55,7 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
     int minBaths;
     boolean hasOpenHouse;
     boolean hideForeclosure;
-    boolean hasContinent;
+    boolean hasParking;
     boolean hideNewConstruction;
 
     @Override
@@ -69,6 +72,45 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         initExpandableLayout();
         initAddFeaturesBtns();
         initBtns();
+
+        restorePreviousSettings();
+    }
+
+    private void restorePreviousSettings() {
+        typesCsv = SearchParamManager.getInstance().getTypesCsv();
+        typesAdapter.restoreLast(typesCsv);
+        featuresCsv = SearchParamManager.getInstance().getFeaturesCsv();
+        featuresAdapter.restoreLast(featuresCsv);
+        minFloorArea = SearchParamManager.getInstance().getMinFloorArea();
+        maxFloorArea = SearchParamManager.getInstance().getMaxFloorArea();
+        minPlotArea = SearchParamManager.getInstance().getMinPlotArea();
+        maxPlotArea = SearchParamManager.getInstance().getMaxPlotArea();
+        minPrice = SearchParamManager.getInstance().getMinPrice();
+        maxPrice = SearchParamManager.getInstance().getMaxPrice();
+        minFloors = SearchParamManager.getInstance().getMinFloors();
+        maxFloors = SearchParamManager.getInstance().getMaxFloors();
+        minRooms = SearchParamManager.getInstance().getMinRooms();
+        minBaths = SearchParamManager.getInstance().getMinBaths();
+        hasOpenHouse = SearchParamManager.getInstance().isHasOpenHouse();
+        hideForeclosure = SearchParamManager.getInstance().isHideForeclosure();
+        hasParking = SearchParamManager.getInstance().isHasParking();
+        hideNewConstruction = SearchParamManager.getInstance().isHideNewConstruction();
+
+        mBinding.filterActRangeFloorSize.setMinimum(minFloorArea == 0 ? "" : minFloorArea + "");
+        mBinding.filterActRangeFloorSize.setMaximum(maxFloorArea == 0 ? "" : maxFloorArea + "");
+        mBinding.filterActRangePlot.setMinimum(minPlotArea == 0 ? "" : minPlotArea + "");
+        mBinding.filterActRangePlot.setMaximum(maxPlotArea == 0 ? "" : maxPlotArea + "");
+        mBinding.filterActRangePrice.setMinimum(minPrice == 0 ? "" : minPrice + "");
+        mBinding.filterActRangePrice.setMaximum(maxPrice == 0 ? "" : maxPrice + "");
+        mBinding.filterActRangeFloors.setMinimum(minFloors == 0 ? "" : minFloors + "");
+        mBinding.filterActRangeFloors.setMaximum(maxFloors == 0 ? "" : maxFloors + "");
+        mBinding.filterActRoomsCounter.setCounter(minRooms);
+        mBinding.filterActBathCounter.setCounter(minBaths);
+        mBinding.filterActOpenHousesSwitch.setChecked(hasOpenHouse);
+        mBinding.filterActForeclosureSwitch.setChecked(hideForeclosure);
+        mBinding.filterActParkingSwitch.setChecked(hasParking);
+        mBinding.filterActNewConstructionSwitch.setChecked(hideNewConstruction);
+
     }
 
     private void initBtns() {
@@ -76,6 +118,8 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         mBinding.filterActSaveSearchBtn.setOnClickListener(this);
         mBinding.filterActNameDeleteBtn.setOnClickListener(this);
         mBinding.filterActSaveBtn.setOnClickListener(this);
+        mBinding.filterActApplyBtn.setOnClickListener(this);
+        mBinding.filterActCancelBtn.setOnClickListener(this);
 
         mBinding.filterActNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,9 +134,9 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() > 0){
+                if (s.length() > 0) {
                     mBinding.filterActNameDeleteBtn.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     mBinding.filterActNameDeleteBtn.setVisibility(View.GONE);
                 }
             }
@@ -101,12 +145,12 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.filterActResetBtn:
                 resetAllFields();
                 break;
             case R.id.filterActSaveSearchBtn:
-                if(mBinding.filterActSaveLayout.getVisibility() == View.GONE){
+                if (mBinding.filterActSaveLayout.getVisibility() == View.GONE) {
                     MyAnimationUtils.expand(mBinding.filterActSaveLayout);
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -120,14 +164,19 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
                 mBinding.filterActNameInput.setText("");
                 break;
             case R.id.filterActSaveBtn:
-                if(!TextUtils.isEmpty(mBinding.filterActNameInput.getText().toString())){
+                if (!TextUtils.isEmpty(mBinding.filterActNameInput.getText().toString())) {
                     saveSearch();
-                }else{
+                } else {
                     Toast.makeText(FilterSearchActivity.this, "Please set a title to search", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.filterActApplyBtn:
+                setValues();
                 applyFilters();
+                finish();
+                break;
+            case R.id.filterActCancelBtn:
+                finish();
                 break;
         }
     }
@@ -136,17 +185,17 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         double lat;
         double lng;
         String name = mBinding.filterActNameInput.getText().toString();
-        if(SearchParamManager.getInstance().getLastSearchLatLng() != null){
+        if (SearchParamManager.getInstance().getLastSearchLatLng() != null) {
             lat = SearchParamManager.getInstance().getLastSearchLatLng().latitude;
             lng = SearchParamManager.getInstance().getLastSearchLatLng().longitude;
-        }else{
+        } else {
             lat = LocManager.getInstance().getLastLatLng().latitude;
             lng = LocManager.getInstance().getLastLatLng().longitude;
         }
-
+        setValues();
         final Handler handler = new Handler();
         new ApiSaveSearch(this).request(name, lat, lng, typesCsv, featuresCsv, minFloorArea, maxFloorArea, minPlotArea, maxPlotArea, minPrice, maxPrice, minFloors, maxFloors, minRooms,
-                minBaths, hasOpenHouse, hideForeclosure, hasContinent, hideNewConstruction, new Action() {
+                minBaths, hasOpenHouse, hideForeclosure, hasParking, hideNewConstruction, new Action() {
                     @Override
                     public void execute() {
                         handler.post(new Runnable() {
@@ -172,9 +221,9 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
 
     }
 
-    private void applyFilters() {
+    public void setValues() {
         typesCsv = typesAdapter.getSelectedTypesIdCsv();
-        featuresCsv = featuresAdapter.getPropertiesIdCsv();
+        featuresCsv = featuresAdapter.getFeaturesIdCsv();
         minFloorArea = mBinding.filterActRangeFloorSize.getMinimum();
         maxFloorArea = mBinding.filterActRangeFloorSize.getMaximum();
         minPlotArea = mBinding.filterActRangePlot.getMinimum();
@@ -187,23 +236,28 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         minBaths = mBinding.filterActBathCounter.getCounter();
         hasOpenHouse = mBinding.filterActOpenHousesSwitch.isChecked();
         hideForeclosure = mBinding.filterActForeclosureSwitch.isChecked();
-        boolean hasContinent = mBinding.filterActContinentSwitch.isChecked();
-        final boolean hideNewConstruction = mBinding.filterActNewConstructionSwitch.isChecked();
-        SearchParamManager.getInstance().updateParams("property_type_ids", typesCsv);
-        SearchParamManager.getInstance().updateParams("feature_ids", featuresCsv);
-        SearchParamManager.getInstance().updateParams("min_floor_area", minFloorArea);
-        SearchParamManager.getInstance().updateParams("max_floor_area", maxFloorArea);
-        SearchParamManager.getInstance().updateParams("min_plot_area", minPlotArea);
-        SearchParamManager.getInstance().updateParams("max_plot_area", maxPlotArea);
-        SearchParamManager.getInstance().updateParams("min_price", minPrice);
-        SearchParamManager.getInstance().updateParams("max_price", maxPrice);
-        SearchParamManager.getInstance().updateParams("min_floor", minFloors);
-        SearchParamManager.getInstance().updateParams("max_floor", maxFloors);
-        SearchParamManager.getInstance().updateParams("min_rooms_count", minRooms);
-        SearchParamManager.getInstance().updateParams("min_bathrooms_count", minBaths);
-        SearchParamManager.getInstance().updateParams("has_open_house", hasOpenHouse);
-        SearchParamManager.getInstance().updateParams("hide_foreclosures", hideForeclosure);
-        SearchParamManager.getInstance().updateParams("hide_new_construction", hideNewConstruction);
+        hasParking = mBinding.filterActParkingSwitch.isChecked();
+        hideNewConstruction = mBinding.filterActNewConstructionSwitch.isChecked();
+    }
+
+    private void applyFilters() {
+        SearchParamManager.getInstance().setTypesCsv(typesCsv);
+        SearchParamManager.getInstance().setFeaturesCsv(featuresCsv);
+        SearchParamManager.getInstance().setMinFloorArea(minFloorArea);
+        SearchParamManager.getInstance().setMaxFloorArea(maxFloorArea);
+        SearchParamManager.getInstance().setMinPlotArea(minPlotArea);
+        SearchParamManager.getInstance().setMaxPlotArea(maxPlotArea);
+        SearchParamManager.getInstance().setMinPrice(minPrice);
+        SearchParamManager.getInstance().setMaxPrice(maxPrice);
+        SearchParamManager.getInstance().setMinFloors(minFloors);
+        SearchParamManager.getInstance().setMaxFloors(maxFloors);
+        SearchParamManager.getInstance().setMinRooms(minRooms);
+        SearchParamManager.getInstance().setMinBaths(minBaths);
+        SearchParamManager.getInstance().setHasOpenHouse(hasOpenHouse);
+        SearchParamManager.getInstance().setHideForeclosure(hideForeclosure);
+        SearchParamManager.getInstance().setHasParking(hasParking);
+        SearchParamManager.getInstance().setHideNewConstruction(hideNewConstruction);
+
     }
 
     private void resetAllFields() {
@@ -217,7 +271,7 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         mBinding.filterActBathCounter.clearClickRange();
         mBinding.filterActOpenHousesSwitch.setChecked(false);
         mBinding.filterActForeclosureSwitch.setChecked(false);
-        mBinding.filterActContinentSwitch.setChecked(false);
+        mBinding.filterActParkingSwitch.setChecked(false);
         mBinding.filterActNewConstructionSwitch.setChecked(false);
     }
 
@@ -265,7 +319,6 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         featuresAdapter = new PropertyAdditionalFeaturesAdapter(this, propertyFeatures);
         mBinding.filterSearchActAdditionalGridView.setAdapter(featuresAdapter);
     }
-
 
 
 }

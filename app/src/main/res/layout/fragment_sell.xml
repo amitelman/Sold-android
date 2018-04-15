@@ -107,7 +107,7 @@
                         android:textColor="#cccccc"
                         android:textSize="11.5sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:id="@+id/sellFragCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                         android:textSize="11.5sp"
                         tools:visibility="gone" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:id="@+id/sellFragStreet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

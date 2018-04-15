@@ -88,7 +88,8 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
     }
 
     public void clearList() {
-        properties.clear();
+        if(properties != null)
+            properties.clear();
         notifyDataSetChanged();
     }
 

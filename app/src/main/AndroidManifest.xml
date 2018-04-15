@@ -127,7 +127,12 @@
 
         <activity
             android:name=".ui.activities.FavoriteActivity"
-            android:label="@string/title_activity_favorite"></activity>
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_favorite" />
+
+        <activity android:name=".ui.activities.SearchLocationActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

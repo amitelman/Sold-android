@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -52,6 +54,57 @@ public class ValuesRangeView extends RangeViewAbs {
             }
 
         });
+
+        getFromEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String toStr = getToEditText().getText().toString();
+                if(toStr.length() > 0 && s.toString().length() > 0){
+                    int from = Integer.parseInt(s.toString());
+                    int to = Integer.parseInt(toStr);
+                    if(from > to){
+                        getFromEditText().setText(to + "");
+                        getFromEditText().setSelection(getFromEditText().getText().length());
+                    }
+                }
+            }
+        });
+
+        getToEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String fromStr = getFromEditText().getText().toString();
+                if(fromStr.length() > 0 && s.toString().length() > 0){
+                    int to = Integer.parseInt(s.toString());
+                    int from = Integer.parseInt(fromStr);
+                    if(to < from){
+                        getToEditText().setText(from + "");
+                        getToEditText().setSelection(getToEditText().getText().length());
+                    }
+
+                }
+            }
+        });
     }
 
     public void clearRanges(){
@@ -74,15 +127,6 @@ public class ValuesRangeView extends RangeViewAbs {
         return R.styleable.ValuesRangeViewValues_title;
     }
 
-//    @Override
-//    protected int getAttrsToId() {
-//        return R.styleable.ValuesRangeViewValues_to;
-//    }
-//
-//    @Override
-//    protected int getAttrsFromId() {
-//        return R.styleable.ValuesRangeViewValues_from;
-//    }
 
     @Override
     public TextView getTitleView() {
@@ -109,13 +153,15 @@ public class ValuesRangeView extends RangeViewAbs {
     public int getMaximum(){
         String input = getToEditText().getText().toString();
         if(!TextUtils.isEmpty(input))
-            return Integer.parseInt(getFromEditText().getText().toString());
+            return Integer.parseInt(getToEditText().getText().toString());
         return 0;
     }
-//    @Override
-//    public ImageButton getCancelBtn() {
-////        return mBinding.valuesRangeViewCancel;
-//        return null;
-//    }
 
+    public void setMinimum(String minimum){
+        getFromEditText().setText(minimum + "");
+    }
+
+    public void setMaximum(String maximum){
+        getToEditText().setText(maximum + "");
+    }
 }

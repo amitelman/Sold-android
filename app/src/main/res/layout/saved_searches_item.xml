@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/featureItemLayout"
+        android:id="@+id/savedSearchesItemLayout"
         android:layoutDirection="ltr"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         
         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
             android:id="@+id/savedSearchesItemDate"
-            android:layout_marginTop="14.5dp"
+            android:layout_marginTop="9.6dp"
             android:textSize="9.6sp"
             android:layout_marginLeft="25.7dp"
             android:textColor="@color/warm_grey"
@@ -29,16 +30,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                android:id="@+id/savedSearchesItemSearch"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14.4sp"
-                android:layout_marginLeft="25.7dp"
-                android:textColor="@color/dark_grey_blue_two"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="2.9sp"
-                tools:text="Near Beverly hills 90210 (+9 filters)"/>
+                android:layout_height="wrap_content">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/savedSearchesItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14.4sp"
+                    android:layout_marginStart="25.7dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    tools:text="Near Beverly hills 90210"/>
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:id="@+id/savedSearchesItemFilterCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14.4sp"
+                    app:fontType="MULI_BOLD"
+                    android:layout_marginStart="10.7dp"
+                    android:textColor="@color/dark_grey_blue_two"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    tools:text="(+9 filters)"/>
+
+
+            </LinearLayout>
+
 
             <View
                 android:layout_weight="1"
@@ -46,14 +68,22 @@
                 android:layout_height="1dp"/>
 
             <CheckBox
-                android:layout_gravity="center|end"
+                android:visibility="gone"
                 android:padding="5dp"
+                android:layout_marginEnd="7.2dp"
+                android:layout_gravity="center|end"
                 android:id="@+id/savedSearchesItemCb"
                 android:button="@drawable/cb_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="17.7dp" />
             
             </LinearLayout>
+
+        <View
+            android:id="@+id/savedSearchItemSep"
+            android:background="@color/dark_grey_blue_two"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
     </LinearLayout>
 
 

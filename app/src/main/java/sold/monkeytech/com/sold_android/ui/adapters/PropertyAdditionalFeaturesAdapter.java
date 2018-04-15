@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
@@ -46,6 +47,20 @@ public class PropertyAdditionalFeaturesAdapter extends BaseAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void restoreLast(String featuresCsv) {
+        if(featuresCsv.length() > 0){
+            List<String> items = Arrays.asList(featuresCsv.split("\\s*,\\s*"));
+            for(IdLabel prop : properties){
+                for(String s: items){
+                    if(prop.getId() == Long.parseLong(s))
+                        selectedProperties.add(prop);
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+
     @Override
     public int getCount() {
         if (properties != null)
@@ -53,9 +68,9 @@ public class PropertyAdditionalFeaturesAdapter extends BaseAdapter {
         return 0;
     }
 
-    public String getPropertiesIdCsv(){
+    public String getFeaturesIdCsv(){
         String selectedCsv = "";
-        for(IdLabel item: properties){
+        for(IdLabel item: selectedProperties){
             selectedCsv += item.getId() + ",";
         }
         return selectedCsv;

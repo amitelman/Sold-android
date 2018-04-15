@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.parsers.abs.GeneralParser;
@@ -32,16 +33,24 @@ public class PropertyFeaturesParser extends GeneralParser<PropertyFeatures> {
             propertyFeatures.setId(safeParseLong(jo, "id"));
         }
 
-        propertyFeatures.setFeatureName(safeParseString(jo.getJSONObject("feature"), "name"));
-        propertyFeatures.setMeta(new MetaParser().parseToList(jo.getJSONArray("meta")));
-
-        JSONArray images = jo.getJSONArray("images");
-        List<String> imagesArr = new ArrayList<>();
-        for (int i = 0; i < images.length(); i++) {
-            String link = images.getString(i);
-            imagesArr.add(link);
+        if(jo.has("feature")){
+            propertyFeatures.setFeatureName(safeParseString(jo.getJSONObject("feature"), "name"));
+        }else{
+            propertyFeatures.setFeatureName(safeParseString(jo, "name"));
         }
-        propertyFeatures.setImages(imagesArr);
+
+        if(jo.has("meta"))
+            propertyFeatures.setMeta(new MetaParser().parseToList(jo.getJSONArray("meta")));
+
+        if(jo.has("images")){
+            JSONArray images = jo.getJSONArray("images");
+            List<String> imagesArr = new ArrayList<>();
+            for (int i = 0; i < images.length(); i++) {
+                String link = images.getString(i);
+                imagesArr.add(link);
+            }
+            propertyFeatures.setImages(imagesArr);
+        }
 
         return propertyFeatures;
     }

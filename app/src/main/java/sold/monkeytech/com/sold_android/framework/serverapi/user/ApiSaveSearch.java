@@ -20,7 +20,7 @@ public class ApiSaveSearch extends AbstractServerApiConnector {
 
     public synchronized void request(final String name, final double lat, final double lng, final String typeCsv, final String featureCsv, final int minFloorArea, final int maxFloorArea,
                                      final int minPlotArea, final int maxPlotArea, final int minPrice, final int maxPrice, final int minFloor, final int maxFloor, final int minRooms, final int minBath,
-                                     final boolean hasOpenHouse, final boolean hideForeclosure, boolean hasContinent, final boolean hideNewConstruction,
+                                     final boolean hasOpenHouse, final boolean hideForeclosure, final boolean hasParking, final boolean hideNewConstruction,
                                      final Action onSuccess, final Action onFail) {
         execute(new Runnable() {
             @Override
@@ -42,16 +42,16 @@ public class ApiSaveSearch extends AbstractServerApiConnector {
                         .addInt("min_rooms_count", minRooms)
                         .addInt("min_bathrooms_count", minBath)
                         .addBoolean("has_open_house", hasOpenHouse)
-                        .addBoolean("hide_foreclosure", hideForeclosure)
+                        .addBoolean("hide_foreclosures", hideForeclosure)
+                        .addBoolean("has_parking", hasParking)
                         .addBoolean("hide_new_construction", hideNewConstruction);
-                //todo: add parking (ui) or add continenet (server)
 
                 RemoteResponseString remoteResponseString = performHTTPPost("/users/me/searches", params);
                 if (remoteResponseString.isSuccess()) {
-                    if(onSuccess!=null)
+                    if (onSuccess != null)
                         onSuccess.execute();
                 } else {
-                    if(onFail!=null)
+                    if (onFail != null)
                         onFail.execute();
                 }
             }

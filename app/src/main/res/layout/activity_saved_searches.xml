@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,7 +38,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/savedSearchActCancelBtn"
+                android:textSize="13.4sp"
+                android:textColor="@color/white"
+                android:text="Cancel"
+                android:paddingEnd="5dp"
+                android:visibility="gone"
+                android:paddingStart="12.7dp"
+                android:layout_gravity="start"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
             <ImageButton
+                android:tint="@color/white"
                 android:padding="5dp"
                 android:id="@+id/savedSearchActBackBtn"
                 android:layout_gravity="center_vertical"
@@ -50,12 +65,32 @@
         </FrameLayout>
 
         <ListView
+            android:layout_weight="1"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="13.9dp"
+            android:layout_marginStart="12.9dp"
+            android:background="@drawable/shadowed_box"
             android:id="@+id/savedSearchActListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"/>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/savedSearchActDeleteBtn"
+            android:textSize="14.4sp"
+            android:textColor="@color/white"
+            android:lineSpacingExtra="7.7sp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="DELETE"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginBottom="12.5dp"
+            android:background="@drawable/shape_sqr_red"
+            android:layout_width="match_parent"
+            android:layout_height="43.2dp" />
 
     </LinearLayout>
 
-
-
-    </layout>
+</layout>

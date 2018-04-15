@@ -56,7 +56,7 @@ public class PropertyParser extends GeneralParser<Property> {
         property.setCreatedAt(safeParseString(jo, "created_at"));
         property.setPrice(new PriceParser().parseToSingle(jo.getJSONObject("price")));
         property.setMeterPrice(new PriceParser().parseToSingle(jo.getJSONObject("meter_price")));
-        property.setAddress(new AddressParser().parseToSingle(jo.getJSONObject("street")));
+        property.setAddress(new AddressParser(AddressParser.STREET).parseToSingle(jo.getJSONObject("street")));
         property.setPropertyType(new PropertyTypeParser().parseToSingle(jo.getJSONObject("property_type")));
 
         if(type == TYPE_FULL){

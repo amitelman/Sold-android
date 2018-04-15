@@ -77,6 +77,25 @@ public class ClickValuesRangeView extends LinearLayout {
             }
         });
 
+        mBinding.clickValuesRangeViewInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() > 0){
+                    int input = Integer.parseInt(s.toString());
+                    counter = input;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -93,6 +112,7 @@ public class ClickValuesRangeView extends LinearLayout {
     }
 
     public void clearClickRange(){
+        counter = 0;
         mBinding.clickValuesRangeViewInput.setText("");
     }
 
@@ -101,7 +121,8 @@ public class ClickValuesRangeView extends LinearLayout {
     }
 
 
-
-
-
+    public void setCounter(int counter) {
+        this.counter = counter;
+        mBinding.clickValuesRangeViewInput.setText(counter + "");
+    }
 }
