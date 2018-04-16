@@ -2,6 +2,7 @@ package sold.monkeytech.com.sold_android.framework.serverapi.user;
 
 import android.content.Context;
 
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 
 import org.json.JSONException;
@@ -11,6 +12,7 @@ import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.models.User;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -28,9 +30,9 @@ public class ApiGetMe extends AbstractServerApiConnector {
     }
 
     public synchronized void request(final TAction<User> onSuccess, final TAction<String> onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 RemoteResponseString remoteResponseString = performHTTPGet("users/me", params);
                 if (remoteResponseString.isSuccess()) {
@@ -52,6 +54,6 @@ public class ApiGetMe extends AbstractServerApiConnector {
                         onFail.execute(remoteResponseString.getMessage());
                 }
             }
-        });
+        }));
     }
 }

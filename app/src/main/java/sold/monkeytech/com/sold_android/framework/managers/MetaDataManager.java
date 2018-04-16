@@ -36,6 +36,10 @@ import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPrope
 
 public class MetaDataManager {
 
+    public static final String MEETUP_DURATION = "meetup_duration";
+    public static final String MEETUP_WEEKS = "datetimepicker_display_interval";
+    public static final String MEETUP_START_AT = "datetimepicker_starts_at";
+    public static final String MEETUP_END_AT = "datetimepicker_ends_at";
     public static MetaDataManager instance;
     private JSONObject metaData;
 
@@ -133,6 +137,42 @@ public class MetaDataManager {
             }
         }
         return location;
+    }
+
+    public String getStringValueFromString(String key){
+        String value = "";
+        if(getSettings() != null){
+            for (int i = 0; i < getSettings().length(); i++) {
+                JSONObject row = null;
+                try {
+                    row = getSettings().getJSONObject(i);
+                    if(row.get("key").equals(key))
+                        return row.getString("value");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return value;
+    }
+
+    public int getIntValueFromString(String key){
+        int value = 0;
+        if(getSettings() != null){
+            for (int i = 0; i < getSettings().length(); i++) {
+                JSONObject row = null;
+                try {
+                    row = getSettings().getJSONObject(i);
+                    if(row.get("key").equals(key))
+                        return row.getInt("value");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return value;
     }
 
     public List<Meta> getMetaDataMap(){

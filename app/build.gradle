@@ -80,6 +80,7 @@ dependencies {
     compile 'com.chabbal:slidingdotsplash:1.0.2'
     compile 'com.google.android:flexbox:0.3.0-alpha2'
     compile 'com.facebook.android:facebook-share:[4,5)'
+    compile 'net.danlew:android.joda:2.9.9.3'
     testCompile 'junit:junit:4.12'
 }
 

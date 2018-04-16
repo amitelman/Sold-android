@@ -175,8 +175,13 @@ public class SearchInMapFragment extends SupportMapFragment {
     }
 
     private void showLastSearch() {
-        Location lastLocation = SearchParamManager.getInstance().getLastSearchLocation(); //return last or defualt search
+        Location lastLocation = SearchParamManager.getInstance().getLastSearchLocation(); //return last or default search
         if (lastLocation != null) {
+            if(lastLocation.getId() != null){
+                Log.d("wowLastSearch","last search id : " + lastLocation.getId());
+                SearchParamManager.getInstance().updateParams("location_id", lastLocation.getId());
+                SearchParamManager.getInstance().updateParams("location_type", lastLocation.getLocationType());
+            }
             final Handler handler = new Handler();
 
             new ApiGetProperties(getContext()).getNext(0, new TAction<List<Property>>() {
@@ -189,6 +194,7 @@ public class SearchInMapFragment extends SupportMapFragment {
                                 LatLng latLng = new LatLng(properties.get(0).getDoubleLat(), properties.get(0).getDoubleLng());
                                 animateCamera(latLng);
                                 initPropertiesMarkers(properties);
+
                             }
                         }
                     });

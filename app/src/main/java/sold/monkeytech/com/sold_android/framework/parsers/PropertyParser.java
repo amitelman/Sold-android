@@ -59,6 +59,9 @@ public class PropertyParser extends GeneralParser<Property> {
         property.setAddress(new AddressParser(AddressParser.STREET).parseToSingle(jo.getJSONObject("street")));
         property.setPropertyType(new PropertyTypeParser().parseToSingle(jo.getJSONObject("property_type")));
 
+        if(jo.has("is_favorite"))
+            property.setFavorite(safeParseBoolean(jo, "is_favorite"));
+
         if(type == TYPE_FULL){
             property.setDescription(safeParseString(jo, "description"));
             property.setVirtualTourLink(safeParseString(jo, "virtual_tour_link"));

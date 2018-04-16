@@ -6,6 +6,7 @@ import com.monkeytechy.framework.interfaces.Action;
 
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -22,9 +23,9 @@ public class ApiSaveSearch extends AbstractServerApiConnector {
                                      final int minPlotArea, final int maxPlotArea, final int minPrice, final int maxPrice, final int minFloor, final int maxFloor, final int minRooms, final int minBath,
                                      final boolean hasOpenHouse, final boolean hideForeclosure, final boolean hasParking, final boolean hideNewConstruction,
                                      final Action onSuccess, final Action onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 params.addText("name", name)
                         .addDouble("lat", lat)
@@ -55,6 +56,6 @@ public class ApiSaveSearch extends AbstractServerApiConnector {
                         onFail.execute();
                 }
             }
-        });
+        }));
     }
 }

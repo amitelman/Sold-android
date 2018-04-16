@@ -18,6 +18,16 @@ public class OpenHouse extends BaseModel<OpenHouse> {
     private String month;
     private List<OpenHouseSlots> slots;
 
+    public OpenHouse(){
+    }
+
+    public OpenHouse(String wDay, int day, String month, List<OpenHouseSlots> slots){
+        setWday(wDay);
+        setDay(day);
+        setMonth(month);
+        setSlots(slots);
+    }
+
     public String getWday() {
         return wday;
     }

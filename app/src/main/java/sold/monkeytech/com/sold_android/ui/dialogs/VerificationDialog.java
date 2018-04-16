@@ -41,7 +41,6 @@ public class VerificationDialog extends TransparentDialog implements View.OnClic
             this.onValidateApproved = onValidateApproved;
     }
 
-
     protected int getLayout(){
         return R.layout.dialog_verification;
     }

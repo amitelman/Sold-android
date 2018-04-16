@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.monkeytechy.framework.interfaces.TAction;
@@ -29,6 +30,7 @@ public class FavoriteActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite);
         adapter = new SearchInListAdapter(FavoriteActivity.this, null);
         mBinding.favoriteActListView.setAdapter(adapter);
+        Log.d("wowSignup","onCreate");
         initUi();
 
     }
@@ -36,6 +38,7 @@ public class FavoriteActivity extends BaseActivity {
     private void initUi() {
         mBinding.favoriteActPb.show();
         final Handler handler = new Handler();
+        Log.d("wowSignup","call getFav");
         new ApiGetFavorites(this).request(new TAction<List<Property>>() {
             @Override
             public void execute(final List<Property> properties) {

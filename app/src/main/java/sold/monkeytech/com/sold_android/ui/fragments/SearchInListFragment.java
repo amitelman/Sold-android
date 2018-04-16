@@ -27,6 +27,7 @@ import sold.monkeytech.com.sold_android.framework.managers.SearchParamManager;
 import sold.monkeytech.com.sold_android.framework.models.Location;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetProperties;
+import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiGetFavorites;
 import sold.monkeytech.com.sold_android.pagination.utils.ListViewReloader;
 import sold.monkeytech.com.sold_android.ui.activities.SortFiltersActivity;
 import sold.monkeytech.com.sold_android.ui.adapters.SearchInListAdapter;
@@ -86,6 +87,7 @@ public class SearchInListFragment extends BaseFragment {
         Log.d("wowInList","initList");
         reloader.init(0);
         reloader.reloadList();
+
     }
 
     public void refreshSearch(List<Property> properties){

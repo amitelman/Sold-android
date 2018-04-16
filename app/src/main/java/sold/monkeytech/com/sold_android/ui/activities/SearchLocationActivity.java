@@ -115,16 +115,17 @@ public class SearchLocationActivity extends Activity {
             @Override
             public void execute(Location location) {
                 Intent intent = new Intent();
-//                if(type == CHOOSE_CITY){
-//                    intent.putExtra("cityName", address.getCityName());
-//                    intent.putExtra("cityId", address.getCityId());
-//                }else{
-//                    intent.putExtra("streetName", address.getStreetName());
-//                    intent.putExtra("streetId", address.getStreetId());
-//                }
-                intent.putExtra("cityId", location.getId());
-                intent.putExtra("cityName", location.getLocationName());
-                intent.putExtra("type", location.getLocationType());
+                if(type == CHOOSE_CITY){
+                    intent.putExtra("cityName", location.getLocationName());
+                    intent.putExtra("cityId", location.getId());
+                }else if(type == CHOOSE_STREET){
+                    intent.putExtra("streetName", location.getLocationName());
+                    intent.putExtra("streetId", location.getId());
+                }else{
+                    intent.putExtra("cityId", location.getId());
+                    intent.putExtra("cityName", location.getLocationName());
+                    intent.putExtra("type", location.getLocationType());
+                }
                 setResult(RESULT_OK, intent);
                 finish();
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -38,7 +39,7 @@ public class SignupDialog extends TransparentDialog implements View.OnClickListe
     }
 
     protected void loadUI(){
-
+        Log.d("wowSignup","signup dialog start");
         ImageButton closeBtn = findViewById(R.id.signupDialogClose);
         TextView continueBtn = findViewById(R.id.signupDialogDoneBtn);
         TextView loginBtn = findViewById(R.id.signupDialogLogin);
@@ -79,9 +80,9 @@ public class SignupDialog extends TransparentDialog implements View.OnClickListe
                                 @Override
                                 public void run() {
                                     ((SoldProgressBar)findViewById(R.id.signupDialogPb)).hide();
+                                    dismiss();
                                     if (onDismiss != null)
                                         onDismiss.execute(phone);
-                                    dismiss();
                                 }
                             });
                         }

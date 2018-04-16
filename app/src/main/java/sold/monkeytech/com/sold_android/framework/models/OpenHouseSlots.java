@@ -16,6 +16,14 @@ public class OpenHouseSlots extends BaseModel<OpenHouseSlots> {
 
     private String name;
 
+    public OpenHouseSlots(){
+
+    }
+
+    public OpenHouseSlots(String time){
+        setName(time);
+    }
+
 
     public String getName() {
         return name;

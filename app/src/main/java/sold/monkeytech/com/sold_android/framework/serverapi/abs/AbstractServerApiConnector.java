@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.managers.BaseUserManager;
 
 import org.apache.http.HttpResponse;
@@ -65,12 +66,14 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import sold.monkeytech.com.sold_android.SoldApplication;
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ArrayParam;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.BaseParam;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.TextParam;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.TwoDArrayParam;
+import sold.monkeytech.com.sold_android.ui.activities.PreApprovedActivity;
 
 //import com.mid.mid.ui.activities.OAuth.OAuthActivity;
 
@@ -90,38 +93,36 @@ public class AbstractServerApiConnector {
     private  ServerAction serverAction;
 
 
-    protected void setServerAction(FragmentActivity fragmentActivity, ServerAction action){
+    protected void setServerAction(Boolean isTokenRequired, ServerAction action){
+        Log.d("wowSignup","setServerAction");
         this.serverAction = action;
-        executeAndRefresh(fragmentActivity);
+        executeAndSignup(isTokenRequired);
     }
 
-    protected void executeAndRefresh(FragmentActivity fragmentActivity){
-//        boolean expired = UserManager.getInstance().shouldRefreshToken();
-//        if(expired){
-//            //todo: refresh token
-//            TokenRefreshManager.refreshToken(context, new TokenRefreshManager.OnTokenRefreshListener() {
-//                @Override
-//                public void onRefresh(boolean isSuccess) {
-//                    if(isSuccess){
-//                        serverAction.execute();
-//                    }else{
-//                        Log.d("wowServer","fail");
-//                    }
-//                }
-//            });
-////            OAuthActivity.startForResult(fragmentActivity, OAuthActivity.TOKEN_REFRESH, this.serverAction);
-//        }else{
-//            execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    serverAction.execute();
-//                }
-//            });
-//        }
+    protected void executeAndSignup(Boolean isTokenRequired){
+        Log.d("wowSignup","executeAndSignup? - " + isTokenRequired);
+        boolean shouldSignup = TextUtils.isEmpty(UserManager.getInstance().getInAppToken());
+        if(isTokenRequired && shouldSignup){
+            UserManager.getInstance().StartSignupFlow(context, new Action() {
+                @Override
+                public void execute() {
+                    Log.d("wowSignup","executeAndSignup done -> server action");
+                    serverAction.execute();
+                }
+            });
+        }else{
+            execute(new Runnable() {
+                @Override
+                public void run() {
+                    serverAction.execute();
+                }
+            });
+        }
     }
 
-    public static void execute(Runnable runnable) {
+    public static void execute(final Runnable runnable) {
         executorService.execute(runnable);
+
     }
 
     public class MySSLSocketFactory extends SSLSocketFactory {

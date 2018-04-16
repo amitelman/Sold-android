@@ -9,6 +9,7 @@ import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -24,9 +25,9 @@ public class ApiPreApproved extends AbstractServerApiConnector {
     public synchronized void request(final long propertyId, final int purchaseType, final int loanAmount, final int equity, final int employmentStatus, final String occupation,
                                      final int seniority, final int monthlyIncome, final int childCount, final int disposableIncome, final String otherIncome, final int fixesExpenses,
                                      final Action onSuccess, final Action onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 params.addInt("purchase_type", purchaseType)
                         .addInt("loan_amount", loanAmount)
@@ -49,6 +50,6 @@ public class ApiPreApproved extends AbstractServerApiConnector {
                         onFail.execute();
                 }
             }
-        });
+        }));
     }
 }

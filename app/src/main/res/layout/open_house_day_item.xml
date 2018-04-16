@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="86dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,12 +12,13 @@
         android:id="@+id/dayItemBkg"
         android:layout_width="71dp"
         android:gravity="center"
-        android:layout_height="71dp"
+        android:layout_height="70dp"
         android:background="@drawable/open_house_bkg_selector">
 
         <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
             android:id="@+id/dayItemDay"
             android:textSize="9.6sp"
+            android:clickable="false"
             android:textColor="@color/open_house_text_color_selector"
             android:text="SUNDAY"
             app:fontType="MULI_REG"
@@ -31,6 +31,7 @@
             android:textSize="22.1sp"
             android:textColor="@color/open_house_text_color_selector"
             android:text="18"
+            android:clickable="false"
             app:fontType="MULI_EX_BOLD"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -41,6 +42,7 @@
             android:textSize="9.6sp"
             android:textColor="@color/open_house_text_color_selector"
             android:text="OCT"
+            android:clickable="false"
             app:fontType="MULI_BOLD"
             android:gravity="center"
             android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import sold.monkeytech.com.sold_android.framework.models.SavedSearch;
 import sold.monkeytech.com.sold_android.framework.parsers.SavedSearchParser;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -24,9 +25,9 @@ public class ApiDeleteSavedSearch extends AbstractServerApiConnector {
     }
 
     public synchronized void request(final String deletedCsv, final Action onSuccess, final Action onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 params.addText("search_ids",deletedCsv);
                 RemoteResponseString remoteResponseString = performHTTPDelete("/users/me/searches", params);
@@ -38,6 +39,6 @@ public class ApiDeleteSavedSearch extends AbstractServerApiConnector {
                         onFail.execute();
                 }
             }
-        });
+        }));
     }
 }

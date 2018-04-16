@@ -79,7 +79,7 @@ public class PreApprovedActivity extends BaseActivity implements PreApprovedStar
             @Override
             public void onClick(View v) {
 //                finish();
-                UserManager.getInstance().StartSignupFlow(PreApprovedActivity.this, null);
+//                UserManager.getInstance().StartSignupFlow(PreApprovedActivity.this, null);
             }
         });
     }

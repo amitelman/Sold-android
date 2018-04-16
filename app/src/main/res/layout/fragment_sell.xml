@@ -38,6 +38,7 @@
                         android:textSize="17.3sp" />
 
                     <ImageButton
+                        android:tint="@color/white"
                         android:id="@+id/sellFragBackBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
                         android:hint="enter name"
+                        android:lines="1"
                         android:textColor="@color/black"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp" />
@@ -163,7 +165,7 @@
                         android:layout_marginTop="7.3dp"
                         android:orientation="horizontal"
                         android:weightSum="3"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -192,6 +194,8 @@
                                 android:layout_marginTop="7.3dp"
                                 android:background="@null"
                                 android:hint="house num"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
                                 android:textColor="@color/black"
                                 android:textColorHint="#80000000"
                                 android:textSize="13.4sp" />
@@ -232,6 +236,8 @@
                                 android:layout_marginTop="7.3dp"
                                 android:background="@null"
                                 android:hint="apt num"
+                                android:inputType="number"
+                                android:imeOptions="actionDone"
                                 android:textColor="@color/black"
                                 android:textColorHint="#80000000"
                                 android:textSize="13.4sp" />
@@ -272,6 +278,8 @@
                                 android:layout_marginTop="7.3dp"
                                 android:background="@null"
                                 android:hint="floor num"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
                                 android:textColor="@color/black"
                                 android:textColorHint="#80000000"
                                 android:textSize="13.4sp" />
@@ -306,6 +314,7 @@
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
                         android:hint="enter email"
+                        android:lines="1"
                         android:textColor="@color/black"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp" />
@@ -335,7 +344,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
-                        android:hint="enter street"
+                        android:lines="1"
+                        android:hint="enter phone"
                         android:textColor="@color/black"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp" />
@@ -366,6 +376,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
+                        android:lines="1"
                         android:hint="enter description"
                         android:textColor="@color/black"
                         android:textColorHint="#80000000"
@@ -395,17 +406,13 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/sellFragDaysRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="80.2dp"
-                        android:layout_marginTop="14.5dp"
-                        tools:visibility="gone" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14.5dp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/sellFragHoursRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="31.2dp"
-                        android:layout_marginTop="14.5dp"
-                        android:visibility="gone"
-                        tools:visibility="gone" />
+                        android:layout_height="wrap_content"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -433,7 +440,7 @@
                     </LinearLayout>
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:id="@+id/privateShowActAgentBtn"
+                        android:id="@+id/privateShowActSendBtn"
                         android:layout_width="250dp"
                         android:layout_height="43.2dp"
                         android:layout_gravity="center"
@@ -442,7 +449,7 @@
                         android:background="@drawable/shape_sqr_red"
                         android:gravity="center"
                         android:lineSpacingExtra="7.7sp"
-                        android:text="CONTACT AGENT"
+                        android:text="SUBMIT THE REQUEST"
                         android:textColor="@color/white"
                         android:textSize="14.4sp"
                         app:fontType="MULI_BOLD" />

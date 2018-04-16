@@ -6,6 +6,7 @@ import com.monkeytechy.framework.interfaces.Action;
 
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -23,9 +24,9 @@ public class ApiUnPinProperty extends AbstractServerApiConnector {
     }
 
     public synchronized void request(final long propertyId, final Action onSuccess, final Action onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 RemoteResponseString remoteResponseString = performHTTPPost("/properties/" + propertyId + "/unpin", params);
                 if (remoteResponseString.isSuccess()) {
@@ -36,6 +37,6 @@ public class ApiUnPinProperty extends AbstractServerApiConnector {
                         onFail.execute();
                 }
             }
-        });
+        }));
     }
 }

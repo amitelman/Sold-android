@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.monkeytechy.framework.interfaces.TAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
@@ -20,10 +21,11 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
 
     private List<OpenHouse> openHouses;
     private TAction<OpenHouse> onDayPress;
-    OpenHouse selected;
+    OpenHouse selected = new OpenHouse();
 
     public OpenHouseDaysAdapter(List<OpenHouse> openHouses, TAction<OpenHouse> onDayPress) {
-        this.openHouses = openHouses;
+        if(openHouses != null)
+            this.openHouses = openHouses;
         this.onDayPress = onDayPress;
     }
 
@@ -42,6 +44,13 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
             month = v.findViewById(R.id.dayItemMounth);
             arrow = v.findViewById(R.id.dayItemArrow);
         }
+    }
+
+    public void addItems(List<OpenHouse> openHouses){
+        if(this.openHouses == null)
+            this.openHouses = new ArrayList<>();
+        this.openHouses.clear();
+        this.openHouses.addAll(openHouses);
     }
 
     @Override
@@ -63,11 +72,13 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
             holder.month.setSelected(true);
             holder.day.setSelected(true);
             holder.bkg.setSelected(true);
+            holder.arrow.setVisibility(View.VISIBLE);
         }else{
             holder.number.setSelected(false);
             holder.month.setSelected(false);
             holder.day.setSelected(false);
             holder.bkg.setSelected(false);
+            holder.arrow.setVisibility(View.INVISIBLE);
         }
 
         holder.bkg.setOnClickListener(new View.OnClickListener() {

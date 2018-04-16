@@ -42,12 +42,6 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
             this.properties = properties;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        new ApiGetFavorites(context).request(new TAction<List<Property>>() {
-            @Override
-            public void execute(List<Property> properties) {
-               favProp = properties;
-            }
-        }, null);
     }
 
     public void updateList(List<Property> properties){
@@ -56,6 +50,15 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         this.properties.clear();
         if(properties != null)
             this.properties.addAll(properties);
+        notifyDataSetChanged();
+    }
+
+    public void updateFavList(List<Property> properties){
+        if(this.favProp == null)
+            this.favProp = new ArrayList<>();
+        this.favProp.clear();
+        if(properties != null)
+            this.favProp.addAll(properties);
         notifyDataSetChanged();
     }
 
@@ -141,7 +144,7 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         baseViewHolder.size.setText(property.getFloorArea() + "");
         baseViewHolder.sqrm.setText(property.getPlotArea() + "");
 
-        if(favProp != null && favProp.contains(property)){
+        if(property.isFavorite()){
             baseViewHolder.favBtn.setSelected(true);
         }else{
             baseViewHolder.favBtn.setSelected(false);

@@ -37,6 +37,8 @@ public class Property extends BaseModel<Property> {
     private Address address;
     private PropertyType propertyType;
 
+    private boolean isFavorite;
+
     // Longer Model
 
     private String description;
@@ -372,6 +374,14 @@ public class Property extends BaseModel<Property> {
 
     public void setNearbyProperties(List<Property> nearbyProperties) {
         this.nearbyProperties = nearbyProperties;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     @Override

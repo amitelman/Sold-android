@@ -11,6 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.io.File;
 
 /**
@@ -34,12 +36,15 @@ public class SoldApplication extends MultiDexApplication {
                 .build();
         initImageLoader();
 
+        JodaTimeAndroid.init(this);
+
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+
     }
 
     public static Context getContext(){

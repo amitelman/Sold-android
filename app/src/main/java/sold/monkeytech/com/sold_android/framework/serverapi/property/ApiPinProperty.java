@@ -9,6 +9,7 @@ import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
+import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuilder;
 
 
@@ -26,9 +27,9 @@ public class ApiPinProperty extends AbstractServerApiConnector {
     }
 
     public synchronized void request(final long propertyId, final Action onSuccess, final Action onFail) {
-        execute(new Runnable() {
+        setServerAction(true, new ServerAction(new Action() {
             @Override
-            public void run() {
+            public void execute() {
                 ParamBuilder params = new ParamBuilder();
                 RemoteResponseString remoteResponseString = performHTTPPost("/properties/" + propertyId + "/pin", params);
                 if (remoteResponseString.isSuccess()) {
@@ -39,6 +40,6 @@ public class ApiPinProperty extends AbstractServerApiConnector {
                         onFail.execute();
                 }
             }
-        });
+        }));
     }
 }
