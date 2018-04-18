@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="91dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:background="@color/white"
+        android:layout_width="80dp"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dayItemBkg"
+            android:layout_width="71dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/open_house_bkg_selector_edit"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/dayItemDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="SUNDAY"
+                android:textColor="@color/open_house_text_color_selector_edit"
+                android:textSize="9.6sp"
+                app:fontType="MULI_REG" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/dayItemNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="18"
+                android:textColor="@color/open_house_text_color_selector_edit"
+                android:textSize="22.1sp"
+                app:fontType="MULI_EX_BOLD" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/dayItemMounth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
+                android:text="OCT"
+                android:textColor="@color/open_house_text_color_selector_edit"
+                android:textSize="9.6sp"
+                app:fontType="MULI_BOLD" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/dayItemX"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_gravity="top|end"
+        android:src="@drawable/edit_x"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/dayItemArrow"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_gravity="bottom|center"
+        android:rotation="90"
+        android:layout_marginRight="5dp"
+        android:tint="@color/scarlet"
+        android:src="@drawable/shape_triangle"
+        android:visibility="invisible" />
+
+
+</FrameLayout>

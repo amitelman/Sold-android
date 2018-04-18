@@ -19,9 +19,13 @@ import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
 
 public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAdapter.HourViewHolder> {
 
+    private static final int REGULAR_MODE = 0;
+    private static final int EDIT_MODE = 1;
+    private int type = REGULAR_MODE;
     private List<OpenHouseSlots> openHousesSlots;
-    private final TAction<OpenHouseSlots> onHourClick;
+    private TAction<OpenHouseSlots> onHourClick;
     private OpenHouseSlots selected;
+    private List<OpenHouseSlots> deleted;
 
     public class HourViewHolder extends RecyclerView.ViewHolder {
         LinearLayout bkg;
@@ -34,10 +38,15 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
         }
     }
 
-    public OpenHouseHoursAdapter(List<OpenHouseSlots> openHousesSlots, TAction<OpenHouseSlots> onHourClick) {
+    public OpenHouseHoursAdapter(List<OpenHouseSlots> openHousesSlots, TAction<OpenHouseSlots> onHourClick, boolean canDelete) {
         if(openHousesSlots != null)
             this.openHousesSlots = openHousesSlots;
-        this.onHourClick = onHourClick;
+        if(onHourClick != null)
+            this.onHourClick = onHourClick;
+        if(canDelete){
+            this.type = EDIT_MODE;
+            deleted = new ArrayList<>();
+        }
     }
 
     public void updateItems(List<OpenHouseSlots> newSlots){
@@ -51,7 +60,12 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
 
     @Override
     public HourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_hour_item, parent, false);
+        View view = null;
+        if(type == REGULAR_MODE){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_hour_item, parent, false);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_hour_item_edit, parent, false);
+        }
         return new HourViewHolder(view);
     }
 
@@ -61,13 +75,6 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
 
         holder.hour.setText(slot.getName());
 
-        if(selected != null &&selected == slot){
-            holder.bkg.setSelected(true);
-            holder.hour.setSelected(true);
-        }else{
-            holder.bkg.setSelected(false);
-            holder.hour.setSelected(false);
-        }
 
         holder.bkg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +83,43 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
                 if(onHourClick != null)
                     onHourClick.execute(slot);
                 notifyDataSetChanged();
+            }
+        });
+
+        if(type == REGULAR_MODE){
+            if(selected != null &&selected == slot){
+                holder.bkg.setSelected(true);
+                holder.hour.setSelected(true);
+            }else{
+                holder.bkg.setSelected(false);
+                holder.hour.setSelected(false);
+            }
+        }else{
+            if(deleted.contains(slot)){
+                holder.bkg.setSelected(true);
+                holder.hour.setSelected(true);
+            }else{
+                holder.bkg.setSelected(false);
+                holder.hour.setSelected(false);
+            }
+        }
+
+        holder.bkg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(type == REGULAR_MODE){
+                    selected = slot;
+                    if(onHourClick != null)
+                        onHourClick.execute(slot);
+                    notifyDataSetChanged();
+                }else{
+                    if(deleted.contains(slot)){
+                        deleted.remove(slot);
+                    }else{
+                        deleted.add(slot);
+                    }
+                    notifyDataSetChanged();;
+                }
             }
         });
 
@@ -88,6 +132,27 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
         return openHousesSlots.size();
     }
 
+    public String getDeleted(){
+        String csv = "";
+        for(OpenHouseSlots ohs : deleted)
+            csv += ohs.getId() + ",";
+        return csv;
+    }
 
+    public void deleteDeleted() {
+        openHousesSlots.removeAll(deleted);
+        notifyDataSetChanged();
+//        for(OpenHouse oh : deleted){
+//            if(openHouses.contains(oh))
+//        }
+    }
+
+    public void clearDeleted(){
+        deleted.clear();
+    }
+
+    public void restoreDeleted(){
+        openHousesSlots.addAll(deleted);
+    }
 
 }

@@ -55,24 +55,24 @@ public class PropertyPageHeaderAdapter extends PagerAdapter {
         View view = null;
         ViewPager vp = (ViewPager) container;
         Log.d("wowPager","position : " + position);
-        if(position == 0){
-            view = layoutInflater.inflate(R.layout.view_pager_slide_web_view, null);
-            final WebView webView = (WebView) view.findViewById(R.id.webView);
-            LinearLayout video3dBtn = view.findViewById(R.id.propertyAct3dLayout);
-
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.loadUrl(items.get(0));
-            webView.setWebViewClient(new WebViewClient());
-
-            video3dBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "I don't do anything yet", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            vp.addView(view, 0);
-        }else{
+//        if(position == 0){
+//            view = layoutInflater.inflate(R.layout.view_pager_slide_web_view, null);
+//            final WebView webView = (WebView) view.findViewById(R.id.webView);
+//            LinearLayout video3dBtn = view.findViewById(R.id.propertyAct3dLayout);
+//
+//            webView.getSettings().setJavaScriptEnabled(true);
+//            webView.loadUrl(items.get(0));
+//            webView.setWebViewClient(new WebViewClient());
+//
+//            video3dBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(context, "I don't do anything yet", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//            vp.addView(view, 0);
+//        }else{
             view = layoutInflater.inflate(R.layout.view_pager_slide, null);
             final ImageView imageView = (ImageView) view.findViewById(R.id.image);
 
@@ -87,7 +87,7 @@ public class PropertyPageHeaderAdapter extends PagerAdapter {
 
 
             vp.addView(view, 0);
-        }
+//        }
 
 
         return view;

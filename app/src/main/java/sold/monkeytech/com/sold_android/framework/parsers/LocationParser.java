@@ -27,6 +27,10 @@ public class LocationParser extends GeneralParser<Location> {
         location.setLocationName(safeParseString(jo, "name"));
         if(jo.has("type"))
             location.setLocationType(safeParseString(jo, "type"));
+        if(jo.has("lat"))
+            location.setLat(Double.parseDouble(safeParseString(jo, "lat")));
+        if(jo.has("lng"))
+            location.setLng(Double.parseDouble(safeParseString(jo, "lng")));
 
         return location;
     }

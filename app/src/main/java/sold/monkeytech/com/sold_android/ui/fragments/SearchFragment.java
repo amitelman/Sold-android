@@ -161,10 +161,15 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == SearchLocationActivity.CHOOSE_BOTH){
-                long id = data.getLongExtra("id", -1);
-                String name = data.getStringExtra("name");
+                long id = data.getLongExtra("cityId", -1);
+                String name = data.getStringExtra("cityName");
                 String type = data.getStringExtra("type");
-                Location location = new Location(id, name, type);
+                final Location location = new Location(id, name, type);
+                if(data.getDoubleExtra("lat", 0) != 0){
+                    location.setLat(data.getDoubleExtra("lat",0));
+                    location.setLng(data.getDoubleExtra("lng",0));
+                }
+
                 Log.d("wow","location: " + id + " - " + name + "/" + type);
                 SearchParamManager.getInstance().updateParams("location_id", location.getId());
                 SearchParamManager.getInstance().updateParams("location_type", location.getLocationType());
@@ -184,6 +189,11 @@ public class SearchFragment extends BaseFragment implements SearchInMapFragment.
                                         LatLng latLng = new LatLng(properties.get(0).getDoubleLat(), properties.get(0).getDoubleLng());
                                         ((SearchInMapFragment) currentFrag).animateCamera(latLng);
                                         ((SearchInMapFragment) currentFrag).initPropertiesMarkers(properties);
+                                    }else{
+                                        if(location.getLat() != 0){
+                                            LatLng latLng = new LatLng(location.getLat(), location.getLng());
+                                            ((SearchInMapFragment) currentFrag).animateCamera(latLng);
+                                        }
                                     }
                                 }else{
                                     if(properties.size() > 0){

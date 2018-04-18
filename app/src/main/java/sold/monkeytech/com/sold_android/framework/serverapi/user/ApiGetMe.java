@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.models.User;
+import sold.monkeytech.com.sold_android.framework.parsers.UserParser;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
@@ -29,12 +30,12 @@ public class ApiGetMe extends AbstractServerApiConnector {
         request(null,null);
     }
 
-    public synchronized void request(final TAction<User> onSuccess, final TAction<String> onFail) {
+    public synchronized void request(final Action onSuccess, final Action onFail) {
         setServerAction(true, new ServerAction(new Action() {
             @Override
             public void execute() {
                 ParamBuilder params = new ParamBuilder();
-                RemoteResponseString remoteResponseString = performHTTPGet("users/me", params);
+                RemoteResponseString remoteResponseString = performHTTPGet("/users/me", params);
                 if (remoteResponseString.isSuccess()) {
                     JSONObject jo = null;
                     try {
@@ -43,15 +44,16 @@ public class ApiGetMe extends AbstractServerApiConnector {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                    UserManager.getInstance().setCurrentUser(new UserParser().parseToSingle(remoteResponseString.getMessage()));
-                    User user  = null; //new UserParser().parseToSingle(remoteResponseString.getMessage());
+                    User user = new UserParser().parseToSingle(remoteResponseString.getMessage());
+                    if(user != null)
+                        UserManager.getInstance().setCurrentUser(user);
 //                    UserManager.getInstance().setCurrentUser(user);
 //                    UserManager.getInstance().setInAppToken(remoteResponseString.getMessage().getString("in_app_token"));
                     if(onSuccess!=null)
-                        onSuccess.execute(user);
+                        onSuccess.execute();
                 } else {
                     if(onFail!=null)
-                        onFail.execute(remoteResponseString.getMessage());
+                        onFail.execute();
                 }
             }
         }));

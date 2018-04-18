@@ -20,6 +20,7 @@ import java.util.Locale;
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiGetMe;
 import sold.monkeytech.com.sold_android.framework.serverapi.utils.ApiGetMetaData;
 import sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar;
 
@@ -30,6 +31,9 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        //todo: delete this:
+//        UserManager.getInstance().setInAppToken("");
 //        FirebaseInstanceId.getInstance().getToken();
 //        Intercom.initialize(getApplication(), getString(R.string.intercom_api_key), getString(R.string.intercom_app_id));
 //        new Handler().postDelayed(new Runnable() {
@@ -126,7 +130,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void handleServerCall(final Action onHandleDone, final Action onError) {
-        final int[] i = {1};
+        final int[] i = {2};
         Action onSuccess = new Action() {
             @Override
             public void execute() {
@@ -152,14 +156,17 @@ public class SplashActivity extends BaseActivity {
             }
         };
         metaData(onSuccess, onFailed);
+        getMe(onSuccess, onFailed);
 //        getEnums(onSuccess, onFailed);
 //        initDataFilter(onSuccess, onFailed);
-//        getMe(onSuccess, onFailed);
     }
 
     private void metaData(Action onSuccess, Action onFailed) {
         new ApiGetMetaData(this).request(onSuccess, onFailed);
     }
 
+    private void getMe(Action onSuccess, Action onFailed) {
+        new ApiGetMe(this).request(onSuccess, onFailed);
+    }
 
 }

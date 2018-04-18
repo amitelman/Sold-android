@@ -43,20 +43,20 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
     //VALUES
     String typesCsv = "";
     String featuresCsv = "";
-    int minFloorArea;
-    int maxFloorArea;
-    int minPlotArea;
-    int maxPlotArea;
-    int minPrice;
-    int maxPrice;
-    int minFloors;
-    int maxFloors;
-    int minRooms;
-    int minBaths;
-    boolean hasOpenHouse;
-    boolean hideForeclosure;
-    boolean hasParking;
-    boolean hideNewConstruction;
+    Integer minFloorArea;
+    Integer maxFloorArea;
+    Integer minPlotArea;
+    Integer maxPlotArea;
+    Integer minPrice;
+    Integer maxPrice;
+    Integer minFloors;
+    Integer maxFloors;
+    Integer minRooms;
+    Integer minBaths;
+    Boolean hasOpenHouse;
+    Boolean hideForeclosure;
+    Boolean hasParking;
+    Boolean hideNewConstruction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,21 +96,20 @@ public class FilterSearchActivity extends Activity implements View.OnClickListen
         hasParking = SearchParamManager.getInstance().isHasParking();
         hideNewConstruction = SearchParamManager.getInstance().isHideNewConstruction();
 
-        mBinding.filterActRangeFloorSize.setMinimum(minFloorArea == 0 ? "" : minFloorArea + "");
-        mBinding.filterActRangeFloorSize.setMaximum(maxFloorArea == 0 ? "" : maxFloorArea + "");
-        mBinding.filterActRangePlot.setMinimum(minPlotArea == 0 ? "" : minPlotArea + "");
-        mBinding.filterActRangePlot.setMaximum(maxPlotArea == 0 ? "" : maxPlotArea + "");
-        mBinding.filterActRangePrice.setMinimum(minPrice == 0 ? "" : minPrice + "");
-        mBinding.filterActRangePrice.setMaximum(maxPrice == 0 ? "" : maxPrice + "");
-        mBinding.filterActRangeFloors.setMinimum(minFloors == 0 ? "" : minFloors + "");
-        mBinding.filterActRangeFloors.setMaximum(maxFloors == 0 ? "" : maxFloors + "");
-        mBinding.filterActRoomsCounter.setCounter(minRooms);
-        mBinding.filterActBathCounter.setCounter(minBaths);
-        mBinding.filterActOpenHousesSwitch.setChecked(hasOpenHouse);
-        mBinding.filterActForeclosureSwitch.setChecked(hideForeclosure);
-        mBinding.filterActParkingSwitch.setChecked(hasParking);
-        mBinding.filterActNewConstructionSwitch.setChecked(hideNewConstruction);
-
+        mBinding.filterActRangeFloorSize.setMinimum(minFloorArea == null ? "" : minFloorArea + "");
+        mBinding.filterActRangeFloorSize.setMaximum(maxFloorArea == null ? "" : maxFloorArea + "");
+        mBinding.filterActRangePlot.setMinimum(minPlotArea == null ? "" : minPlotArea + "");
+        mBinding.filterActRangePlot.setMaximum(maxPlotArea == null ? "" : maxPlotArea + "");
+        mBinding.filterActRangePrice.setMinimum(minPrice == null ? "" : minPrice + "");
+        mBinding.filterActRangePrice.setMaximum(maxPrice == null ? "" : maxPrice + "");
+        mBinding.filterActRangeFloors.setMinimum(minFloors == null ? "" : minFloors + "");
+        mBinding.filterActRangeFloors.setMaximum(maxFloors == null ? "" : maxFloors + "");
+        mBinding.filterActRoomsCounter.setCounter(minRooms == null ? 0 : minRooms);
+        mBinding.filterActBathCounter.setCounter(minBaths == null ? 0 : minBaths);
+        mBinding.filterActOpenHousesSwitch.setChecked(hasOpenHouse == null ? false : hasOpenHouse);
+        mBinding.filterActForeclosureSwitch.setChecked(hideForeclosure == null ? false : hideForeclosure);
+        mBinding.filterActParkingSwitch.setChecked(hasParking == null ? false : hasParking);
+        mBinding.filterActNewConstructionSwitch.setChecked(hideNewConstruction == null ? false : hideNewConstruction);
     }
 
     private void initBtns() {

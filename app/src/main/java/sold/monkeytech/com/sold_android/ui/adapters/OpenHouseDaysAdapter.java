@@ -16,18 +16,32 @@ import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
+import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
 
 public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdapter.DayViewHolder> {
 
+    private static final int REGULAR_MODE = 0;
+    private static final int EDIT_MODE = 1;
     private List<OpenHouse> openHouses;
     private TAction<OpenHouse> onDayPress;
     OpenHouse selected = new OpenHouse();
+    private long selectedId = 0;
+    private int type = REGULAR_MODE;
 
-    public OpenHouseDaysAdapter(List<OpenHouse> openHouses, TAction<OpenHouse> onDayPress) {
+    private List<OpenHouse> deleted;
+    private OpenHouse lastClicked = new OpenHouse();
+
+    public OpenHouseDaysAdapter(List<OpenHouse> openHouses, TAction<OpenHouse> onDayPress, boolean canDelete) {
         if(openHouses != null)
             this.openHouses = openHouses;
         this.onDayPress = onDayPress;
+        if(canDelete){
+            type = EDIT_MODE;
+            deleted = new ArrayList<>();
+        }
     }
+
+
 
     public class DayViewHolder extends RecyclerView.ViewHolder {
         LinearLayout bkg;
@@ -55,7 +69,12 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
 
     @Override
     public DayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_day_item, parent, false);
+        View view = null;
+        if(type == REGULAR_MODE){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_day_item, parent, false);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.open_house_day_item_edit, parent, false);
+        }
         return new DayViewHolder(view);
     }
 
@@ -67,28 +86,79 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
         holder.number.setText(openHouse.getDay() + "");
         holder.month.setText(openHouse.getMonth() + "");
 
-        if(selected != null && selected == openHouse){
-            holder.number.setSelected(true);
-            holder.month.setSelected(true);
-            holder.day.setSelected(true);
-            holder.bkg.setSelected(true);
-            holder.arrow.setVisibility(View.VISIBLE);
-        }else{
-            holder.number.setSelected(false);
-            holder.month.setSelected(false);
-            holder.day.setSelected(false);
-            holder.bkg.setSelected(false);
-            holder.arrow.setVisibility(View.INVISIBLE);
+        if(type == REGULAR_MODE){
+            if(selectedId != 0 && selectedId == openHouse.getId()){
+                holder.number.setSelected(true);
+                holder.month.setSelected(true);
+                holder.day.setSelected(true);
+                holder.bkg.setSelected(true);
+                holder.arrow.setVisibility(View.VISIBLE);
+            }else{
+                holder.number.setSelected(false);
+                holder.month.setSelected(false);
+                holder.day.setSelected(false);
+                holder.bkg.setSelected(false);
+                holder.arrow.setVisibility(View.INVISIBLE);
+            }
+        }
+        if(type == EDIT_MODE){
+            if(deleted.contains(openHouse)){
+                holder.number.setSelected(true);
+                holder.month.setSelected(true);
+                holder.day.setSelected(true);
+                holder.bkg.setSelected(true);
+            }else{
+                holder.number.setSelected(false);
+                holder.month.setSelected(false);
+                holder.day.setSelected(false);
+                holder.bkg.setSelected(false);
+            }
+            if(selectedId != 0 && selectedId == openHouse.getId()){
+                holder.arrow.setVisibility(View.VISIBLE);
+            }else{
+                holder.arrow.setVisibility(View.INVISIBLE);
+            }
         }
 
         holder.bkg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selected != openHouse){
-                    selected = openHouse;
-                    if(onDayPress != null)
-                        onDayPress.execute(openHouse);
-                    notifyDataSetChanged();
+                if(type == REGULAR_MODE){
+                    if(selectedId != openHouse.getId()){
+                        selectedId = openHouse.getId();
+                        notifyDataSetChanged();
+                        if(onDayPress != null)
+                            onDayPress.execute(openHouse);
+                    }
+                }else{
+                    if(selectedId != openHouse.getId()) {
+                        selectedId = openHouse.getId();
+                    }
+                    if(openHouse == lastClicked){
+                        if(deleted.contains(openHouse)){
+                            deleted.remove(openHouse);
+                        }else{
+                            deleted.add(openHouse);
+                            if(onDayPress != null)
+                                onDayPress.execute(openHouse);
+                        }
+                    }else{
+                        lastClicked = openHouse;
+                        if(deleted.contains(openHouse)){
+                            if(onDayPress != null)
+                                onDayPress.execute(openHouse);
+                        }else{
+                            if(deleted.contains(openHouse)){
+                                deleted.remove(openHouse);
+                            }else{
+                                deleted.add(openHouse);
+                                if(onDayPress != null)
+                                    onDayPress.execute(openHouse);
+                            }
+                        }
+                    }
+
+                    notifyDataSetChanged();;
                 }
             }
         });
@@ -101,6 +171,27 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
         return openHouses.size();
     }
 
+    public String getDeleted(){
+        String csv = "";
+        for(OpenHouse oh : deleted)
+            csv += oh.getId() + ",";
+        return csv;
+    }
 
+    public void deleteDeleted() {
+        openHouses.removeAll(deleted);
+        notifyDataSetChanged();
+//        for(OpenHouse oh : deleted){
+//            if(openHouses.contains(oh))
+//        }
+    }
+
+    public void clearDeleted(){
+        deleted.clear();
+    }
+
+    public void restoreDeleted(){
+        openHouses.addAll(deleted);
+    }
 
 }

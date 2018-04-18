@@ -13,6 +13,7 @@ import com.monkeytechy.ui.activities.BaseActivity;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityMainBinding;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.ui.fragments.MySoldFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SearchFragment;
@@ -21,12 +22,15 @@ import sold.monkeytech.com.sold_android.ui.fragments.SellFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.ServiceFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.SettingsFragment;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
+import sold.monkeytech.com.sold_android.ui.fragments.myPropertiesFragments.MyPropertiesMainFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, MySoldFragment.MySoldListener, SearchInMapFragment.OnMapFragmentListener {
 
     private static final String SEARCH_FRAGMENT = "searchFragment";
     private static final String SERVICE_FRAGMENT = "serviceFragment";
     private static final String SELL_FRAGMENT = "sellFragment";
+    private static final String SELL_PROP_FRAGMENT = "sellPropertyFrag";
+    private static final String MY_PROPERTIES_FRAGMENT = "myPropertiesFragment";
     private static final String MY_SOLD_FRAGMENT = "mySoldFragment";
 
     private static final String SETTINGS_FRAGMENT = "settingFragment";
@@ -85,7 +89,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 setFragmentTransition(new ServiceFragment(), fragmentType);
                 break;
             case SELL_FRAGMENT:
-                setFragmentTransition(new SellFragment(), fragmentType);
+                if(UserManager.getInstance().userHaveProperties()){
+                    setFragmentTransition(new MyPropertiesMainFragment(), MY_PROPERTIES_FRAGMENT);
+                }else{
+                    setFragmentTransition(new SellFragment(), SELL_FRAGMENT);
+                }
+                break;
+            case SELL_PROP_FRAGMENT:
+                setFragmentTransition(new SellFragment(), SELL_FRAGMENT);
                 break;
             case MY_SOLD_FRAGMENT:
                 setFragmentTransition(new MySoldFragment(), fragmentType);
@@ -148,8 +159,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onBackPressed() {
         if (currentTag == SEARCH_FRAGMENT)
             ((SearchFragment) currentFrag).backPressed();
-        else
+        else{
+//            currentTag = SEARCH_FRAGMENT;
             super.onBackPressed();
+        }
     }
 
     //        @Override
@@ -177,6 +190,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 ((SearchFragment) currentFrag).hideBottomItem();
             }
         }
+    }
+
+    public void loadSellFrag() {
+        loadFragment(SELL_PROP_FRAGMENT);
     }
 //
 //    @Override

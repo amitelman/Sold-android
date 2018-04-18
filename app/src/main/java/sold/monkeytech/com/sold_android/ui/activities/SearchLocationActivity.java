@@ -118,13 +118,25 @@ public class SearchLocationActivity extends Activity {
                 if(type == CHOOSE_CITY){
                     intent.putExtra("cityName", location.getLocationName());
                     intent.putExtra("cityId", location.getId());
+                    if(location.getLat() != 0){
+                        intent.putExtra("lat",location.getLat());
+                        intent.putExtra("lng",location.getLng());
+                    }
                 }else if(type == CHOOSE_STREET){
                     intent.putExtra("streetName", location.getLocationName());
                     intent.putExtra("streetId", location.getId());
+                    if(location.getLat() != 0){
+                        intent.putExtra("lat",location.getLat());
+                        intent.putExtra("lng",location.getLng());
+                    }
                 }else{
                     intent.putExtra("cityId", location.getId());
                     intent.putExtra("cityName", location.getLocationName());
                     intent.putExtra("type", location.getLocationType());
+                    if(location.getLat() != 0){
+                        intent.putExtra("lat",location.getLat());
+                        intent.putExtra("lng",location.getLng());
+                    }
                 }
                 setResult(RESULT_OK, intent);
                 finish();

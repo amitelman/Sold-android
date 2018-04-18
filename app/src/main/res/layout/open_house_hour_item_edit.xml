@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="80dp"
+        android:layout_height="37.2dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/hourItemBkg"
+            android:layout_width="71dp"
+            android:gravity="center"
+            android:layout_gravity="start|bottom"
+            android:layout_height="31.2dp"
+            android:background="@drawable/open_house_bkg_selector_edit">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/hourItem"
+                android:textSize="9.6sp"
+                android:textColor="@color/open_house_text_color_selector_edit"
+                android:text="9:00 AM"
+                app:fontType="MULI_REG"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/dayItemX"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_gravity="top|end"
+            android:src="@drawable/edit_x"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.stacktips.view.CustomCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:calendarBackgroundColor="@color/white"
+        app:calendarTitleTextColor="@color/scarlet"
+        app:currentDayOfMonthColor="@color/black"
+        app:dayOfMonthTextColor="@color/dark_grey_blue_50"
+        app:dayOfWeekTextColor="@color/dark_grey_blue_50"
+        app:disabledDayBackgroundColor="@color/dark_grey_blue_50"
+        app:disabledDayTextColor="@color/dark_grey_blue_50"
+        app:selectedDayBackgroundColor="@color/scarlet"
+        app:titleLayoutBackgroundColor="@color/white"
+        app:weekLayoutBackgroundColor="@color/white"/>
+
+    <!--<CalendarView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="315dp"-->
+        <!--android:theme="@style/CalenderViewCustom"-->
+        <!--android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
+        <!--android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"/>-->
+
+
+</LinearLayout>

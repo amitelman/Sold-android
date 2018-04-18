@@ -11,6 +11,8 @@ public class Location extends BaseModel<Location> {
 
     private String locationName;
     private String locationType;
+    private double lat;
+    private double lng;
 
     public Location(){
     }
@@ -35,6 +37,22 @@ public class Location extends BaseModel<Location> {
 
     public void setLocationType(String locationType) {
         this.locationType = locationType;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     @Override

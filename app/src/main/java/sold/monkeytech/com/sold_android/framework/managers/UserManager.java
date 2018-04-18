@@ -116,6 +116,9 @@ public class UserManager {
         return currentUser;
     }
 
+    public boolean userHaveProperties(){
+        return getCurrentUser() != null && getCurrentUser().getPropertiesCount() > 0;
+    }
 
 }
 

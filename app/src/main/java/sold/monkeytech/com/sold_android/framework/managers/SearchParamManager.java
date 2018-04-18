@@ -54,9 +54,9 @@ public class SearchParamManager {
         }
         paramBuilder.addInt("sortable_id", getSortId());
         paramBuilder.addText("sort_direction", getSortDirection());
-        if(typesCsv != null)
+        if(typesCsv.length() > 0)
             paramBuilder.addText("property_type_ids", typesCsv);
-        if(featuresCsv != null)
+        if(featuresCsv.length() > 0)
             paramBuilder.addText("feature_ids", featuresCsv);
         if(minFloorArea != null)
             paramBuilder.addInt("min_floor_area", minFloorArea);
@@ -182,7 +182,7 @@ public class SearchParamManager {
         this.featuresCsv = featuresCsv;
     }
 
-    public int getMinFloorArea() {
+    public Integer getMinFloorArea() {
         return minFloorArea;
     }
 
@@ -190,7 +190,7 @@ public class SearchParamManager {
         this.minFloorArea = minFloorArea;
     }
 
-    public int getMaxFloorArea() {
+    public Integer getMaxFloorArea() {
         return maxFloorArea;
     }
 
@@ -198,7 +198,7 @@ public class SearchParamManager {
         this.maxFloorArea = maxFloorArea;
     }
 
-    public int getMinPlotArea() {
+    public Integer getMinPlotArea() {
         return minPlotArea;
     }
 
@@ -206,7 +206,7 @@ public class SearchParamManager {
         this.minPlotArea = minPlotArea;
     }
 
-    public int getMaxPlotArea() {
+    public Integer getMaxPlotArea() {
         return maxPlotArea;
     }
 
@@ -214,7 +214,7 @@ public class SearchParamManager {
         this.maxPlotArea = maxPlotArea;
     }
 
-    public int getMinPrice() {
+    public Integer getMinPrice() {
         return minPrice;
     }
 
@@ -222,7 +222,7 @@ public class SearchParamManager {
         this.minPrice = minPrice;
     }
 
-    public int getMaxPrice() {
+    public Integer getMaxPrice() {
         return maxPrice;
     }
 
@@ -230,7 +230,7 @@ public class SearchParamManager {
         this.maxPrice = maxPrice;
     }
 
-    public int getMinFloors() {
+    public Integer getMinFloors() {
         return minFloors;
     }
 
@@ -238,7 +238,7 @@ public class SearchParamManager {
         this.minFloors = minFloors;
     }
 
-    public int getMaxFloors() {
+    public Integer getMaxFloors() {
         return maxFloors;
     }
 
@@ -246,7 +246,7 @@ public class SearchParamManager {
         this.maxFloors = maxFloors;
     }
 
-    public int getMinRooms() {
+    public Integer getMinRooms() {
         return minRooms;
     }
 
@@ -254,7 +254,7 @@ public class SearchParamManager {
         this.minRooms = minRooms;
     }
 
-    public int getMinBaths() {
+    public Integer getMinBaths() {
         return minBaths;
     }
 
@@ -262,7 +262,7 @@ public class SearchParamManager {
         this.minBaths = minBaths;
     }
 
-    public boolean isHasOpenHouse() {
+    public Boolean isHasOpenHouse() {
         return hasOpenHouse;
     }
 
@@ -270,7 +270,7 @@ public class SearchParamManager {
         this.hasOpenHouse = hasOpenHouse;
     }
 
-    public boolean isHideForeclosure() {
+    public Boolean isHideForeclosure() {
         return hideForeclosure;
     }
 
@@ -278,7 +278,7 @@ public class SearchParamManager {
         this.hideForeclosure = hideForeclosure;
     }
 
-    public boolean isHasParking() {
+    public Boolean isHasParking() {
         return hasParking;
     }
 
@@ -286,7 +286,7 @@ public class SearchParamManager {
         this.hasParking = hasParking;
     }
 
-    public boolean isHideNewConstruction() {
+    public Boolean isHideNewConstruction() {
         return hideNewConstruction;
     }
 
@@ -300,7 +300,7 @@ public class SearchParamManager {
 
     public Location getLastSearchLocation() {
         //return last search or default search if last is null
-        if(lastSearchLatLng != null)
+        if(lastSearchLocation != null)
             return lastSearchLocation;
         else
             return getDefaultLocation();

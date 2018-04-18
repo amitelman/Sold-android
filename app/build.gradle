@@ -28,6 +28,7 @@ android {
         maven { url "http://dl.bintray.com/pixplicity/maven" }
         mavenCentral()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     dataBinding {
@@ -81,8 +82,13 @@ dependencies {
     compile 'com.google.android:flexbox:0.3.0-alpha2'
     compile 'com.facebook.android:facebook-share:[4,5)'
     compile 'net.danlew:android.joda:2.9.9.3'
+    compile 'com.github.npanigrahy:Custom-Calendar-View:v1.0'
     testCompile 'junit:junit:4.12'
 }
+
+
+
+
 
 
 

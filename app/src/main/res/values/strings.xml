@@ -19,6 +19,7 @@
     <string name="already_have_account_login">Already have account? <u>Login</u></string>
     <string name="no_account_login">No Account? <u>Sign up!</u></string>
     <string name="title_activity_favorite">FavoriteActivity</string>
+    <string name="title_activity_my_property_page">MyPropertyPageActivity</string>
 
 
 </resources>

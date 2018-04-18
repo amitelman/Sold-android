@@ -181,18 +181,18 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
     private void initPropertyDetails(Property property) {
         mBinding.propertyActTitle.setText(property.getFullAddress());
         mBinding.propertyActPrice.setText(property.getPrice().getFormatted());
-        mBinding.propertyActAddress.setText(property.getFullAddress());
+        mBinding.propertyActAddress.setText(property.getFullAddress()); //todo: change this
         mBinding.propertyActRoomsCounter.setText(property.getRoomsCount() + "");
         mBinding.propertyActBathCounter.setText(property.getBathroomCount() + "");
         mBinding.propertyActSize.setText(property.getPlotArea() + " Sqm");
         mBinding.propertyActSqrm.setText(property.getFloorArea() + " Sqm");
 
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
-        mBinding.propertyActDaysRecyclerView.setAdapter(new OpenHouseDaysAdapter(property.getOpenHouse(), getOnDayClickAction()));
+        mBinding.propertyActDaysRecyclerView.setAdapter(new OpenHouseDaysAdapter(property.getOpenHouse(), getOnDayClickAction(), false));
         mBinding.propertyActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
         mBinding.propertyActDaysRecyclerView.addItemDecoration(itemDecoration);
 
-        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction());
+        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction(), false);
         mBinding.propertyActHoursRecyclerView.setAdapter(hoursAdapter);
         mBinding.propertyActHoursRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
         mBinding.propertyActHoursRecyclerView.addItemDecoration(itemDecoration);
@@ -336,7 +336,8 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                 //set property marker
                 poiMapFragment.initPOIHomeMarkers(property, poiMap);
 
-                setDefault(categoryPoiList.get(poiCategories.get(0)));
+                if(poiCategories.size() > 0 && categoryPoiList.size() > 0)
+                    setDefault(categoryPoiList.get(poiCategories.get(0)));
             }
         });
     }

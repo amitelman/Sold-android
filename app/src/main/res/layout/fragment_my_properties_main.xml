@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@color/dark_grey_blue"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="6.8sp"
+                android:text="Your property to sale"
+                android:textColor="@color/white"
+                android:textSize="17.3sp" />
+
+            <ImageButton
+                android:visibility="gone"
+                android:id="@+id/myPropMainFragBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="13.2dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/back"
+                android:tint="@color/white" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:weightSum="2"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="22.8dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="27.8dp">
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_weight="1"
+                    android:id="@+id/myPropMainFragMyPropBtn"
+                    android:textSize="11.5sp"
+                    android:lineSpacingExtra="1.9sp"
+                    android:text="My Properties"
+                    android:gravity="center"
+                    android:textColor="@color/additional_features_text_selector"
+                    android:background="@drawable/property_type_bkg_selector"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_weight="1"
+                    android:textSize="11.5sp"
+                    android:lineSpacingExtra="1.9sp"
+                    android:text="Pending Properties"
+                    android:gravity="center"
+                    android:id="@+id/myPropMainFragPendingPropBtn"
+                    android:textColor="@color/additional_features_text_selector"
+                    android:background="@drawable/property_type_bkg_selector"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_marginTop="15dp"
+                android:id="@+id/myPropMainFragContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:background="@color/white_80"
+        android:layout_width="match_parent"
+        android:layout_height="53.3dp">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/myPropMainFragSellBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="5.8dp"
+            android:layout_marginBottom="6.3dp"
+            android:background="@drawable/shape_sqr_red"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="-1.4sp"
+            android:text="SELL YOUR PROPERTY"
+            android:textColor="@color/white"
+            android:textSize="14.4sp"
+            app:fontType="MULI_BOLD"/>
+
+    </FrameLayout>
+
+    <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+        android:id="@+id/myPropMainFragPb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
+
+</layout>

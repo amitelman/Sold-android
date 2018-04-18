@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:text="Your property to sale"
+        android:textColor="@color/dark_grey_blue_two"
+        android:textSize="20.2sp"
+        app:fontType="MULI_BOLD" />
+
+    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22.7dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="7.3dp"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingExtra="4.6sp"
+        android:text="See homes for sale first on Redfin, the most popular brokerage website in the U.S. When you buy or sell with us, the technology goes further: mote your home to more buyers, to recommend listings you missed, to schedule tours on the spot, to close without a hitch."
+        android:textColor="@color/dark_grey_blue_two"
+        android:textSize="12.5sp" />
+
+</LinearLayout>

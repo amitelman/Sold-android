@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/pendingPropertyItemBkg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:background="@drawable/shadowed_box"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44.6dp">
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:id="@+id/pendingPropertyItemTitle"
+            android:textSize="14.4sp"
+            android:text="Tamssdfdfdfddsdsdsdsdsda"
+            android:textColor="@color/dark_grey_blue_two"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="2.9sp"
+            android:drawablePadding="12dp"
+            android:drawableStart="@drawable/pending"
+            android:gravity="start|center"
+            android:layout_marginStart="9.6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"/>
+
+        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+            android:textSize="17.3sp"
+            android:layout_marginEnd="12.3dp"
+            app:fontType="MULI_BOLD"
+            android:id="@+id/pendingPropertyItemPrice"
+            android:textColor="@color/dark_grey_blue_two"
+            tools:text="2 500 000 ₪"
+            android:layout_gravity="center|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

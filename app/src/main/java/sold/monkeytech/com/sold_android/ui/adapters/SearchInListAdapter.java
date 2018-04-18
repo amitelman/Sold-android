@@ -24,6 +24,7 @@ import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinPrope
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiUnPinProperty;
 import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiGetFavorites;
 import sold.monkeytech.com.sold_android.pagination.abs.PagibaleAdapter;
+import sold.monkeytech.com.sold_android.ui.activities.MyPropertyPageActivity;
 import sold.monkeytech.com.sold_android.ui.activities.PropertyPageActivity;
 
 /**
@@ -34,14 +35,18 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
     private List<Property> properties;
     private LayoutInflater inflater;
 
-    List<Property> favProp;
+    List<Property> favProp = new ArrayList<>();
+    private int type = 0;
 
     public SearchInListAdapter(Context context, List<Property> properties) {
         this.context = context;
         if(properties != null)
             this.properties = properties;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
+    public void setAdapterType(int type){
+        this.type = type;
     }
 
     public void updateList(List<Property> properties){
@@ -180,7 +185,10 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         baseViewHolder.bkg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PropertyPageActivity.startWithProperty(context, property);
+                if(type == 0)
+                    PropertyPageActivity.startWithProperty(context, property);
+                else
+                    MyPropertyPageActivity.startWithProperty(context, property);
             }
         });
 

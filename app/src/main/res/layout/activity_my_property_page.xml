@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f5f5"
+        android:layoutDirection="ltr">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/appbar_layout_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/myPropPageActScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f7f5f5"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="13.8dp"
+                        android:layout_marginRight="13.8dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/shadowed_box"
+                            android:orientation="vertical"
+                            android:paddingEnd="7.7dp"
+                            android:paddingStart="8dp"
+                            tools:visibility="gone">
+
+                            <LinearLayout
+                                tools:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                        android:id="@+id/myPropPageActTitle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|start"
+                                        android:layout_marginStart="7.5dp"
+                                        android:drawablePadding="15.3dp"
+                                        android:text="125 Benton Ave"
+                                        android:textColor="@color/dark_grey_blue_two"
+                                        android:textSize="19.2sp"
+                                        app:fontType="MULI_BOLD" />
+
+                                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                        android:id="@+id/myPropPageActAddress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="7.5dp"
+                                        android:layout_marginTop="11.7dp"
+                                        android:text="test string"
+                                        android:textColor="@color/dark_grey_blue_two"
+                                        android:textSize="12.5sp" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="33.6dp"
+                                    android:layout_marginEnd="27dp"
+                                    android:layout_marginStart="29dp"
+                                    android:background="@color/dark_grey_blue_two" />
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/myPropPageActLikes"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="5.7dp"
+                                    android:drawableTop="@drawable/heart_full"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="12.5sp"
+                                    tools:text="56 likes" />
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:id="@+id/myPropPageActViews"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="21dp"
+                                    android:drawablePadding="5.7dp"
+                                    android:drawableTop="@drawable/views"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="12.5sp"
+                                    tools:text="64 views" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                tools:visibility="gone"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="22dp"
+                                android:weightSum="2"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_weight="1"
+                                    android:id="@+id/myPropPageActViewHouse"
+                                    android:background="@drawable/shape_white_sqr_red_stroke_rounded"
+                                    android:textSize="14.4sp"
+                                    android:layout_marginRight="14dp"
+                                    android:textColor="@color/scarlet"
+                                    android:lineSpacingExtra="7.7sp"
+                                    android:gravity="center"
+                                    app:fontType="MULI_BOLD"
+                                    android:text="VIEW HOUSE"
+                                    android:layout_width="0dp"
+                                    android:layout_height="43.2dp" />
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_weight="1"
+                                    android:id="@+id/myPropPageActViewAgent"
+                                    android:background="@drawable/shape_sqr_blue_rounded"
+                                    android:textSize="14.4sp"
+                                    android:textColor="@color/white"
+                                    android:lineSpacingExtra="7.7sp"
+                                    android:gravity="center"
+                                    app:fontType="MULI_BOLD"
+                                    android:text="CONTACT AGENT"
+                                    android:layout_width="0dp"
+                                    android:layout_height="43.2dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15.1dp"
+                            android:background="@drawable/shadowed_box"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="9.6dp"
+                            android:paddingEnd="7.7dp"
+                            android:paddingStart="8dp"
+                            android:visibility="visible"
+                            tools:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="visible">
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:drawableStart="@drawable/tour"
+                                    android:text="Open House"
+                                    android:textColor="@color/lipstick"
+                                    android:textSize="19.2sp"
+                                    app:fontType="MULI_EX_BOLD" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:layout_marginStart="22.3dp"
+                                    android:background="@drawable/shape_line_dark" />
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="16.6dp"
+                                    android:textColor="@color/dark_grey_blue_two"
+                                    android:textSize="12.5sp"
+                                    android:text="Here are the dates and hours of your open house. you can cancel up to 4 hours ahead"
+                                    tools:visibility="gone" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/myPropPageActDaysRecyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="90.2dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:clipToPadding="false"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="16.8dp"
+                                    tools:visibility="visible" />
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/myPropPageActHoursRecyclerView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40.7dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="3.4dp"
+                                    android:visibility="visible" />
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                        android:id="@+id/myPropPageActEditDays"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="43dp"
+                                        android:layout_marginEnd="30dp"
+                                        android:layout_marginStart="24dp"
+                                        android:layout_marginTop="27.8dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="@drawable/shape_white_sqr_blue_stroke_rounded"
+                                        android:gravity="center"
+                                        android:letterSpacing="-0.02"
+                                        android:lineSpacingExtra="-1.4sp"
+                                        android:text="Edit Days"
+                                        android:textColor="@color/dark_grey_blue_two"
+                                        android:textSize="14.4sp"
+                                        app:fontType="MULI_BOLD" />
+
+                                    <LinearLayout
+                                        android:visibility="gone"
+                                        android:id="@+id/myPropertyPageActChangeHoursLayout"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginTop="22dp"
+                                        android:weightSum="2"
+                                        android:orientation="horizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                            android:layout_weight="1"
+                                            android:id="@+id/myPropPageActSaveChanges"
+                                            android:background="@drawable/shape_white_sqr_blue_stroke_rounded"
+                                            android:textSize="14.4sp"
+                                            android:layout_marginRight="14dp"
+                                            android:textColor="#3a4a5b"
+                                            android:lineSpacingExtra="7.7sp"
+                                            android:gravity="center"
+                                            app:fontType="MULI_REG"
+                                            android:text="Save changes"
+                                            android:layout_width="0dp"
+                                            android:layout_height="43.2dp" />
+
+                                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                                            android:layout_weight="1"
+                                            android:id="@+id/myPropPageActCancelHours"
+                                            android:background="@drawable/shape_sqr_red"
+                                            android:textSize="14.4sp"
+                                            android:textColor="@color/white"
+                                            android:lineSpacingExtra="7.7sp"
+                                            android:gravity="center"
+                                            app:fontType="MULI_REG"
+                                            android:text="Cancel"
+                                            android:layout_width="0dp"
+                                            android:layout_height="43.2dp" />
+
+                                    </LinearLayout>
+
+                                </FrameLayout>
+
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/myPropPageActListView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/myPropPageActAppbar"
+                android:layout_width="match_parent"
+                android:layout_height="226dp"
+                android:background="#f7f5f5"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/myPropPageActAppbarCollapsing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:minHeight="50dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/myPropPageActViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="226.2dp"
+                        app:layout_collapseMode="parallax" />
+
+                    <LinearLayout
+                        android:id="@+id/myPropPageActDotsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/viewPager"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="40dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_collapseMode="pin" />
+
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
+            android:background="@drawable/white_transparent_gradiant"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:id="@+id/myPropPageActHeaderTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_four"
+                android:gravity="center"
+                android:textColor="@color/dark_grey_blue_two"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:fontType="MULI_BOLD"
+                tools:text="melechhhhh" />
+
+            <ImageButton
+                android:id="@+id/myPropPageActBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="start"
+                android:background="@null"
+                android:padding="5dp"
+                android:paddingStart="13dp"
+                android:src="@drawable/back" />
+
+            <ImageButton
+                android:id="@+id/myPropPageActShareBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="14.3dp"
+                android:layout_toStartOf="@+id/myPropPageActFavoriteBtn"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/share"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/myPropPageActFavoriteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:paddingEnd="14.7dp"
+                android:src="@drawable/icon_favorite_selector"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+            android:id="@+id/myPropPageActPb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</layout>

@@ -3,52 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:id="@+id/sellFragScrollView"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
+                android:layout_height="@dimen/activity_header_height"
+                android:background="@color/dark_grey_blue"
                 android:layoutDirection="ltr"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/activity_header_height"
-                    android:background="@color/dark_grey_blue"
-                    android:layoutDirection="ltr"
-                    android:orientation="vertical">
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:letterSpacing="-0.02"
+                    android:lineSpacingExtra="6.8sp"
+                    android:text="Sell"
+                    android:textColor="@color/white"
+                    android:textSize="17.3sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:letterSpacing="-0.02"
-                        android:lineSpacingExtra="6.8sp"
-                        android:text="Sell"
-                        android:textColor="@color/white"
-                        android:textSize="17.3sp" />
+                <ImageButton
+                    android:visibility="gone"
+                    android:id="@+id/sellFragBackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginLeft="13.2dp"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:src="@drawable/back"
+                    android:tint="@color/white" />
 
-                    <ImageButton
-                        android:tint="@color/white"
-                        android:id="@+id/sellFragBackBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginLeft="13.2dp"
-                        android:background="@null"
-                        android:padding="5dp"
-                        android:src="@drawable/back" />
+            </FrameLayout>
 
-                </FrameLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,36 +66,90 @@
                         android:textColor="@color/dark_grey_blue_two"
                         android:textSize="11.5sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    <LinearLayout
+                        android:id="@+id/sellFragFullNameLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18.3dp"
-                        android:drawableLeft="@drawable/name"
-                        android:drawablePadding="16dp"
-                        android:gravity="center|start"
-                        android:letterSpacing="0.06"
-                        android:lineSpacingExtra="10.6sp"
-                        android:text="FULL NAME"
-                        android:textColor="#cccccc"
-                        android:textSize="11.5sp" />
+                        android:orientation="vertical">
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/sellFragFullName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7.3dp"
-                        android:background="@null"
-                        android:hint="enter name"
-                        android:lines="1"
-                        android:textColor="@color/black"
-                        android:textColorHint="#80000000"
-                        android:textSize="13.4sp" />
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="21.1dp"
+                            android:drawableLeft="@drawable/name"
+                            android:drawablePadding="16dp"
+                            android:gravity="center|start"
+                            android:letterSpacing="0.06"
+                            android:lineSpacingExtra="10.6sp"
+                            android:text="FULL NAME"
+                            android:textColor="#80000000"
+                            android:textSize="11.5sp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="4.4dp"
-                        android:background="@color/black_70" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7.3dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                    android:id="@+id/sellFragFirstName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:hint="enter first name"
+                                    android:imeOptions="actionNext"
+                                    android:lines="1"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="#80000000"
+                                    android:textSize="13.4sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_marginTop="4.4dp"
+                                    android:background="@color/black" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                                    android:id="@+id/sellFragLastName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:hint="enter last name"
+                                    android:imeOptions="actionNext"
+                                    android:lines="1"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="#80000000"
+                                    android:textSize="13.4sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_marginTop="4.4dp"
+                                    android:background="@color/black" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:layout_width="match_parent"
@@ -236,8 +291,8 @@
                                 android:layout_marginTop="7.3dp"
                                 android:background="@null"
                                 android:hint="apt num"
-                                android:inputType="number"
                                 android:imeOptions="actionDone"
+                                android:inputType="number"
                                 android:textColor="@color/black"
                                 android:textColorHint="#80000000"
                                 android:textSize="13.4sp" />
@@ -294,67 +349,86 @@
 
                     </LinearLayout>
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    <LinearLayout
+                        android:id="@+id/sellFragEmailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18.3dp"
-                        android:drawableLeft="@drawable/email"
-                        android:drawablePadding="16dp"
-                        android:gravity="center|start"
-                        android:letterSpacing="0.06"
-                        android:lineSpacingExtra="10.6sp"
-                        android:text="EMAIL"
-                        android:textColor="#cccccc"
-                        android:textSize="11.5sp" />
+                        android:orientation="vertical">
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/sellFragEmail"
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18.3dp"
+                            android:drawableLeft="@drawable/email"
+                            android:drawablePadding="16dp"
+                            android:gravity="center|start"
+                            android:letterSpacing="0.06"
+                            android:lineSpacingExtra="10.6sp"
+                            android:text="EMAIL"
+                            android:textColor="#cccccc"
+                            android:textSize="11.5sp" />
+
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            android:id="@+id/sellFragEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7.3dp"
+                            android:background="@null"
+                            android:hint="enter email"
+                            android:inputType="textEmailAddress"
+                            android:lines="1"
+                            android:textColor="@color/black"
+                            android:textColorHint="#80000000"
+                            android:textSize="13.4sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="4.4dp"
+                            android:background="@color/black_70" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sellFragPhoneLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="7.3dp"
-                        android:background="@null"
-                        android:hint="enter email"
-                        android:lines="1"
-                        android:textColor="@color/black"
-                        android:textColorHint="#80000000"
-                        android:textSize="13.4sp" />
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="4.4dp"
-                        android:background="@color/black_70" />
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18.3dp"
+                            android:drawableLeft="@drawable/phone"
+                            android:drawablePadding="16dp"
+                            android:gravity="center|start"
+                            android:letterSpacing="0.06"
+                            android:lineSpacingExtra="10.6sp"
+                            android:text="PHONE"
+                            android:textColor="#cccccc"
+                            android:textSize="11.5sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="18.3dp"
-                        android:drawableLeft="@drawable/phone"
-                        android:drawablePadding="16dp"
-                        android:gravity="center|start"
-                        android:letterSpacing="0.06"
-                        android:lineSpacingExtra="10.6sp"
-                        android:text="PHONE"
-                        android:textColor="#cccccc"
-                        android:textSize="11.5sp" />
+                        <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
+                            android:id="@+id/sellFragPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7.3dp"
+                            android:background="@null"
+                            android:hint="enter phone"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:textColor="@color/black"
+                            android:textColorHint="#80000000"
+                            android:textSize="13.4sp" />
 
-                    <sold.monkeytech.com.sold_android.ui.fontable_views.FontableEditText
-                        android:id="@+id/sellFragPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7.3dp"
-                        android:background="@null"
-                        android:lines="1"
-                        android:hint="enter phone"
-                        android:textColor="@color/black"
-                        android:textColorHint="#80000000"
-                        android:textSize="13.4sp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginTop="4.4dp"
+                            android:background="@color/black_70" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_marginTop="4.4dp"
-                        android:background="@color/black_70" />
+                    </LinearLayout>
+
 
                     <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                         android:layout_width="match_parent"
@@ -376,8 +450,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7.3dp"
                         android:background="@null"
-                        android:lines="1"
                         android:hint="enter description"
+                        android:lines="1"
                         android:textColor="@color/black"
                         android:textColorHint="#80000000"
                         android:textSize="13.4sp"
@@ -407,12 +481,12 @@
                         android:id="@+id/sellFragDaysRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14.5dp"/>
+                        android:layout_marginTop="14.5dp" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/sellFragHoursRecyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -456,15 +530,15 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
 
-            <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
-                android:id="@+id/sellFragPb"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        </LinearLayout>
 
-        </FrameLayout>
+        <sold.monkeytech.com.sold_android.ui.custom_views.SoldProgressBar
+            android:id="@+id/sellFragPb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </ScrollView>
+    </FrameLayout>
 
 </layout>

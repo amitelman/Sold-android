@@ -34,35 +34,53 @@ public class PropertyParser extends GeneralParser<Property> {
 
         Property property = null;
 
-        property = getObjectFromCache(jo,"id");
-        if(property == null){
+        property = getObjectFromCache(jo, "id");
+        if (property == null) {
             property = new Property();
             property.setId(safeParseLong(jo, "id"));
         }
 
-        property.setCrmId(safeParseString(jo, "crm_id"));
-        property.setCoverPhoto(safeParseString(jo, "cover_photo"));
-        property.setHouseNumber(safeParseString(jo, "house_number"));
-        property.setApt(safeParseString(jo, "apt"));
-        property.setFloor(safeParseInt(jo, "floor"));
-        property.setLat(safeParseString(jo, "lat"));
-        property.setLng(safeParseString(jo, "lng"));
-        property.setRoomsCount(safeParseString(jo, "rooms_count"));
-        property.setBathroomCount(safeParseInt(jo, "bathrooms_count"));
-        property.setWcsCount(safeParseInt(jo, "wcs_count"));
-        property.setFloorArea(safeParseInt(jo, "floor_area"));
-        property.setPlotArea(safeParseInt(jo, "plot_area"));
-        property.setPropertyStatus(safeParseString(jo, "property_status"));
-        property.setCreatedAt(safeParseString(jo, "created_at"));
-        property.setPrice(new PriceParser().parseToSingle(jo.getJSONObject("price")));
-        property.setMeterPrice(new PriceParser().parseToSingle(jo.getJSONObject("meter_price")));
-        property.setAddress(new AddressParser(AddressParser.STREET).parseToSingle(jo.getJSONObject("street")));
-        property.setPropertyType(new PropertyTypeParser().parseToSingle(jo.getJSONObject("property_type")));
+        if (!jo.isNull("crm_id"))
+            property.setCrmId(safeParseString(jo, "crm_id"));
+        if (!jo.isNull("cover_photo"))
+            property.setCoverPhoto(safeParseString(jo, "cover_photo"));
+        if (!jo.isNull("house_number"))
+            property.setHouseNumber(safeParseString(jo, "house_number"));
+        if (!jo.isNull("apt"))
+            property.setApt(safeParseString(jo, "apt"));
+        if (!jo.isNull("floor"))
+            property.setFloor(safeParseInt(jo, "floor"));
+        if (!jo.isNull("lat"))
+            property.setLat(safeParseString(jo, "lat"));
+        if (!jo.isNull("lng"))
+            property.setLng(safeParseString(jo, "lng"));
+        if (!jo.isNull("rooms_count"))
+            property.setRoomsCount(safeParseString(jo, "rooms_count"));
+        if (!jo.isNull("bathrooms_count"))
+            property.setBathroomCount(safeParseInt(jo, "bathrooms_count"));
+        if (!jo.isNull("wcs_count"))
+            property.setWcsCount(safeParseInt(jo, "wcs_count"));
+        if (!jo.isNull("floor_area"))
+            property.setFloorArea(safeParseInt(jo, "floor_area"));
+        if (!jo.isNull("plot_area"))
+            property.setPlotArea(safeParseInt(jo, "plot_area"));
+        if (!jo.isNull("property_status"))
+            property.setPropertyStatus(safeParseString(jo, "property_status"));
+        if (!jo.isNull("created_at"))
+            property.setCreatedAt(safeParseString(jo, "created_at"));
+        if (!jo.isNull("price"))
+            property.setPrice(new PriceParser().parseToSingle(jo.getJSONObject("price")));
+        if (!jo.isNull("meter_price"))
+            property.setMeterPrice(new PriceParser().parseToSingle(jo.getJSONObject("meter_price")));
+        if (!jo.isNull("street"))
+            property.setAddress(new AddressParser(AddressParser.STREET).parseToSingle(jo.getJSONObject("street")));
+        if (!jo.isNull("property_type"))
+            property.setPropertyType(new PropertyTypeParser().parseToSingle(jo.getJSONObject("property_type")));
 
-        if(jo.has("is_favorite"))
+        if (jo.has("is_favorite"))
             property.setFavorite(safeParseBoolean(jo, "is_favorite"));
 
-        if(type == TYPE_FULL){
+        if (type == TYPE_FULL) {
             property.setDescription(safeParseString(jo, "description"));
             property.setVirtualTourLink(safeParseString(jo, "virtual_tour_link"));
             property.setApartmentsCount(safeParseInt(jo, "apartments_count"));
@@ -83,22 +101,29 @@ public class PropertyParser extends GeneralParser<Property> {
             }
             property.setAlbum(albumArr);
 
-            if(!jo.isNull("property_tax"))
+            if (!jo.isNull("property_tax"))
                 property.setPropertyTax(new PriceParser().parseToSingle(jo.getJSONObject("property_tax")));
-            if(!jo.isNull("house_committee_tax"))
+            if (!jo.isNull("house_committee_tax"))
                 property.setHouseCommitteeTax(new PriceParser().parseToSingle(jo.getJSONObject("house_committee_tax")));
 
-            if(!jo.isNull("open_house"))
+            if (!jo.isNull("open_house"))
                 property.setOpenHouse(new OpenHouseParser().parseToList(jo.getJSONArray("open_house")));
 
-            if(!jo.isNull("property_features"))
+            if (!jo.isNull("property_features"))
                 property.setPropertyFeatures(new PropertyFeaturesParser().parseToList(jo.getJSONArray("property_features")));
-            if(!jo.isNull("tax_records"))
+            if (!jo.isNull("tax_records"))
                 property.setTaxRecords(new TaxRecordParser().parseToList(jo.getJSONArray("tax_records")));
-            if(!jo.isNull("pois"))
+            if (!jo.isNull("pois"))
                 property.setPoi(new POIParser().parseToList(jo.getJSONArray("pois")));
-            if(!jo.isNull("nearby_properties"))
+            if (!jo.isNull("nearby_properties"))
                 property.setNearbyProperties(new PropertyParser(TYPE_SHORT).parseToList(jo.getJSONArray("nearby_properties")));
+
+            if (!jo.isNull("shares_count"))
+                property.setShareCount(safeParseInt(jo, "shares_count"));
+            if (!jo.isNull("views_count"))
+                property.setViewCount(safeParseInt(jo, "views_count"));
+            if (!jo.isNull("likes_count"))
+                property.setLikesCount(safeParseInt(jo, "likes_count"));
         }
 
         return property;

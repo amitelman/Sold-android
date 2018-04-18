@@ -4,9 +4,10 @@ package sold.monkeytech.com.sold_android.ui.fragments;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +31,19 @@ import java.util.Map;
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentSellBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.KeyboardAndInputUtils;
-import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
+import sold.monkeytech.com.sold_android.framework.models.User;
+import sold.monkeytech.com.sold_android.framework.serverapi.auth.ApiGetCode;
 import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiPostUserProperty;
 import sold.monkeytech.com.sold_android.ui.activities.SearchLocationActivity;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
+import sold.monkeytech.com.sold_android.ui.dialogs.VerificationDialog;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
 import static android.app.Activity.RESULT_OK;
@@ -64,6 +69,7 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
     private String meetUpHour = "";
 
     private Map<String, Integer> monthMap;
+    private Handler handler;
 
     public SellFragment() {
         // Required empty public constructor
@@ -77,12 +83,12 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
         View view = mBinding.getRoot();
 
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.open_house_item_offset);
-        daysAdapter = new OpenHouseDaysAdapter(null, getOnDayClickAction());
+        daysAdapter = new OpenHouseDaysAdapter(null, getOnDayClickAction(), false);
         mBinding.sellFragDaysRecyclerView.setAdapter(daysAdapter);
         mBinding.sellFragDaysRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
         mBinding.sellFragDaysRecyclerView.addItemDecoration(itemDecoration);
 
-        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction());
+        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction(), false);
         mBinding.sellFragHoursRecyclerView.setAdapter(hoursAdapter);
         mBinding.sellFragHoursRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
         mBinding.sellFragHoursRecyclerView.addItemDecoration(itemDecoration);
@@ -102,7 +108,14 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
         mBinding.sellFragStreet.setOnClickListener(this);
         mBinding.privateShowActSendBtn.setOnClickListener(this);
 
+        if (!TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
+            mBinding.sellFragFullNameLayout.setVisibility(View.GONE);
+            mBinding.sellFragPhoneLayout.setVisibility(View.GONE);
+            mBinding.sellFragEmailLayout.setVisibility(View.GONE);
+        }
+
         initMeetUpCalender();
+        handler = new Handler(Looper.getMainLooper());
 
     }
 
@@ -120,7 +133,7 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
 
         List<OpenHouse> openHouseList = new ArrayList<>();
         monthMap = new HashMap<>();
-        for(int i=0; i <= between; i++){
+        for (int i = 0; i <= between; i++) {
             LocalDate dayObj = nowDate.plusDays(i);
             int day = dayObj.getDayOfMonth();
             String dayStr = dayObj.dayOfWeek().getAsText();
@@ -132,11 +145,11 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
             DateTime startTime = new DateTime().withHourOfDay(meetStartAt).withMinuteOfHour(0);
             DateTime endTime = new DateTime().withHourOfDay(meetEndAt);
             Period p = new Period(startTime, endTime);
-            int minutesBetweenHours = p.getHours()*60;
+            int minutesBetweenHours = p.getHours() * 60;
 //            Log.d("wowCalender", "minutesBetweenHours: " + minutesBetweenHours);
 
             List<OpenHouseSlots> slots = new ArrayList<>();
-            for(int j = 0; j <= minutesBetweenHours; j+=meetDuration){
+            for (int j = 0; j <= minutesBetweenHours; j += meetDuration) {
 
                 int h1 = startTime.getHourOfDay();
                 int min = startTime.getMinuteOfHour();
@@ -146,6 +159,7 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
                 startTime = startTime.plusMinutes(meetDuration);
             }
             OpenHouse openHouse = new OpenHouse(dayStr, day, monthStr, slots);
+            openHouse.setId((long) i);
             openHouseList.add(openHouse);
         }
         daysAdapter.addItems(openHouseList);
@@ -175,16 +189,16 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.sellFragCity:
                 Intent intent = new Intent(getContext(), SearchLocationActivity.class);
                 intent.putExtra("type", CHOOSE_CITY);
                 startActivityForResult(intent, CHOOSE_CITY);
                 break;
             case R.id.sellFragStreet:
-                if(TextUtils.isEmpty(cityName)){
+                if (TextUtils.isEmpty(cityName)) {
                     Toast.makeText(getContext(), "Please choose your city first", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Intent intent2 = new Intent(getContext(), SearchLocationActivity.class);
                     intent2.putExtra("type", CHOOSE_STREET);
                     intent2.putExtra("cityId", cityId);
@@ -192,49 +206,162 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.privateShowActSendBtn:
-                if(validateFields()){
-                    int year = DateTime.now().getYear() ;
-
-                    String[] separated = meetUpHour.split(":");
-                    String hour = separated[0];
-                    String minute = separated[1];
-                    DateTime dt = new DateTime(year, monthMap.get(meetupMonth), meetupDay, Integer.valueOf(hour), Integer.valueOf(minute));
-                    Date date = dt.toDate();
-                    Log.d("wowMeet","Date: " + date);
-                    int floor = Integer.parseInt(mBinding.sellFragFloorNum.getText().toString());
-                    new ApiPostUserProperty(getContext()).request(streetId, mBinding.sellFragHouseNum.getText().toString(), mBinding.sellFragAptNum.getText().toString(),
-                            floor, mBinding.sellFragDescription.getText().toString(), (int) date.getTime(), new Action() {
-                                @Override
-                                public void execute() {
-                                    Log.d("wow","success");
-                                }
-                            }, new Action() {
-                                @Override
-                                public void execute() {
-                                    Log.d("wow","no success");
-                                }
-                            });
+                if (validateFormFields()) {
+                    if (TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
+                        signup();
+                    } else {
+                        sendForm();
+                    }
                 }
+
                 break;
 
         }
     }
 
-    private boolean validateFields() {
-        if(streetId == -1){
+    private void signup() {
+        String firstName = mBinding.sellFragFirstName.getText().toString();
+        String lastName = mBinding.sellFragLastName.getText().toString();
+        String email = mBinding.sellFragEmail.getText().toString();
+        final String phone = mBinding.sellFragPhone.getText().toString();
+        mBinding.sellFragPb.show();
+        new ApiGetCode(getContext()).request(phone, firstName, lastName, email, new Action() {
+            @Override
+            public void execute() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBinding.sellFragPb.hide();
+                        new VerificationDialog(getContext(), phone, new Action() {
+                            @Override
+                            public void execute() {
+                                if (validateFormFields()) {
+                                    sendForm();
+                                }
+                            }
+                        }).show();
+                    }
+                });
+            }
+        }, new Action() {
+            @Override
+            public void execute() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "Error accured, Please try again", Toast.LENGTH_SHORT).show();
+                        mBinding.sellFragPb.hide();
+                    }
+                });
+            }
+        });
+    }
+
+//    private boolean validateSignupFields() {
+//        if (TextUtils.isEmpty(mBinding.sellFragFirstName.getText().toString())) {
+//            Toast.makeText(getContext(), "Please set your first name", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        if (TextUtils.isEmpty(mBinding.sellFragLastName.getText().toString())) {
+//            Toast.makeText(getContext(), "Please set your last name", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        if (TextUtils.isEmpty(mBinding.sellFragEmail.getText().toString())) {
+//            Toast.makeText(getContext(), "Please set your email", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        if (TextUtils.isEmpty(mBinding.sellFragPhone.getText().toString())) {
+//            Toast.makeText(getContext(), "Please set your phone", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//        return true;
+//    }
+
+    private void sendForm() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mBinding.sellFragPb.show();
+            }
+        });
+        int year = DateTime.now().getYear();
+
+        String[] separated = meetUpHour.split(":");
+        String hour = separated[0];
+        String minute = separated[1];
+        DateTime dt = new DateTime(year, monthMap.get(meetupMonth), meetupDay, Integer.valueOf(hour), Integer.valueOf(minute));
+        Date date = dt.toDate();
+        Log.d("wowMeet", "Date: " + date);
+        String floorStr = mBinding.sellFragFloorNum.getText().toString();
+        String houseNum = mBinding.sellFragHouseNum.getText().toString();
+        String aptNum = mBinding.sellFragAptNum.getText().toString();
+        String desc = mBinding.sellFragDescription.getText().toString();
+        int floor = 0;
+        if (floorStr.length() > 0)
+            floor = Integer.parseInt(floorStr);
+        new ApiPostUserProperty(getContext()).request(streetId, houseNum, aptNum,
+                floor, desc, (int) date.getTime(), new Action() {
+                    @Override
+                    public void execute() {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBinding.sellFragPb.hide();
+                            }
+                        });
+                        Log.d("wow", "success");
+                    }
+                }, new Action() {
+                    @Override
+                    public void execute() {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBinding.sellFragPb.hide();
+                            }
+                        });
+                        Log.d("wow", "no success");
+                    }
+                });
+    }
+
+    private boolean validateFormFields() {
+        if (TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
+            if (TextUtils.isEmpty(mBinding.sellFragFirstName.getText().toString())) {
+                Toast.makeText(getContext(), "Please set your first name", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (TextUtils.isEmpty(mBinding.sellFragLastName.getText().toString())) {
+                Toast.makeText(getContext(), "Please set your last name", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (TextUtils.isEmpty(mBinding.sellFragEmail.getText().toString())) {
+                Toast.makeText(getContext(), "Please set your email", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (TextUtils.isEmpty(mBinding.sellFragPhone.getText().toString())) {
+                Toast.makeText(getContext(), "Please set your phone", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if (streetId == -1) {
             Toast.makeText(getContext(), "Please Choose Street", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(TextUtils.isEmpty(mBinding.sellFragAptNum.getText())){
-            Toast.makeText(getContext(), "Please set Apt number", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(mBinding.sellFragHouseNum.getText().toString())) {
+            Toast.makeText(getContext(), "Please set house number", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(TextUtils.isEmpty(mBinding.sellFragDescription.getText())){
+        if (TextUtils.isEmpty(mBinding.sellFragDescription.getText().toString())) {
             Toast.makeText(getContext(), "Please set description", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(meetupDay == -1 || TextUtils.isEmpty(meetUpHour)){
+        if (meetupDay == -1 || TextUtils.isEmpty(meetUpHour)) {
             Toast.makeText(getContext(), "Please set meetup time", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!mBinding.privateShowActCb.isChecked()) {
+            Toast.makeText(getContext(), "Please Confirm Privacy Policy", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -244,12 +371,12 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         KeyboardAndInputUtils.closeKeyboard(getActivity());
-        if(resultCode == RESULT_OK){
-            if(requestCode == CHOOSE_CITY){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CHOOSE_CITY) {
                 cityName = data.getStringExtra("cityName");
                 cityId = (int) data.getLongExtra("cityId", -1);
                 mBinding.sellFragCity.setText(cityName);
-            }else{
+            } else {
                 streetName = data.getStringExtra("streetName");
                 streetId = (int) data.getLongExtra("streetId", -1);
                 mBinding.sellFragStreet.setText(streetName);
@@ -257,3 +384,4 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 }
+

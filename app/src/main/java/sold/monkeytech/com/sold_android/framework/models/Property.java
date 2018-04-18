@@ -61,7 +61,9 @@ public class Property extends BaseModel<Property> {
     private List<POI> poi;
 
     private List<Property> nearbyProperties; //short property
-
+    private int shareCount;
+    private int viewCount;
+    private int likesCount;
 
 
     public String getCrmId() {
@@ -407,5 +409,29 @@ public class Property extends BaseModel<Property> {
         if(getAddress() != null && !TextUtils.isEmpty(getHouseNumber()))
             return getAddress().getStreetName() + " " + getHouseNumber();
         return "";
+    }
+
+    public void setShareCount(int shareCount) {
+        this.shareCount = shareCount;
+    }
+
+    public int getShareCount() {
+        return shareCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
     }
 }
