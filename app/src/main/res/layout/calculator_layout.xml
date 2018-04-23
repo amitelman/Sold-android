@@ -15,6 +15,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                tools:visibility="gone"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="3.8dp"
                 android:layout_marginRight="3.8dp"
@@ -96,6 +97,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        tools:visibility="gone"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -147,7 +149,7 @@
                         android:layout_height="3.4dp"/>
 
                     <LinearLayout
-                        tools:visibility="gone"
+                        tools:visibility="visible"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -168,26 +170,46 @@
                                 app:fontType="MULI_BOLD"
                                 android:text="Tax calculator *"/>
 
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11.5sp"
-                                android:layout_marginTop="22.7dp"
-                                android:drawablePadding="7.7dp"
-                                android:drawableLeft="@drawable/shape_sqr_white"
-                                android:textColor="@color/white"
-                                android:text="Single asset"/>
-
-                            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="11.5sp"
+                            <RadioGroup
+                                android:layout_marginRight="10dp"
                                 android:layout_marginBottom="29.1dp"
-                                android:layout_marginTop="16.7dp"
-                                android:drawablePadding="7.7dp"
-                                android:drawableLeft="@drawable/shape_sqr_white"
-                                android:textColor="@color/white"
-                                android:text="Addition asset"/>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <RadioButton
+                                    android:id="@+id/calcActRadioSingle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Single asset"
+                                    android:checked="true" />
+
+                                <RadioButton
+                                    android:id="@+id/calcActRadioMulti"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Addition asset" />
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+
+                                    <Spinner
+                                        style="@style/SpinnerwithNoArrow"
+                                        android:id="@+id/calcActRadioMultiSum"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@android:drawable/btn_dropdown"
+                                        android:spinnerMode="dropdown"/>
+
+                                </LinearLayout>
+
+
+                            </RadioGroup>
+
+
 
                         </LinearLayout>
 
@@ -203,6 +225,7 @@
 
                             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                                 android:text="3.5%"
+                                android:id="@+id/calcActTaxPercent"
                                 android:layout_gravity="center"
                                 android:textSize="28.8sp"
                                 android:textColor="@color/white"

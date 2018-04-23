@@ -20,33 +20,30 @@
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-    <style name="exp_toolbar_title" parent="@android:style/TextAppearance.Holo.Medium">
-        <item name="android:textSize">36dp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    <style name="coll_toolbar_title" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">20dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
     <style name="CalenderViewCustom" parent="Theme.AppCompat">
         <item name="colorAccent">@color/scarlet</item>
-    </style>
-
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/warm_grey</item>
+        <item name="android:textColor">@color/dark_grey_blue_two</item>
         <item name="android:focusedMonthDateColor">@color/scarlet</item>
         <item name="android:weekSeparatorLineColor">@color/scarlet</item>
+        <item name="android:selectedWeekBackgroundColor">@color/black</item>
+    </style>
+
+    <style name="CalendarViewMonth" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/scarlet</item>
         <item name="android:selectedWeekBackgroundColor">@color/white</item>
     </style>
 
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/dark_grey_blue</item>
+    <style name="CalendarViewWeekDays">
+        <item name="android:textColor">@color/black</item>
     </style>
+
+    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">
+        <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+
 
 </resources>
 

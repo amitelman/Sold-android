@@ -106,7 +106,7 @@
         <activity
             android:name=".ui.activities.ImageSliderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.TaxHistoryActivity">
+        <activity android:name=".ui.activities.DealsHistoryActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -134,7 +134,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.MyPropertyPageActivity"
-            android:label="@string/title_activity_my_property_page"></activity>
+            android:label="@string/title_activity_my_property_page"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.Sold3DTourActivity"></activity>
     </application>
 
 </manifest>

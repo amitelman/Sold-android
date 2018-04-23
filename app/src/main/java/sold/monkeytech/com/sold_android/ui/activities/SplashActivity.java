@@ -32,7 +32,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //todo: delete this:
+//        todo: delete this:
 //        UserManager.getInstance().setInAppToken("");
 //        FirebaseInstanceId.getInstance().getToken();
 //        Intercom.initialize(getApplication(), getString(R.string.intercom_api_key), getString(R.string.intercom_app_id));
@@ -166,7 +166,11 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void getMe(Action onSuccess, Action onFailed) {
-        new ApiGetMe(this).request(onSuccess, onFailed);
+        if(!TextUtils.isEmpty(UserManager.getInstance().getInAppToken()))
+            new ApiGetMe(this).request(onSuccess, onFailed);
+        else
+            onSuccess.execute();
+
     }
 
 }

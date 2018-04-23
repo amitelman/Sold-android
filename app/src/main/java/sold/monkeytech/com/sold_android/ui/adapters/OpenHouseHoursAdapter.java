@@ -54,6 +54,9 @@ public class OpenHouseHoursAdapter extends RecyclerView.Adapter<OpenHouseHoursAd
             openHousesSlots = new ArrayList<>();
         openHousesSlots.clear();
         openHousesSlots.addAll(newSlots);
+        if(type == EDIT_MODE){
+            deleted.addAll(newSlots);
+        }
         notifyDataSetChanged();
     }
 

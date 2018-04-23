@@ -6,8 +6,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -17,28 +19,34 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.imanoweb.calendarview.CustomCalendarView;
 import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.ActivityMyPropertyPageBinding;
 import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
+import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
+import sold.monkeytech.com.sold_android.framework.managers.UserManager;
+import sold.monkeytech.com.sold_android.framework.models.Meeting;
 import sold.monkeytech.com.sold_android.framework.models.OpenHouse;
-import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
 import sold.monkeytech.com.sold_android.framework.models.Property;
-import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiDeleteOpenHouseSlot;
 import sold.monkeytech.com.sold_android.framework.serverapi.user.ApiGetMyPropertyById;
+import sold.monkeytech.com.sold_android.ui.adapters.MeetingsAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesImagesAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyPageHeaderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
+import sold.monkeytech.com.sold_android.ui.custom_views.EventDecorator;
+import sold.monkeytech.com.sold_android.ui.dialogs.TalkToAgentDialog;
 
 public class MyPropertyPageActivity extends Activity {
 
@@ -57,14 +65,17 @@ public class MyPropertyPageActivity extends Activity {
     private ItemOffsetDecoration hoursItemDecoration = null;
 
     List<OpenHouse> deleteSelected;
+    private MaterialCalendarView mcv;
+    private MeetingsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_my_property_page);
-
-        if(propertyStat != null)
+        mBinding.myPropPageActScrollView.setNestedScrollingEnabled(true);
+        ViewCompat.setNestedScrollingEnabled(mBinding.myPropPageActListView, true);
+        if (propertyStat != null)
             getProperty(propertyStat);
     }
 
@@ -86,7 +97,12 @@ public class MyPropertyPageActivity extends Activity {
         }, new Action() {
             @Override
             public void execute() {
-
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
             }
         });
     }
@@ -104,26 +120,56 @@ public class MyPropertyPageActivity extends Activity {
 
     private void initMeetingsListView() {
         LayoutInflater inflater = getLayoutInflater();
-        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.meetings_header, mBinding.myPropPageActListView, false);
-
-        CustomCalendarView calendar = header.findViewById(R.id.calendarView);
-        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-        calendar.setShowOverflowDate(false);
-
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.meetings_header, mBinding.myPropPageActListView, false);
         mBinding.myPropPageActListView.addHeaderView(header, null, false);
-        mBinding.myPropPageActListView.setAdapter(null);
+        adapter = new MeetingsAdapter(this, null, curProperty.getId());
+        mBinding.myPropPageActListView.setAdapter(adapter);
+
+        mcv = header.findViewById(R.id.calendarView);
+        mcv.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
+
+                Log.d("wowCalendar", "calendar Day: " + calendarDay.toString());
+                List<Meeting> showMeetings = new ArrayList<Meeting>();
+                int pressedMonth = calendarDay.getMonth() + 1;
+                int pressedDay = calendarDay.getDay();
+                for (Meeting m : curProperty.getMeetings()) {
+                    int meetMonth = m.getStartDateTimeFromString().monthOfYear().get();
+                    int meetDay = m.getStartDateTimeFromString().dayOfMonth().get();
+                    if (pressedMonth == meetMonth && pressedDay == meetDay) {
+                        showMeetings.add(m);
+                    }
+                }
+                adapter.updateItems(showMeetings);
+                if (showMeetings.size() > 0)
+                    mBinding.myPropPageActListView.setSelection(1);
+
+            }
+        });
+
+        Collection<CalendarDay> dates = new ArrayList<>();
+        for (Meeting meeting : curProperty.getMeetings()) {
+            dates.add(CalendarDay.from(meeting.getStartDateTimeFromString().toDate()));
+        }
+
+        mcv.addDecorators(new EventDecorator(getResources().getColor(R.color.scarlet), dates));
+        mcv.invalidateDecorators();
     }
 
 
     private void initHeaderPager() {
         List<String> headerItems = new ArrayList<>();
-//        headerItems.add("http://www.google.co.il");
-        //todo : add 3d cover photo first
+        boolean isWith3d = false;
+        if (!TextUtils.isEmpty(curProperty.getVirtualTourCover())) {
+            headerItems.add(curProperty.getVirtualTourCover());
+            isWith3d = true;
+        }
 
         if (curProperty.getAlbum() != null) {
             headerItems.addAll(curProperty.getAlbum());
         }
-        pagerAdapter = new PropertyPageHeaderAdapter(this, headerItems);
+        pagerAdapter = new PropertyPageHeaderAdapter(this, headerItems, isWith3d, on3dTourClick());
         mBinding.myPropPageActViewPager.setAdapter(pagerAdapter);
 
         dotscount = pagerAdapter.getCount();
@@ -190,6 +236,16 @@ public class MyPropertyPageActivity extends Activity {
 
     }
 
+    private Action on3dTourClick() {
+        return new Action() {
+            @Override
+            public void execute() {
+                Sold3DTourActivity.startWithLink(MyPropertyPageActivity.this, curProperty.getVirtualTourLink());
+            }
+        };
+    }
+
+
     private void initPropertyDetails() {
         mBinding.myPropPageActTitle.setText(curProperty.getFullAddress());
         mBinding.myPropPageActAddress.setText(curProperty.getAddress().getCityName());
@@ -200,26 +256,30 @@ public class MyPropertyPageActivity extends Activity {
     }
 
     private void loadDaysAdapter(boolean withDelete) {
-        mBinding.myPropPageActDaysRecyclerView.removeItemDecoration(daysItemDecoration);
-        daysItemDecoration = null;
-        if(withDelete){
-            daysItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset_edit);
+        if(curProperty.getOpenHouse().size() > 0){
+            mBinding.myPropPageActDaysRecyclerView.removeItemDecoration(daysItemDecoration);
+            daysItemDecoration = null;
+            if (withDelete) {
+                daysItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset_edit);
+            } else {
+                daysItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
+            }
+            mBinding.myPropPageActDaysRecyclerView.addItemDecoration(daysItemDecoration);
+            daysAdapter = new OpenHouseDaysAdapter(curProperty.getOpenHouse(), getOnDayClickAction(), withDelete);
+            mBinding.myPropPageActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
+            mBinding.myPropPageActDaysRecyclerView.setAdapter(daysAdapter);
+            loadHoursAdapter(withDelete);
         }else{
-            daysItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
+            mBinding.myPropertyPageActOpehHouseLayout.setVisibility(View.GONE);
         }
-        mBinding.myPropPageActDaysRecyclerView.addItemDecoration(daysItemDecoration);
-        daysAdapter = new OpenHouseDaysAdapter(curProperty.getOpenHouse(), getOnDayClickAction(), withDelete);
-        mBinding.myPropPageActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
-        mBinding.myPropPageActDaysRecyclerView.setAdapter(daysAdapter);
-        loadHoursAdapter(withDelete);
     }
 
     private void loadHoursAdapter(boolean withDelete) {
         mBinding.myPropPageActHoursRecyclerView.removeItemDecoration(hoursItemDecoration);
         hoursItemDecoration = null;
-        if(withDelete){
+        if (withDelete) {
             hoursItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset_edit);
-        }else{
+        } else {
             hoursItemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
         }
         hoursAdapter = new OpenHouseHoursAdapter(null, null, withDelete);
@@ -250,7 +310,12 @@ public class MyPropertyPageActivity extends Activity {
         mBinding.myPropPageActViewAgent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (!TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
+                    new TalkToAgentDialog(MyPropertyPageActivity.this, curProperty.getId().intValue(), 0, null).show();
+                } else {
+                    Intent intent = new Intent(MyPropertyPageActivity.this, TalkToAgentActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -280,6 +345,13 @@ public class MyPropertyPageActivity extends Activity {
                 deleteSelected();
             }
         });
+
+        mBinding.myPropPageActBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void deleteSelected() {
@@ -287,6 +359,7 @@ public class MyPropertyPageActivity extends Activity {
         String hoursSelectedCsv = hoursAdapter.getDeleted();
         daysAdapter.deleteDeleted();
         hoursAdapter.deleteDeleted();
+        curProperty.getOpenHouse().removeAll(daysAdapter.getDeletedObj());
         final Handler handler = new Handler();
         new ApiDeleteOpenHouseSlot(this).request(curProperty.getId().intValue(), daysSelectedCsv, hoursSelectedCsv, new Action() {
             @Override
@@ -311,6 +384,7 @@ public class MyPropertyPageActivity extends Activity {
                     public void run() {
                         daysAdapter.restoreDeleted();
                         hoursAdapter.restoreDeleted();
+                        curProperty.getOpenHouse().addAll(daysAdapter.getDeletedObj());
                     }
                 });
             }
@@ -324,3 +398,4 @@ public class MyPropertyPageActivity extends Activity {
         context.startActivity(intent);
     }
 }
+

@@ -48,6 +48,36 @@ public class OpenHouse extends BaseModel<OpenHouse> {
         return month;
     }
 
+    public int getMonthNumber(){
+        switch (getMonth()){
+            case "ינואר":
+                return 1;
+            case "פברואר":
+                return 2;
+            case "מרץ":
+                return 3;
+            case "אפריל":
+                return 4;
+            case "מאי":
+                return 5;
+            case "יוני":
+                return 6;
+            case "יולי":
+                return 7;
+            case "אוגוסט":
+                return 8;
+            case "ספטמבר":
+                return 9;
+            case "אוקטובר":
+                return 10;
+            case "נובמבר":
+                return 11;
+            case "דצמבר":
+                return 12;
+        }
+        return 0;
+    }
+
     public void setMonth(String month) {
         this.month = month;
     }

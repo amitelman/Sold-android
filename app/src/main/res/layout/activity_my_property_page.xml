@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#f7f5f5"
+                android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
@@ -153,6 +154,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/myPropertyPageActOpehHouseLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15.1dp"
@@ -288,6 +290,8 @@
                         </LinearLayout>
 
                         <ListView
+                            android:background="@drawable/shadowed_box"
+                            android:layout_marginBottom="20dp"
                             android:id="@+id/myPropPageActListView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>

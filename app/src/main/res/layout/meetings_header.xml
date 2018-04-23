@@ -2,32 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/black"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.stacktips.view.CustomCalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:calendarBackgroundColor="@color/white"
-        app:calendarTitleTextColor="@color/scarlet"
-        app:currentDayOfMonthColor="@color/black"
-        app:dayOfMonthTextColor="@color/dark_grey_blue_50"
-        app:dayOfWeekTextColor="@color/dark_grey_blue_50"
-        app:disabledDayBackgroundColor="@color/dark_grey_blue_50"
-        app:disabledDayTextColor="@color/dark_grey_blue_50"
-        app:selectedDayBackgroundColor="@color/scarlet"
-        app:titleLayoutBackgroundColor="@color/white"
-        app:weekLayoutBackgroundColor="@color/white"/>
+        app:mcv_showOtherDates="defaults"
+        app:mcv_tileSize="40dp"
+        app:mcv_weekDayLabels="@array/daysOfWeek"
+        app:mcv_arrowColor="@color/dark_grey_blue"
+        app:mcv_selectionColor="@color/scarlet"
+        app:mcv_headerTextAppearance="@style/CalendarViewMonth"
+        app:mcv_dateTextAppearance="@style/CalenderViewCustom"
+        app:mcv_weekDayTextAppearance="@style/CalendarViewWeekDays"
+        app:mcv_calendarMode="month"
+        app:mcv_firstDayOfWeek="sunday"
+        app:mcv_leftArrowMask="@drawable/arrow_left"
+        app:mcv_rightArrowMask="@drawable/arrow_red_copy_3"/>
 
-    <!--<CalendarView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="315dp"-->
-        <!--android:theme="@style/CalenderViewCustom"-->
-        <!--android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
-        <!--android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"/>-->
+    <FrameLayout
+        android:id="@+id/meetingsHeaderArrowLayout"
+        android:background="@color/white_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:rotation="90"
+            android:layout_gravity="center"
+            android:layout_marginTop="-8.5dp"
+            android:tint="@color/white"
+            android:src="@drawable/shape_triangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+
 
 
 </LinearLayout>

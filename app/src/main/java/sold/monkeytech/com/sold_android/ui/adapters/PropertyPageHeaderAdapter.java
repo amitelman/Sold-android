@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 
 import java.util.HashMap;
@@ -30,14 +31,19 @@ public class PropertyPageHeaderAdapter extends PagerAdapter {
 
     private Context context;
     private List<String> items;
+    private final boolean isWith3d;
+    private Action on3dTourClick;
     private LayoutInflater layoutInflater;
     private HashMap<Integer, Bitmap> currentBitmap;
 
-    public PropertyPageHeaderAdapter(Context context, List<String> items) {
+    public PropertyPageHeaderAdapter(Context context, List<String> items, boolean isWith3d, Action on3dTourClick) {
         this.context = context;
         this.items = items;
         currentBitmap = new HashMap<>();
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.isWith3d = isWith3d;
+        if(on3dTourClick != null)
+            this.on3dTourClick = on3dTourClick;
     }
 
     @Override
@@ -54,46 +60,39 @@ public class PropertyPageHeaderAdapter extends PagerAdapter {
     public Object instantiateItem(final ViewGroup container, final int position) {
         View view = null;
         ViewPager vp = (ViewPager) container;
-        Log.d("wowPager","position : " + position);
-//        if(position == 0){
-//            view = layoutInflater.inflate(R.layout.view_pager_slide_web_view, null);
-//            final WebView webView = (WebView) view.findViewById(R.id.webView);
-//            LinearLayout video3dBtn = view.findViewById(R.id.propertyAct3dLayout);
-//
-//            webView.getSettings().setJavaScriptEnabled(true);
-//            webView.loadUrl(items.get(0));
-//            webView.setWebViewClient(new WebViewClient());
-//
-//            video3dBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(context, "I don't do anything yet", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//            vp.addView(view, 0);
-//        }else{
-            view = layoutInflater.inflate(R.layout.view_pager_slide, null);
-            final ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        Log.d("wowPager", "position : " + position);
+        view = layoutInflater.inflate(R.layout.view_pager_slide, null);
+        final ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        LinearLayout layout3D = view.findViewById(R.id.t3dLayout);
 
-            ImageLoaderUtils.loadHighResPicture(items.get(position), new TAction<Bitmap>() {
+        ImageLoaderUtils.loadHighResPicture(items.get(position), new TAction<Bitmap>() {
+            @Override
+            public void execute(Bitmap bitmap) {
+                Log.d("wowViewPager", "success");
+                currentBitmap.put(position, bitmap);
+                imageView.setImageBitmap(bitmap);
+            }
+        });
+
+        if (position == 0 && isWith3d) {
+            layout3D.setVisibility(View.VISIBLE);
+            layout3D.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void execute(Bitmap bitmap) {
-                    Log.d("wowViewPager", "success");
-                    currentBitmap.put(position, bitmap);
-                    imageView.setImageBitmap(bitmap);
+                public void onClick(View v) {
+                    if(on3dTourClick != null)
+                        on3dTourClick.execute();
                 }
             });
+        } else {
+            layout3D.setVisibility(View.GONE);
+        }
 
 
-            vp.addView(view, 0);
-//        }
-
+        vp.addView(view, 0);
 
         return view;
 
     }
-
 
 
     @Override
@@ -103,7 +102,7 @@ public class PropertyPageHeaderAdapter extends PagerAdapter {
         vp.removeView(view);
     }
 
-    public Bitmap getCurrentBitmap(int position){
+    public Bitmap getCurrentBitmap(int position) {
         return currentBitmap.get(position);
     }
 }

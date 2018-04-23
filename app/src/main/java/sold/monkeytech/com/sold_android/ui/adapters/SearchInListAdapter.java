@@ -149,7 +149,7 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
         baseViewHolder.size.setText(property.getFloorArea() + "");
         baseViewHolder.sqrm.setText(property.getPlotArea() + "");
 
-        if(property.isFavorite()){
+        if(property.isFavorite() || favProp.contains(property)){
             baseViewHolder.favBtn.setSelected(true);
         }else{
             baseViewHolder.favBtn.setSelected(false);
@@ -161,20 +161,24 @@ public class SearchInListAdapter extends BaseAdapter implements PagibaleAdapter<
                 if (v.isSelected()) {
                     v.setSelected(false);
                     favProp.remove(property);
+                    property.setFavorite(false);
                     new ApiUnPinProperty(context).request(property.getId(), null, new Action() {
                         @Override
                         public void execute() {
                             v.setSelected(true);
+                            property.setFavorite(true);
                             favProp.add(property);
                         }
                     });
                 } else {
                     v.setSelected(true);
                     favProp.add(property);
+                    property.setFavorite(true);
                     new ApiPinProperty(context).request(property.getId(), null, new Action() {
                         @Override
                         public void execute() {
                             v.setSelected(false);
+                            property.setFavorite(false);
                             favProp.remove(property);
                         }
                     });

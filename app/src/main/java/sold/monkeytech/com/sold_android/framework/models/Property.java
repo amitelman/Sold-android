@@ -36,6 +36,7 @@ public class Property extends BaseModel<Property> {
     private Price meterPrice;
     private Address address;
     private PropertyType propertyType;
+    private List<Meeting> meetings;
 
     private boolean isFavorite;
 
@@ -43,6 +44,7 @@ public class Property extends BaseModel<Property> {
 
     private String description;
     private String virtualTourLink;
+    private String virtualTourCover;
     private int apartmentsCount;
     private int apartmentsPerFloor;
     private int floorsCount;
@@ -242,6 +244,14 @@ public class Property extends BaseModel<Property> {
         this.virtualTourLink = virtualTourLink;
     }
 
+    public String getVirtualTourCover() {
+        return virtualTourCover;
+    }
+
+    public void setVirtualTourCover(String virtualTourCover) {
+        this.virtualTourCover = virtualTourCover;
+    }
+
     public int getApartmentsCount() {
         return apartmentsCount;
     }
@@ -433,5 +443,13 @@ public class Property extends BaseModel<Property> {
 
     public int getLikesCount() {
         return likesCount;
+    }
+
+    public List<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings = meetings;
     }
 }

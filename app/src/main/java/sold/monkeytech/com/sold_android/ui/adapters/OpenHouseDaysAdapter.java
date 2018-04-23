@@ -186,6 +186,13 @@ public class OpenHouseDaysAdapter extends RecyclerView.Adapter<OpenHouseDaysAdap
 //        }
     }
 
+    public List<OpenHouse> getDeletedObj(){
+        if(deleted != null)
+            return deleted;
+        else
+            return new ArrayList<>();
+    }
+
     public void clearDeleted(){
         deleted.clear();
     }

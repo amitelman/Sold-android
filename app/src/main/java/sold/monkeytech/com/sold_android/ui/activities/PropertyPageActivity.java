@@ -20,18 +20,17 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
@@ -45,6 +44,7 @@ import com.monkeytechy.framework.interfaces.Action;
 import com.monkeytechy.framework.interfaces.TAction;
 import com.monkeytechy.ui.activities.BaseActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -58,6 +58,7 @@ import sold.monkeytech.com.sold_android.framework.Utils.MyAnimationUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.PermissionUtils;
 import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.managers.LocManager;
+import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
 import sold.monkeytech.com.sold_android.framework.managers.UserManager;
 import sold.monkeytech.com.sold_android.framework.models.Category;
 import sold.monkeytech.com.sold_android.framework.models.Meta;
@@ -66,20 +67,20 @@ import sold.monkeytech.com.sold_android.framework.models.OpenHouseSlots;
 import sold.monkeytech.com.sold_android.framework.models.POI;
 import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
+import sold.monkeytech.com.sold_android.framework.models.TaxBracket;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiPinProperty;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiUnPinProperty;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseDaysAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.OpenHouseHoursAdapter;
-import sold.monkeytech.com.sold_android.ui.adapters.POIAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.POICategoryHeaderAdapter;
-import sold.monkeytech.com.sold_android.ui.adapters.PicturesSliderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyFeaturesImagesAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.PropertyPageHeaderAdapter;
 import sold.monkeytech.com.sold_android.ui.adapters.utils.ItemOffsetDecoration;
+import sold.monkeytech.com.sold_android.ui.dialogs.TalkToAgentDialog;
 import sold.monkeytech.com.sold_android.ui.fragments.SearchInMapFragment;
 
-public class PropertyPageActivity extends BaseActivity implements SearchInMapFragment.OnMapFragmentListener {
+public class PropertyPageActivity extends BaseActivity implements SearchInMapFragment.OnMapFragmentListener, View.OnClickListener {
 
     private ActivityPropertyPageBinding mBinding;
     private PropertyPageHeaderAdapter pagerAdapter;
@@ -148,11 +149,72 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
         initPropertyDetails(curProperty);
         initPropertyFeatures(curProperty);
         initPropertyPOIMap(curProperty);
+        initCalculator();
         initDealsAround();
         initPropertiesAround(curProperty);
-        initButtonsAndText(curProperty);
+        initButtonsAndText();
         mBinding.propertyActPb.hide();
 //        getProperty();
+    }
+
+    private void initCalculator() {
+
+        String[] items = getResources().getStringArray(R.array.multiProperties);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        mBinding.propertyActCalcLayout.calcActRadioMultiSum.setAdapter(adapter);
+        mBinding.propertyActCalcLayout.calcActRadioMultiSum.setSelection(adapter.getPosition("2"));
+
+        mBinding.propertyActCalcLayout.calcActRadioSingle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                calculate();
+            }
+        });
+
+        mBinding.propertyActCalcLayout.calcActRadioMulti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                calculate();
+            }
+        });
+
+        calculate();
+
+    }
+
+    private void calculate(){
+        List<TaxBracket> taxBrackets = MetaDataManager.getInstance().getTaxBrackets();
+        Log.d("wowCalc","tax: " + taxBrackets);
+
+        int propertyNum = mBinding.propertyActCalcLayout.calcActRadioSingle.isChecked() ? 1 : Integer.parseInt(mBinding.propertyActCalcLayout.calcActRadioMultiSum.getSelectedItem().toString());
+//        Log.d("wowCalc","propertyPrice: " + propertyPrice + ", property num : " + propertyNum);
+
+        int propertyPrice = curProperty.getPrice().getValue();
+        int sunPrice = 0;
+        double taxValue = 0;
+        double percent = 0;
+
+
+        for(TaxBracket tb : propertyNum == 1 ? MetaDataManager.getInstance().getSinglePropTax() : MetaDataManager.getInstance().getMultiPropTax()){
+            if(propertyPrice > 0){
+                if(tb.getMaxPrice() != null){
+                    int valueRange = tb.getMaxPrice().getValue() - tb.getMinPrice().getValue();
+                    if(propertyPrice >= valueRange){
+                        taxValue += valueRange * tb.getTaxRate();
+                        propertyPrice -= valueRange;
+                    }else{
+                        taxValue += propertyPrice * tb.getTaxRate();
+                        propertyPrice = 0;
+                    }
+                }else{
+                    taxValue += propertyPrice * tb.getTaxRate();
+                    propertyPrice = 0;
+                }
+            }
+        }
+        percent += taxValue / curProperty.getPrice().getValue();
+        mBinding.propertyActCalcLayout.calcActTaxPercent.setText(new DecimalFormat("##.##").format(percent) + "%");
+
     }
 
 //    private void getProperty() {
@@ -187,15 +249,20 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
         mBinding.propertyActSize.setText(property.getPlotArea() + " Sqm");
         mBinding.propertyActSqrm.setText(property.getFloorArea() + " Sqm");
 
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
-        mBinding.propertyActDaysRecyclerView.setAdapter(new OpenHouseDaysAdapter(property.getOpenHouse(), getOnDayClickAction(), false));
-        mBinding.propertyActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
-        mBinding.propertyActDaysRecyclerView.addItemDecoration(itemDecoration);
+        if(property.getOpenHouse().size() > 0){
+            mBinding.propertyActOpenHouseLayout.setVisibility(View.VISIBLE);
+            ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.open_house_item_offset);
+            mBinding.propertyActDaysRecyclerView.setAdapter(new OpenHouseDaysAdapter(property.getOpenHouse(), getOnDayClickAction(), false));
+            mBinding.propertyActDaysRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
+            mBinding.propertyActDaysRecyclerView.addItemDecoration(itemDecoration);
 
-        hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction(), false);
-        mBinding.propertyActHoursRecyclerView.setAdapter(hoursAdapter);
-        mBinding.propertyActHoursRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
-        mBinding.propertyActHoursRecyclerView.addItemDecoration(itemDecoration);
+            hoursAdapter = new OpenHouseHoursAdapter(null, getOnHourClickAction(), false);
+            mBinding.propertyActHoursRecyclerView.setAdapter(hoursAdapter);
+            mBinding.propertyActHoursRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); //todo: recycler view direction set to locale
+            mBinding.propertyActHoursRecyclerView.addItemDecoration(itemDecoration);
+        }else{
+            mBinding.propertyActOpenHouseLayout.setVisibility(View.GONE);
+        }
 
         mBinding.propertyActStatus.setText(property.getPropertyStatus());
         mBinding.propertyActPricePSq.setText(property.getMeterPrice().getFormatted());
@@ -224,7 +291,8 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
     }
 
     private void initPropertyFeatures(Property property) {
-        if (property.getPropertyFeatures() != null) {
+        if (property.getPropertyFeatures().size() > 0) {
+            mBinding.propertyPageActFeaturesLayout.setVisibility(View.VISIBLE);
             for (PropertyFeatures feature : property.getPropertyFeatures()) {
                 View child = getLayoutInflater().inflate(R.layout.property_feature_item, null);
                 TextView title = child.findViewById(R.id.featureItemTitle);
@@ -253,12 +321,15 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
 
                 mBinding.propertyFeaturesActList.addView(child);
             }
+        } else {
+            mBinding.propertyPageActFeaturesLayout.setVisibility(View.GONE);
         }
     }
 
     //poi methods
     private void initPropertyPOIMap(final Property property) {
         if (property.getPoi() != null) {
+            mBinding.propertyActPOILayout.setVisibility(View.VISIBLE);
             pois = property.getPoi();
 
             List<Category> tempCategories = new ArrayList<>();
@@ -301,6 +372,8 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                     POIListActivity.startWithProperty(PropertyPageActivity.this, property);
                 }
             });
+        } else {
+            mBinding.propertyActPOILayout.setVisibility(View.GONE);
         }
     }
 
@@ -336,7 +409,7 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                 //set property marker
                 poiMapFragment.initPOIHomeMarkers(property, poiMap);
 
-                if(poiCategories.size() > 0 && categoryPoiList.size() > 0)
+                if (poiCategories.size() > 0 && categoryPoiList.size() > 0)
                     setDefault(categoryPoiList.get(poiCategories.get(0)));
             }
         });
@@ -447,40 +520,42 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
 
     public void initDealsAround() {
         mBinding.propertyActHistoryContainer.removeAllViews();
-        List<Meta> aroundSales = curProperty.getHistorySales();
-        for (int i = -1; i < aroundSales.size(); i++) {
-            if (i >= 4)
-                return;
-            View child = getLayoutInflater().inflate(R.layout.poi_item, null);
-            RelativeLayout bkg = child.findViewById(R.id.poiItemBkg);
-            TextView title = child.findViewById(R.id.poiItemTitle);
-            TextView distance = child.findViewById(R.id.poiItemDistance);
-            if (i == -1) {
-                title.setText("כתובת");
-                title.setTextColor(getResources().getColor(R.color.white));
-                distance.setText("סכום");
-                distance.setTextColor(getResources().getColor(R.color.white));
-                bkg.setBackgroundColor(getResources().getColor(R.color.dark_grey_blue_two));
-            } else {
-                if (i % 2 == 0) {
-                    bkg.setBackgroundColor(getResources().getColor(R.color.white));
+        List<Property> nearbyDeals = curProperty.getNearbyProperties();
+        if (nearbyDeals.size() > 0) {
+            mBinding.propertyActHistoryLayout.setVisibility(View.VISIBLE);
+            for (int i = -1; i < nearbyDeals.size(); i++) {
+                if (i >= 4)
+                    return;
+                View child = getLayoutInflater().inflate(R.layout.poi_item, null);
+                RelativeLayout bkg = child.findViewById(R.id.poiItemBkg);
+                TextView title = child.findViewById(R.id.poiItemTitle);
+                TextView distance = child.findViewById(R.id.poiItemDistance);
+                if (i == -1) {
+                    title.setText("כתובת");
+                    title.setTextColor(getResources().getColor(R.color.white));
+                    distance.setText("סכום");
+                    distance.setTextColor(getResources().getColor(R.color.white));
+                    bkg.setBackgroundColor(getResources().getColor(R.color.dark_grey_blue_two));
                 } else {
-                    bkg.setBackgroundColor(getResources().getColor(R.color.silver_two));
+                    if (i % 2 == 0) {
+                        bkg.setBackgroundColor(getResources().getColor(R.color.white));
+                    } else {
+                        bkg.setBackgroundColor(getResources().getColor(R.color.silver_two));
+                    }
+                    title.setText(nearbyDeals.get(i).getFullAddress());
+                    distance.setText(nearbyDeals.get(i).getPrice().getFormatted());
                 }
-                title.setText(aroundSales.get(i).getKey());
-                distance.setText(aroundSales.get(i).getValue());
+                mBinding.propertyActHistoryContainer.addView(child);
+
+                mBinding.propertyActSeeMoreHistory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DealsHistoryActivity.startWithProperty(PropertyPageActivity.this, curProperty);
+                    }
+                });
             }
-            mBinding.propertyActHistoryContainer.addView(child);
-
-            mBinding.propertyActSeeMoreHistory.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(PropertyPageActivity.this, TaxHistoryActivity.class);
-                    startActivity(intent);
-
-                }
-            });
-
+        }else{
+            mBinding.propertyActHistoryLayout.setVisibility(View.GONE);
         }
     }
 
@@ -559,12 +634,16 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
 
     private void initHeaderPager() {
         List<String> headerItems = new ArrayList<>();
-        headerItems.add("http://www.google.co.il");
+        boolean isWith3d = false;
+        if (!TextUtils.isEmpty(curProperty.getVirtualTourCover())) {
+            headerItems.add(curProperty.getVirtualTourCover());
+            isWith3d = true;
+        }
 
         if (curProperty.getAlbum() != null) {
             headerItems.addAll(curProperty.getAlbum());
         }
-        pagerAdapter = new PropertyPageHeaderAdapter(this, headerItems);
+        pagerAdapter = new PropertyPageHeaderAdapter(this, headerItems, isWith3d, on3dTourClick());
         mBinding.propertyActViewPager.setAdapter(pagerAdapter);
 
         dotscount = pagerAdapter.getCount();
@@ -661,6 +740,15 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
         mBinding.propertyActMapViewBtn.setSelected(false);
     }
 
+    private Action on3dTourClick() {
+        return new Action() {
+            @Override
+            public void execute() {
+                Sold3DTourActivity.startWithLink(PropertyPageActivity.this, curProperty.getVirtualTourLink());
+            }
+        };
+    }
+
     private void initGeneralMap() {
         if (generalMapReady)
             return;
@@ -726,11 +814,31 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
 //        });
     }
 
-    private void initButtonsAndText(final Property property) {
-        mBinding.propertyActCrmId.setText("Property ID:" + property.getCrmId() + getString(R.string.crm_id_text));
-        mBinding.propertyActWhatsappShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void initButtonsAndText() {
+        mBinding.propertyActCrmId.setText("Property ID:" + curProperty.getCrmId() + getString(R.string.crm_id_text));
+        mBinding.propertyActContactAgent.setOnClickListener(this);
+        mBinding.propertyActRequestAShow.setOnClickListener(this);
+        mBinding.propertyActWhatsappShare.setOnClickListener(this);
+        mBinding.propertyActMailShare.setOnClickListener(this);
+        mBinding.propertyActFacebookShare.setOnClickListener(this);
+        mBinding.propertyActFavoriteBtn.setOnClickListener(this);
+        mBinding.propertyActBackBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.propertyActContactAgent:
+            case R.id.propertyActRequestAShow:
+                if (!TextUtils.isEmpty(UserManager.getInstance().getInAppToken())) {
+                    new TalkToAgentDialog(PropertyPageActivity.this, curProperty.getId().intValue(), 0, null).show();
+                } else {
+                    Intent intent = new Intent(PropertyPageActivity.this, TalkToAgentActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
+            case R.id.propertyActWhatsappShare:
                 Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                 whatsappIntent.setType("text/plain");
                 whatsappIntent.setPackage("com.whatsapp");
@@ -740,27 +848,18 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(PropertyPageActivity.this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+                break;
 
-        mBinding.propertyActMailShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            case R.id.propertyActMailShare:
                 String mailTo = "";
                 Intent email_intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", mailTo, null));
                 email_intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
                 email_intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
 
                 startActivity(Intent.createChooser(email_intent, "Send email..."));
-            }
-        });
+                break;
 
-        mBinding.propertyActFacebookShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ShareLinkContent content = new ShareLinkContent.Builder()
-//                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
-//                        .build();
+            case R.id.propertyActFacebookShare:
                 ImageLoaderUtils.loadHighResPicture(curProperty.getCoverPhoto(), new TAction<Bitmap>() {
                     @Override
                     public void execute(Bitmap bitmap) {
@@ -774,17 +873,12 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                         shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
                     }
                 });
-
-            }
-        });
-
-        mBinding.propertyActFavoriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.propertyActFavoriteBtn:
                 final Handler handler = new Handler();
                 if (mBinding.propertyActFavoriteBtn.isSelected()) {
                     mBinding.propertyActFavoriteBtn.setSelected(false);
-                    new ApiUnPinProperty(PropertyPageActivity.this).request(property.getId(), null, new Action() {
+                    new ApiUnPinProperty(PropertyPageActivity.this).request(curProperty.getId(), null, new Action() {
                         @Override
                         public void execute() {
                             handler.post(new Runnable() {
@@ -797,7 +891,7 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                     });
                 } else {
                     mBinding.propertyActFavoriteBtn.setSelected(true);
-                    new ApiPinProperty(PropertyPageActivity.this).request(property.getId(), null, new Action() {
+                    new ApiPinProperty(PropertyPageActivity.this).request(curProperty.getId(), null, new Action() {
                         @Override
                         public void execute() {
                             handler.post(new Runnable() {
@@ -810,23 +904,14 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
                         }
                     });
                 }
-            }
-        });
+                break;
+            case R.id.propertyActShareBtn:
 
-
-        mBinding.propertyActShareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        mBinding.propertyActBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.propertyActBackBtn:
                 finish();
-            }
-        });
+                break;
+        }
     }
 
     @Override
@@ -845,4 +930,6 @@ public class PropertyPageActivity extends BaseActivity implements SearchInMapFra
         propertyStat = property;
         context.startActivity(intent);
     }
+
+
 }

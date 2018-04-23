@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private static final String SEARCH_FRAGMENT = "searchFragment";
     private static final String SERVICE_FRAGMENT = "serviceFragment";
-    private static final String SELL_FRAGMENT = "sellFragment";
+    public static final String SELL_FRAGMENT = "sellFragment";
     private static final String SELL_PROP_FRAGMENT = "sellPropertyFrag";
     private static final String MY_PROPERTIES_FRAGMENT = "myPropertiesFragment";
     private static final String MY_SOLD_FRAGMENT = "mySoldFragment";

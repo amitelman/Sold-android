@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:textColor="@color/dark_grey_blue_two"
                 android:textSize="13.6sp"
-                tools:text="Time" />
+                android:text="Time" />
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                 android:id="@+id/meetingItemTime"
@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:textColor="@color/dark_grey_blue_two"
                 android:textSize="13.6sp"
-                tools:text="Buyer name" />
+                android:text="Buyer name" />
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                 android:id="@+id/meetingItemBuyer"
@@ -76,7 +76,7 @@
                 android:gravity="center"
                 android:textColor="@color/dark_grey_blue_two"
                 android:textSize="13.6sp"
-                tools:text="Agent name" />
+                android:text="Agent name" />
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                 android:id="@+id/meetingItemAgent"
@@ -105,7 +105,7 @@
                 android:gravity="center"
                 android:textColor="@color/dark_grey_blue_two"
                 android:textSize="13.6sp"
-                tools:text="Address" />
+                android:text="Address" />
 
             <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
                 android:id="@+id/meetingItemAddress"

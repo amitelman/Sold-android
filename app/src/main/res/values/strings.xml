@@ -21,5 +21,21 @@
     <string name="title_activity_favorite">FavoriteActivity</string>
     <string name="title_activity_my_property_page">MyPropertyPageActivity</string>
 
+    <string-array name="daysOfWeek">
+        <item>א</item>
+        <item>ב</item>
+        <item>ג</item>
+        <item>ד</item>
+        <item>ה</item>
+        <item>ו</item>
+        <item>ש</item>
+    </string-array>
+
+    <string-array name="multiProperties">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
 </resources>

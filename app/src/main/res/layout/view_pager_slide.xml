@@ -10,4 +10,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/t3dLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_crcle_dark_white_stroke"
+                    android:src="@drawable/play"
+                    android:padding="7dp"
+                    android:layout_width="25.9dp"
+                    android:layout_height="wrap_content" />
+
+                <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="#87000000"
+                    android:shadowDx="6.123233995736766e-17"
+                    android:shadowDy="1"
+                    android:shadowRadius="4"
+                    android:textSize="12.6sp"
+                    android:textColor="@color/white"
+                    android:letterSpacing="0.02"
+                    android:lineSpacingExtra="2.9sp"
+                    android:text="Start 3D tour" />
+
+        </LinearLayout>
+
 </FrameLayout>

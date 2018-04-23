@@ -83,6 +83,7 @@ public class PropertyParser extends GeneralParser<Property> {
         if (type == TYPE_FULL) {
             property.setDescription(safeParseString(jo, "description"));
             property.setVirtualTourLink(safeParseString(jo, "virtual_tour_link"));
+            property.setVirtualTourCover(safeParseString(jo, "virtual_tour_cover"));
             property.setApartmentsCount(safeParseInt(jo, "apartments_count"));
             property.setApartmentsPerFloor(safeParseInt(jo, "apartments_per_floor"));
             property.setFloorsCount(safeParseInt(jo, "floors_count"));
@@ -105,10 +106,8 @@ public class PropertyParser extends GeneralParser<Property> {
                 property.setPropertyTax(new PriceParser().parseToSingle(jo.getJSONObject("property_tax")));
             if (!jo.isNull("house_committee_tax"))
                 property.setHouseCommitteeTax(new PriceParser().parseToSingle(jo.getJSONObject("house_committee_tax")));
-
             if (!jo.isNull("open_house"))
                 property.setOpenHouse(new OpenHouseParser().parseToList(jo.getJSONArray("open_house")));
-
             if (!jo.isNull("property_features"))
                 property.setPropertyFeatures(new PropertyFeaturesParser().parseToList(jo.getJSONArray("property_features")));
             if (!jo.isNull("tax_records"))
@@ -117,13 +116,15 @@ public class PropertyParser extends GeneralParser<Property> {
                 property.setPoi(new POIParser().parseToList(jo.getJSONArray("pois")));
             if (!jo.isNull("nearby_properties"))
                 property.setNearbyProperties(new PropertyParser(TYPE_SHORT).parseToList(jo.getJSONArray("nearby_properties")));
-
             if (!jo.isNull("shares_count"))
                 property.setShareCount(safeParseInt(jo, "shares_count"));
             if (!jo.isNull("views_count"))
                 property.setViewCount(safeParseInt(jo, "views_count"));
             if (!jo.isNull("likes_count"))
                 property.setLikesCount(safeParseInt(jo, "likes_count"));
+            if(!jo.isNull("meetings"))
+                property.setMeetings(new MeetingParser().parseToList(jo.getJSONArray("meetings")));
+
         }
 
         return property;

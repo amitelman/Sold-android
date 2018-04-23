@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.monkeytechy.framework.interfaces.Action;
 
-import sold.monkeytech.com.sold_android.framework.Utils.TextUtils;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.AbstractServerApiConnector;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.RemoteResponseString;
 import sold.monkeytech.com.sold_android.framework.serverapi.abs.ServerAction;
@@ -14,22 +13,18 @@ import sold.monkeytech.com.sold_android.framework.serverapi.abs.params.ParamBuil
 /**
  * Created by monkey on 08/06/2015.
  */
-public class ApiDeleteOpenHouseSlot extends AbstractServerApiConnector {
+public class ApiDeleteMeeting extends AbstractServerApiConnector {
 
-    public ApiDeleteOpenHouseSlot(Context context) {
+    public ApiDeleteMeeting(Context context) {
         super(context);
     }
 
-    public synchronized void request(final int propertyId, final String daysCsv, final String slotCsv, final Action onSuccess, final Action onFail) {
+    public synchronized void request(final int propertyId, final long meetingId,  final Action onSuccess, final Action onFail) {
         setServerAction(true, new ServerAction(new Action() {
             @Override
             public void execute() {
                 ParamBuilder params = new ParamBuilder();
-                if(!TextUtils.isEmpty(daysCsv))
-                    params.addText("daily_slot_ids",daysCsv);
-                if(!TextUtils.isEmpty(slotCsv))
-                    params.addText("hourly_slot_ids",slotCsv);
-                RemoteResponseString remoteResponseString = performHTTPDelete("/users/me/properties/" + propertyId + "/slots/", params);
+                RemoteResponseString remoteResponseString = performHTTPDelete("/users/me/properties/" + propertyId + "/meetings/" + meetingId, params);
                 if (remoteResponseString.isSuccess()) {
                     if (onSuccess != null)
                         onSuccess.execute();

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e612303c"
+        android:layoutDirection="ltr">
+
+        <FrameLayout
+            android:background="#e612303c"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_header_height">
+
+            <ImageButton
+                android:layout_gravity="end|center"
+                android:id="@+id/sold3DTourActClose"
+                android:layout_width="15.3dp"
+                android:layout_height="15.3dp"
+                android:layout_marginEnd="21dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/x" />
+
+            <sold.monkeytech.com.sold_android.ui.fontable_views.FontableTextView
+                android:text="3D Tour"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="6.8sp"
+                android:textColor="@color/white"
+                android:textSize="17.3sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:layout_gravity="start|center"
+                android:id="@+id/sold3DTourActShare"
+                android:layout_width="16.3dp"
+                android:layout_height="19.3dp"
+                android:layout_marginStart="18dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/share_copy" />
+
+        </FrameLayout>
+
+
+        <WebView
+            android:id="@+id/sold3DTourActWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</layout>

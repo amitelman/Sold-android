@@ -11,6 +11,8 @@
 
 
         <ListView
+            android:paddingBottom="60dp"
+            android:clipToPadding="false"
             android:id="@+id/myPropListFragListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

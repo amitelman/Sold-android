@@ -27,6 +27,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+
                         android:layout_marginLeft="13.8dp"
                         android:layout_marginRight="13.8dp"
                         android:orientation="vertical"
@@ -165,6 +166,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/propertyActOpenHouseLayout"
                             tools:visibility="gone"
                             android:paddingEnd="7.7dp"
                             android:paddingStart="8dp"
@@ -521,6 +523,7 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/propertyPageActFeaturesLayout"
                             tools:visibility="gone"
                             android:paddingTop="9.6dp"
                             android:paddingStart="5.7dp"
@@ -624,7 +627,7 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         </LinearLayout>
 
                         <LinearLayout
-                            tools:visibility="gone"
+                            tools:visibility="visible"
                             android:paddingStart="5dp"
                             android:paddingTop="8.8dp"
                             android:layout_marginBottom="10dp"
@@ -651,6 +654,7 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                                 android:background="@drawable/shape_line_dark" />
 
                             <include
+                                android:id="@+id/propertyActCalcLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 layout="@layout/calculator_layout"/>
@@ -768,6 +772,7 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
                         </LinearLayout>
 
                         <LinearLayout
+                            tools:visibility="gone"
                             android:gravity="center"
                             android:background="@color/dark_grey_blue"
                             android:layout_width="match_parent"
@@ -836,7 +841,7 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
             </android.support.v4.widget.NestedScrollView>
 
             <android.support.design.widget.AppBarLayout
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:id="@+id/propertyActAppbar"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
@@ -987,6 +992,8 @@ Tower and downtown. Seller&apos;s pied-a-terre and hardly lived in. Open kitchen
         </RelativeLayout>
 
         <FrameLayout
+            tools:visibility="gone"
+            android:id="@+id/propertyActContactAgent"
             android:background="@color/white_80"
             android:layout_width="match_parent"
             android:layout_gravity="bottom|center"

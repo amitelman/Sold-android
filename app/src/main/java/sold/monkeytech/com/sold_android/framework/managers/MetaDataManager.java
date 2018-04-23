@@ -22,11 +22,14 @@ import sold.monkeytech.com.sold_android.framework.models.Property;
 import sold.monkeytech.com.sold_android.framework.models.PropertyFeatures;
 import sold.monkeytech.com.sold_android.framework.models.PropertyType;
 import sold.monkeytech.com.sold_android.framework.models.ServicePage;
+import sold.monkeytech.com.sold_android.framework.models.TaxBracket;
 import sold.monkeytech.com.sold_android.framework.parsers.IdLabelParser;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyFeaturesParser;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyParser;
 import sold.monkeytech.com.sold_android.framework.parsers.PropertyTypeParser;
 import sold.monkeytech.com.sold_android.framework.parsers.ServicePageParser;
+import sold.monkeytech.com.sold_android.framework.parsers.TaxBracketParser;
+import sold.monkeytech.com.sold_android.framework.parsers.TaxRecordParser;
 import sold.monkeytech.com.sold_android.framework.serverapi.property.ApiGetPropertyById;
 
 
@@ -138,6 +141,43 @@ public class MetaDataManager {
         }
         return location;
     }
+
+    public List<TaxBracket> getTaxBrackets(){
+        List<TaxBracket> taxBrackets = new ArrayList<>();
+        if(metaData != null && getMetaData().length() != 0){
+            try {
+                taxBrackets = new TaxBracketParser().parseToList(getMetaData().getJSONArray("tax_brackets"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return taxBrackets;
+    }
+
+    public List<TaxBracket> getSinglePropTax(){
+        List<TaxBracket> singleTax = new ArrayList<>();
+        if(getTaxBrackets().size() > 0){
+            for(TaxBracket tb : getTaxBrackets()){
+                if(tb.getPropertiesCount() == 1)
+                    singleTax.add(tb);
+            }
+        }
+        return singleTax;
+    }
+
+    public List<TaxBracket> getMultiPropTax(){
+        List<TaxBracket> multiTax = new ArrayList<>();
+        if(getTaxBrackets().size() > 0){
+            for(TaxBracket tb : getTaxBrackets()){
+                if(tb.getPropertiesCount() != 1)
+                    multiTax.add(tb);
+            }
+        }
+        return multiTax;
+    }
+
+
+
 
     public String getStringValueFromString(String key){
         String value = "";

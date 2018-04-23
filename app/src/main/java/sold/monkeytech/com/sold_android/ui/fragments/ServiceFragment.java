@@ -19,6 +19,7 @@ import sold.monkeytech.com.sold_android.R;
 import sold.monkeytech.com.sold_android.databinding.FragmentServiceBinding;
 import sold.monkeytech.com.sold_android.framework.managers.MetaDataManager;
 import sold.monkeytech.com.sold_android.framework.models.ServicePage;
+import sold.monkeytech.com.sold_android.ui.activities.MainActivity;
 import sold.monkeytech.com.sold_android.ui.fragments.abs.BaseFragment;
 
 /**
@@ -56,7 +57,7 @@ public class ServiceFragment extends BaseFragment {
 
     private void initUi() {
         servicePageList = MetaDataManager.getInstance().getServicePages();
-        adapterViewPager = new MyPagerAdapter(getActivity().getSupportFragmentManager());
+        adapterViewPager = new MyPagerAdapter(getChildFragmentManager());
         mBinding.myServiceActPager.setAdapter(adapterViewPager);
 
         dotsCount = servicePageList.size();
@@ -97,6 +98,13 @@ public class ServiceFragment extends BaseFragment {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        mBinding.myServiceActSellBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).loadFragment(MainActivity.SELL_FRAGMENT);
             }
         });
     }

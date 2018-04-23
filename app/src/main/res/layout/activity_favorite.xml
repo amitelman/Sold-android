@@ -48,6 +48,8 @@
             </FrameLayout>
 
         <ListView
+            android:paddingBottom="60dp"
+            android:clipToPadding="false"
             android:layout_marginTop="20dp"
             android:id="@+id/favoriteActListView"
             android:layout_width="match_parent"
